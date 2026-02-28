@@ -181,3 +181,4 @@ Thumbs.db
 
 # Operations (internal, not tracked)
 OPERATIONS.md
+shared/scripts/publish-stack-branches.sh
