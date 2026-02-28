@@ -1,0 +1,45 @@
+name: Validate All Stacks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stack: [go-gin, go-echo, go-fiber, rust-actix-web, rust-axum, java-springboot, java-spring, kotlin-ktor, kotlin-springboot, nodejs-express, nodejs-nestjs, nodejs-nextjs, python-fastapi, python-django, python-flask]
+        db: [postgres, mysql, sqlite3]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set DB config
+        run: |
+          cd stacks/${{ matrix.stack }}
+          cp .env.example .env
+          sed -i 's/^DB_DRIVER=.*/DB_DRIVER=${{ matrix.db }}/' .env
+          # Generate passwords
+          echo "DB_PASSWORD=$(openssl rand -hex 16)" >> .env
+          echo "MYSQL_PASSWORD=$(openssl rand -hex 16)" >> .env
+          echo "MYSQL_ROOT_PASSWORD=$(openssl rand -hex 16)" >> .env
+
+      - name: Build
+        run: cd stacks/${{ matrix.stack }} && make build
+
+      - name: Start
+        run: cd stacks/${{ matrix.stack }} && make up
+
+      - name: Validate
+        run: cd stacks/${{ matrix.stack }} && make validate
+
+      - name: Logs (on failure)
+        if: failure()
+        run: cd stacks/${{ matrix.stack }} && make logs
+
+      - name: Cleanup
+        if: always()
+        run: cd stacks/${{ matrix.stack }} && make clean
