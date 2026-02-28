@@ -2,6 +2,8 @@
 
 > Rust 1.88+ / Axum 0.8 / SQLx 0.8 / React 19 / Vite 6 / TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-database support (PostgreSQL, MySQL, SQLite3). Multi-stage Docker builds with dependency caching for fast incremental compilation. Axum's state extraction pattern provides ergonomic optional database handling.
 
 > Rust 1.88+ / Axum 0.8 / SQLx 0.8 기반 풀스택 보일러플레이트. PostgreSQL, MySQL, SQLite3 멀티 데이터베이스를 지원하며, Docker 멀티 스테이지 빌드와 의존성 캐싱을 통해 빠른 증분 컴파일을 제공합니다. Axum의 State 추출 패턴으로 선택적 데이터베이스 처리를 깔끔하게 구현합니다.

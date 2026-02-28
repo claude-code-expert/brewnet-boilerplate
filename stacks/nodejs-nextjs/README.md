@@ -2,6 +2,8 @@
 
 > Node.js 22 + Next.js 15 + Prisma 6 + React 19 + TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Unified fullstack monorepo with multi-DB support (PostgreSQL, MySQL, SQLite3).
 No separate backend/frontend directories — Next.js serves both the UI and the API on a single port.
 

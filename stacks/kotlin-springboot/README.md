@@ -4,6 +4,8 @@
 >
 > Kotlin 2.1 + Spring Boot 3.4 + Spring JDBC (JdbcTemplate) + HikariCP + React 19 + Vite 6 + TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). Uses Spring Boot with Kotlin, Spring JDBC (`JdbcTemplate`) for database access (not JPA), and HikariCP for connection pooling. Database switching is handled by `DataSourceConfig.kt` reading the `DB_DRIVER` environment variable. Spring Boot's `DataSourceAutoConfiguration` is explicitly disabled.
 
 PostgreSQL, MySQL, SQLite3 멀티 DB를 지원하는 풀스택 보일러플레이트입니다. Kotlin + Spring Boot, 데이터베이스 접근용 Spring JDBC(`JdbcTemplate`, JPA 미사용), 커넥션 풀링용 HikariCP를 사용합니다. `DataSourceConfig.kt`에서 `DB_DRIVER` 환경 변수를 읽어 DB를 전환합니다. Spring Boot의 `DataSourceAutoConfiguration`은 명시적으로 비활성화되어 있습니다.

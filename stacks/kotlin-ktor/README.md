@@ -4,6 +4,8 @@
 >
 > Kotlin 2.1 + Ktor 3.1 + Exposed ORM 0.58 + kotlinx.serialization + Netty + React 19 + Vite 6 + TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). Uses Ktor with the Netty engine, Exposed ORM for database access, and kotlinx.serialization for JSON handling. Database switching is controlled by the `DB_DRIVER` environment variable in `Database.kt`.
 
 PostgreSQL, MySQL, SQLite3 멀티 DB를 지원하는 풀스택 보일러플레이트입니다. Netty 엔진의 Ktor, 데이터베이스 접근용 Exposed ORM, JSON 처리용 kotlinx.serialization을 사용합니다. `Database.kt`에서 `DB_DRIVER` 환경 변수로 DB를 전환합니다.

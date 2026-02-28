@@ -4,6 +4,8 @@
 >
 > Java 21 + Spring Framework 6.2 (순수 Spring, Spring Boot 아님) + 내장 Tomcat 10.1 + JDBC/HikariCP + React 19 + Vite 6 + TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). Uses pure Spring Framework with programmatic embedded Tomcat -- no Spring Boot auto-configuration. Database switching is handled by `DataSourceConfig.java` reading the `DB_DRIVER` environment variable.
 
 PostgreSQL, MySQL, SQLite3 멀티 DB를 지원하는 풀스택 보일러플레이트입니다. Spring Boot 자동 설정 없이 순수 Spring Framework와 프로그래밍 방식의 내장 Tomcat을 사용합니다. `DataSourceConfig.java`에서 `DB_DRIVER` 환경 변수를 읽어 DB를 전환합니다.

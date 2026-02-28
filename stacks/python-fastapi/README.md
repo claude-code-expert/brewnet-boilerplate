@@ -4,6 +4,8 @@
 >
 > Python 3.12+ / FastAPI / SQLAlchemy 2.0 (비동기) + React 19 / Vite 6 / TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Async fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). FastAPI runs on uvicorn with async SQLAlchemy for non-blocking database access.
 
 비동기 풀스택 보일러플레이트로, 다중 DB를 지원합니다 (PostgreSQL, MySQL, SQLite3). FastAPI는 uvicorn 위에서 실행되며, async SQLAlchemy를 통해 논블로킹 데이터베이스 접근을 제공합니다.

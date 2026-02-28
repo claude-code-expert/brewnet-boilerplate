@@ -4,6 +4,8 @@
 >
 > Python 3.13+ / Flask 3.1 / Flask-SQLAlchemy / Gunicorn + React 19 / Vite 6 / TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). Uses the Flask application factory pattern (`create_app()`) with Flask-SQLAlchemy for database access and Gunicorn for production serving.
 
 다중 DB를 지원하는 풀스택 보일러플레이트입니다 (PostgreSQL, MySQL, SQLite3). Flask 애플리케이션 팩토리 패턴(`create_app()`)과 Flask-SQLAlchemy를 사용하며, 프로덕션에서는 Gunicorn으로 서빙합니다.
