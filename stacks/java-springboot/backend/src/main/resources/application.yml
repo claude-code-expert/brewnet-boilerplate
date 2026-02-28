@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: ${DB_DRIVER:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+server:
+  port: 8080
