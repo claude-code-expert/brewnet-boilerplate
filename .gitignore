@@ -178,3 +178,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Operations (internal, not tracked)
+OPERATIONS.md

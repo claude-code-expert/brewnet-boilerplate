@@ -4,6 +4,8 @@
 >
 > Python 3.13+ / Django 6.0 / Django ORM / Gunicorn + React 19 / Vite 6 / TypeScript
 
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+
 Fullstack boilerplate with multi-DB support (PostgreSQL, MySQL, SQLite3). Uses Django's built-in `JsonResponse` without Django REST Framework -- lightweight and dependency-free.
 
 다중 DB를 지원하는 풀스택 보일러플레이트입니다 (PostgreSQL, MySQL, SQLite3). Django REST Framework 없이 Django 내장 `JsonResponse`를 사용하여 가볍고 의존성이 최소화되어 있습니다.
