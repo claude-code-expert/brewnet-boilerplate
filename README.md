@@ -1,6 +1,10 @@
 <p align="center">
   <h1 align="center">Brewnet Boilerplate</h1>
   <p align="center">
+    <a href="https://www.brewnet.dev">https://www.brewnet.dev</a> · <a href="mailto:brewnet.dev@gmail.com">brewnet.dev@gmail.com</a>
+  </p>
+  <p align="center">
+    <em>손쉽게 설치하는 나만의 홈서버, Brewnet</em><br/>
     <strong>Your server on tap. Just brew it.</strong><br/>
     <em>한 명령어로 풀스택 앱을 생성하세요.</em>
   </p>
@@ -385,13 +389,190 @@ docker compose build → docker compose up -d → GET /health (200) → GET /api
 
 ## Contributing / 기여하기
 
-### Adding a New Stack / 새 스택 추가
+We welcome contributions! If you'd like to add support for a new tech stack, please follow the steps below and submit a PR.
 
-1. Create `stacks/{lang}-{framework}/` with all required files / 필수 파일과 함께 디렉토리 생성
-2. Implement the 4 backend endpoints (`/`, `/health`, `/api/hello`, `POST /api/echo`) / 4개 엔드포인트 구현
-3. Frontend calls `/api/hello` and displays the result / 프론트엔드에서 `/api/hello` 호출 및 표시
-4. Verify `make dev` starts the full stack / `make dev`로 전체 스택 시작 확인
-5. Pass `make validate` / `make validate` 통과
+기여를 환영합니다! 지원하고 싶은 기술 스택이 있을 경우, 아래 조건을 충족하게 만드신 후 PR을 보내주세요.
+
+---
+
+### Step 1: Create Directory / 디렉토리 생성
+
+Create your stack directory following the naming convention:
+
+네이밍 규칙에 따라 스택 디렉토리를 생성하세요:
+
+```bash
+mkdir -p stacks/{lang}-{framework}
+# Example: stacks/ruby-rails, stacks/csharp-aspnet, stacks/elixir-phoenix
+```
+
+Your directory must contain the following files:
+
+디렉토리에는 다음 파일들이 포함되어야 합니다:
+
+```
+stacks/{lang}-{framework}/
+├── backend/              # Backend source code + Dockerfile
+│   ├── Dockerfile        # Multi-stage build (builder → runner)
+│   └── .dockerignore
+├── frontend/             # React 19 + Vite 6 + TypeScript (copy from existing stack)
+│   ├── Dockerfile        # Multi-stage build (node → nginx)
+│   └── .dockerignore
+├── docker-compose.yml    # backend + frontend + postgres + mysql services
+├── Makefile              # Standard targets (dev, build, up, down, logs, test, clean, validate)
+├── .env.example          # Environment variable template
+└── README.md             # Stack-specific documentation (KR/EN bilingual)
+```
+
+### Step 2: Implement 4 Backend Endpoints / 4개 백엔드 엔드포인트 구현
+
+All stacks must implement the same API contract. This ensures consistency and allows the Brewnet CLI to validate any stack uniformly.
+
+모든 스택은 동일한 API 규약을 구현해야 합니다. 이를 통해 Brewnet CLI가 모든 스택을 동일한 방식으로 검증할 수 있습니다.
+
+| Method | Path | Response Format |
+|--------|------|-----------------|
+| `GET` | `/` | `{"service":"{framework}-backend","status":"running","message":"🍺 Brewnet says hello!"}` |
+| `GET` | `/health` | `{"status":"ok","timestamp":"...","db_connected":true\|false}` |
+| `GET` | `/api/hello` | `{"message":"Hello from {Framework}!","lang":"{lang}","version":"..."}` |
+| `POST` | `/api/echo` | Echo back the request body as-is / 요청 본문을 그대로 반환 |
+
+### Step 3: Database Support / 데이터베이스 지원
+
+Your stack must support 3 databases via the `DB_DRIVER` environment variable:
+
+`DB_DRIVER` 환경 변수를 통해 3개의 데이터베이스를 지원해야 합니다:
+
+- **PostgreSQL** (`DB_DRIVER=postgres`) — default, using your language's standard ORM/driver
+- **MySQL** (`DB_DRIVER=mysql`) — alternative, same ORM/driver
+- **SQLite3** (`DB_DRIVER=sqlite3`) — file-based, no external container needed
+
+### Step 4: Docker Requirements / Docker 요구사항
+
+| Requirement / 요구사항 | Description / 설명 |
+|---|---|
+| Multi-stage build | Builder stage → lightweight runner stage / 빌드 스테이지 → 경량 실행 스테이지 |
+| Non-root user | Run as `appuser` or language convention / `appuser` 또는 언어 관례로 실행 |
+| HEALTHCHECK | Backend must include HEALTHCHECK directive / 백엔드에 HEALTHCHECK 지시어 포함 |
+| .dockerignore | Exclude unnecessary files from build context / 불필요한 파일 빌드 컨텍스트에서 제외 |
+| Network isolation | `brewnet` (public) + `brewnet-internal` (DB only) / 네트워크 격리 |
+| Resource limits | Set CPU and memory limits in docker-compose.yml / 리소스 제한 설정 |
+| Port convention | Backend: `8080`, Frontend: `3000`, PostgreSQL: `5433`, MySQL: `3307` |
+
+> **Important / 중요**: Use `127.0.0.1` instead of `localhost` in HEALTHCHECK commands. Alpine containers resolve `localhost` to IPv6 (`::1`), which can cause healthcheck failures.
+>
+> HEALTHCHECK 명령에서 `localhost` 대신 `127.0.0.1`을 사용하세요. Alpine 컨테이너는 `localhost`를 IPv6(`::1`)로 해석하여 헬스체크가 실패할 수 있습니다.
+
+### Step 5: Frontend Integration / 프론트엔드 연동
+
+Copy the `frontend/` directory from any existing stack (e.g., `stacks/go-gin/frontend/`). The React frontend is shared across all stacks.
+
+기존 스택(예: `stacks/go-gin/frontend/`)에서 `frontend/` 디렉토리를 복사하세요. React 프론트엔드는 모든 스택에서 공유됩니다.
+
+- `App` component calls `GET /api/hello` and displays the response
+- Production: nginx serves static files and reverse proxies `/api` to the backend
+
+### Step 6: Makefile / Makefile 작성
+
+Copy the `Makefile` from an existing stack and adjust the test command for your language. All stacks must support these targets:
+
+기존 스택에서 `Makefile`을 복사하고 테스트 명령을 해당 언어에 맞게 수정하세요. 모든 스택은 다음 타겟을 지원해야 합니다:
+
+```makefile
+make dev       # docker compose up --build
+make build     # docker compose build
+make up        # docker compose up -d
+make down      # docker compose down
+make logs      # docker compose logs -f
+make test      # run tests (language-specific)
+make clean     # docker compose down -v --rmi local
+make validate  # bash ../../shared/scripts/validate.sh
+```
+
+### Step 7: Write README / README 작성
+
+Write a bilingual (Korean/English) README following the format of existing stack READMEs. Include:
+
+기존 스택 README 형식을 따라 한글/영문 이중 언어로 README를 작성하세요. 포함 내용:
+
+- Prerequisites (runtime installation) / 사전 요구사항 (런타임 설치)
+- Quick Start / 빠른 시작
+- Local Development / 로컬 개발
+- API Endpoints / API 엔드포인트
+- Database Configuration / DB 설정
+- Environment Variables / 환경 변수
+- Project Structure / 프로젝트 구조
+
+Add the monorepo reference at the top:
+
+상단에 모노레포 참조를 추가하세요:
+
+```markdown
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+```
+
+### Step 8: Validate / 검증
+
+Before submitting, verify your stack passes all checks:
+
+제출 전에 스택이 모든 검증을 통과하는지 확인하세요:
+
+```bash
+cd stacks/{lang}-{framework}
+
+# 1. Build succeeds / 빌드 성공 확인
+make build
+
+# 2. Dev mode starts correctly / 개발 모드 정상 시작 확인
+make dev
+
+# 3. All 4 endpoints respond / 4개 엔드포인트 응답 확인
+curl -s http://localhost:8080/ | jq .
+curl -s http://localhost:8080/health | jq .
+curl -s http://localhost:8080/api/hello | jq .
+curl -s -X POST http://localhost:8080/api/echo \
+  -H "Content-Type: application/json" \
+  -d '{"test":"brewnet"}' | jq .
+
+# 4. Frontend displays API response / 프론트엔드에서 API 응답 표시 확인
+open http://localhost:3000
+
+# 5. Validation script passes / 검증 스크립트 통과 확인
+make validate
+
+# 6. Clean up / 정리
+make clean
+```
+
+### Step 9: Submit PR / PR 제출
+
+1. Fork this repository / 이 저장소를 Fork하세요
+2. Create a feature branch / 기능 브랜치를 생성하세요: `git checkout -b feat/add-{lang}-{framework}-stack`
+3. Commit your changes / 변경 사항을 커밋하세요
+4. Push to your fork / Fork에 푸시하세요: `git push origin feat/add-{lang}-{framework}-stack`
+5. Open a Pull Request to the `develop` branch / `develop` 브랜치로 PR을 생성하세요
+
+**PR Checklist / PR 체크리스트**:
+
+- [ ] Directory follows `stacks/{lang}-{framework}/` naming convention / 디렉토리가 네이밍 규칙을 따름
+- [ ] All 4 endpoints implemented and respond correctly / 4개 엔드포인트 구현 및 정상 응답
+- [ ] Multi-DB support (PostgreSQL, MySQL, SQLite3) / 멀티 DB 지원
+- [ ] `make dev` starts the full stack / `make dev`로 전체 스택 시작
+- [ ] `make validate` passes / `make validate` 통과
+- [ ] Multi-stage Dockerfile with non-root user / 멀티스테이지 Dockerfile + 비루트 사용자
+- [ ] README.md written in bilingual format / README가 한글/영문 이중 언어로 작성됨
+- [ ] No secrets or credentials committed / 시크릿이나 인증 정보가 커밋되지 않음
+
+---
+
+### Questions / 문의
+
+If you have any questions about contributing, feel free to reach out:
+
+기여 관련 문의 사항이 있으시면 편하게 연락해 주세요:
+
+- Email: [brewnet.dev@gmail.com](mailto:brewnet.dev@gmail.com)
+- Website: [https://www.brewnet.dev](https://www.brewnet.dev)
 
 ---
 
