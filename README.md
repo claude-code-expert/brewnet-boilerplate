@@ -37,7 +37,7 @@ brewnet create-app my-project
 # Interactive prompts will guide you: / 대화형 프롬프트가 안내합니다:
 # → Select language (Go, Rust, Java, Kotlin, Node.js, Python)
 # → Select framework (Gin, Echo, Fiber, Spring Boot, Express, FastAPI, ...)
-# → Select frontend (React, Vue, Svelte, API-only)
+# → Select frontend (React, API-only)
 # → Auto-generates .env with secure secrets
 # → Starts Docker containers
 
@@ -65,9 +65,9 @@ open http://localhost:3000
 
 ## Available Stacks / 지원 스택
 
-15 backend stacks + 2 frontend templates, all production-ready with Docker.
+15 backend stacks, all production-ready with Docker. Each stack includes React 19 + Vite 6 + TypeScript as the default frontend.
 
-15개의 백엔드 스택과 2개의 프론트엔드 템플릿을 제공하며, 모두 Docker로 프로덕션 준비가 되어 있습니다.
+15개의 백엔드 스택을 제공하며, 모두 Docker로 프로덕션 준비가 되어 있습니다. 각 스택에는 React 19 + Vite 6 + TypeScript가 기본 프론트엔드로 포함되어 있습니다.
 
 ### Backend Stacks / 백엔드 스택
 
@@ -88,14 +88,6 @@ open http://localhost:3000
 | **Python** | `python-fastapi` | FastAPI | SQLAlchemy (async) | `backend/src/main.py` |
 | | `python-django` | Django 6 | Django ORM | `backend/src/config/wsgi.py` |
 | | `python-flask` | Flask 3.1 | Flask-SQLAlchemy | `backend/wsgi.py` |
-
-### Frontend Templates / 프론트엔드 템플릿
-
-| Template | Tech Stack | Description / 설명 |
-|----------|------------|---------------------|
-| Default (included in each stack) | React 19 + Vite 6 + TypeScript | Default frontend / 기본 프론트엔드 |
-| `frontend-vue` | Vue.js 3 + Vite 6 + TypeScript | Vue.js alternative / Vue.js 대체 프론트엔드 |
-| `frontend-svelte` | SvelteKit + TypeScript | SvelteKit alternative / SvelteKit 대체 프론트엔드 |
 
 > **Note / 참고**: `nodejs-nextjs` is a unified stack — frontend and backend are a single Next.js app on port 3000.
 > `nodejs-nextjs`는 통합 스택으로, 프론트엔드와 백엔드가 하나의 Next.js 앱으로 포트 3000에서 동작합니다.
@@ -140,8 +132,6 @@ brewnet create-app my-project
 
 ? Select a frontend / 프론트엔드를 선택하세요:
   ❯ React (default)
-    Vue.js
-    SvelteKit
     API-only (no frontend)
 ```
 
@@ -152,9 +142,6 @@ brewnet create-app my-project
 ```bash
 # Specify stack directly / 스택 직접 지정
 brewnet create-app my-api --stack go-gin
-
-# With frontend template / 프론트엔드 템플릿 지정
-brewnet create-app my-app --stack rust-axum --frontend vue
 
 # API-only (no frontend) / API 전용 (프론트엔드 없음)
 brewnet create-app my-api --stack python-fastapi --frontend none
@@ -311,8 +298,7 @@ brewnet-boilerplate/
 │   ├── python-fastapi/              ← Python (FastAPI + React)
 │   ├── python-django/               ← Python (Django + React)
 │   ├── python-flask/                ← Python (Flask + React)
-│   ├── frontend-vue/                ← Vue.js frontend template
-│   └── frontend-svelte/             ← SvelteKit frontend template
+│   └── frontend-template/            ← Shared React frontend template
 ├── shared/                          ← Common scripts / 공용 스크립트
 │   ├── scripts/validate.sh          ← Health check + API verification
 │   └── traefik/                     ← Reverse proxy config
@@ -333,7 +319,7 @@ Each `stacks/{lang}-{framework}/` directory contains:
 ```
 stacks/{lang}-{framework}/
 ├── backend/           ← Backend source + Dockerfile
-├── frontend/          ← React/Vue/Svelte + Dockerfile (except nextjs)
+├── frontend/          ← React 19 + TypeScript + Dockerfile (except nextjs)
 ├── docker-compose.yml ← All services defined
 ├── Makefile           ← Uniform build targets
 ├── .env.example       ← Environment variable template

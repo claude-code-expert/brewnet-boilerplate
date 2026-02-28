@@ -34,8 +34,7 @@ brewnet-boilerplate/
 │   ├── java-spring/             ← Java (Spring Framework + React)
 │   ├── kotlin-ktor/             ← Kotlin (Ktor + React)
 │   ├── kotlin-springboot/       ← Kotlin (Spring Boot + React)
-│   ├── frontend-vue/            ← Vue.js frontend template
-│   └── frontend-svelte/         ← SvelteKit frontend template
+│   └── frontend-template/       ← Shared React frontend template
 ├── shared/                      ← Common infra (traefik, healthcheck, scripts)
 └── .github/workflows/           ← CI: validate all stacks
 ```
@@ -87,9 +86,9 @@ POST /api/echo   → (echo back request body)
 | Frontend   | 5173 (dev) / 80 (prod) | `localhost:3000` |
 | PostgreSQL | 5432          | `localhost:5433`    |
 
-### Frontend (swappable templates)
+### Frontend
 
-Default: React 19 + Vite 6 + TypeScript. Alternative templates: Vue.js 3 (`frontend-vue/`), SvelteKit (`frontend-svelte/`), API-only (no frontend). `App` component calls `GET /api/hello` and displays the response. Production: nginx serves static files + reverse proxies `/api` to backend. Exception: `nodejs-nextjs` uses unified frontend+backend on port 3000.
+React 19 + Vite 6 + TypeScript. `App` component calls `GET /api/hello` and displays the response. Production: nginx serves static files + reverse proxies `/api` to backend. Exception: `nodejs-nextjs` uses unified frontend+backend on port 3000.
 
 ### Docker Rules
 
@@ -228,9 +227,9 @@ DB 작업 → DATA_MODEL.md 확인
 - Gin, Echo v4, Fiber v3, Actix-web 4, Axum 0.8, Spring Boot 3.4, Spring Framework 6.2, Express 5, NestJS 11, Next.js 15, FastAPI, Django 6, Flask 3.1, Ktor 3.1
 - GORM, SQLx, SQLAlchemy, Prisma, JPA/JDBC+HikariCP, Exposed ORM, Flask-SQLAlchemy
 - PostgreSQL 16, MySQL 8.4, SQLite3 (via `DB_DRIVER` env)
-- React 19, Vue.js 3, SvelteKit (frontend templates)
+- React 19 + Vite 6 + TypeScript (frontend)
 
 ## Recent Changes
-- 002-add-remaining-frameworks: Added 10 new backend stacks (Django, Flask, Echo, Fiber, Axum, NestJS, Next.js, Spring Framework, Ktor, Spring Boot Kotlin) + Vue/Svelte frontend templates
+- 002-add-remaining-frameworks: Added 10 new backend stacks (Django, Flask, Echo, Fiber, Axum, NestJS, Next.js, Spring Framework, Ktor, Spring Boot Kotlin)
 - 001-stack-implementation: Initial 5 stacks (Gin, Actix-web, Spring Boot, Express, FastAPI)
 - Directory restructure: stacks/{lang}/ → stacks/{lang}-{framework}/ for multi-framework support
