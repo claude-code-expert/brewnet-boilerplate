@@ -89,10 +89,30 @@ for stack in "${STACKS[@]}"; do
         continue
     fi
 
-    # Create orphan branch (no history from develop)
-    git checkout --orphan "$BRANCH_NAME" 2>/dev/null || git checkout "$BRANCH_NAME" 2>/dev/null || {
-        echo "  ERROR: Could not create/checkout branch $BRANCH_NAME"
+    # Use a temp directory to stage files (avoids orphan branch wiping stacks/)
+    TMPDIR=$(mktemp -d)
+    trap "rm -rf '$TMPDIR'" EXIT
+
+    # Extract stack files from source branch via git archive
+    git archive "$SOURCE_BRANCH" -- "stacks/$stack/" | tar -x -C "$TMPDIR" 2>/dev/null || {
+        echo "  ERROR: Could not extract stacks/$stack from $SOURCE_BRANCH"
+        FAILED+=("$stack (extract error)")
+        rm -rf "$TMPDIR"
+        echo ""
+        continue
+    }
+
+    # Extract shared validate script
+    git archive "$SOURCE_BRANCH" -- "shared/scripts/validate.sh" | tar -x -C "$TMPDIR" 2>/dev/null || true
+
+    # Delete existing branch if any (orphan needs clean slate)
+    git branch -D "$BRANCH_NAME" 2>/dev/null || true
+
+    # Create orphan branch
+    git checkout --orphan "$BRANCH_NAME" 2>/dev/null || {
+        echo "  ERROR: Could not create branch $BRANCH_NAME"
         FAILED+=("$stack (branch error)")
+        rm -rf "$TMPDIR"
         git checkout "$SOURCE_BRANCH" 2>/dev/null
         echo ""
         continue
@@ -100,17 +120,17 @@ for stack in "${STACKS[@]}"; do
 
     # Remove all tracked files from index
     git rm -rf --quiet . 2>/dev/null || true
-
-    # Clean untracked files (but keep .git)
     git clean -fd --quiet 2>/dev/null || true
 
-    # Copy stack files to root
-    cp -R "$STACK_DIR/"* .
-    cp -R "$STACK_DIR/".* . 2>/dev/null || true  # hidden files like .env.example
+    # Copy stack files from temp to repo root (flatten stacks/{name}/ → ./)
+    cp -R "$TMPDIR/stacks/$stack/"* . 2>/dev/null || true
+    cp -R "$TMPDIR/stacks/$stack/".* . 2>/dev/null || true
 
     # Copy shared validate script
     mkdir -p scripts
-    cp "$REPO_ROOT/shared/scripts/validate.sh" scripts/
+    if [ -f "$TMPDIR/shared/scripts/validate.sh" ]; then
+        cp "$TMPDIR/shared/scripts/validate.sh" scripts/
+    fi
 
     # Fix Makefile validate path
     if [ -f Makefile ]; then
@@ -141,6 +161,10 @@ Thumbs.db
 *.swp
 *.swo
 GITIGNORE
+
+    # Clean up temp
+    rm -rf "$TMPDIR"
+    trap - EXIT
 
     # Stage and commit
     git add -A
