@@ -532,11 +532,31 @@ make clean
 
 ### Step 9: Submit PR / PR 제출
 
-1. Fork this repository / 이 저장소를 Fork하세요
-2. Create a feature branch / 기능 브랜치를 생성하세요: `git checkout -b feat/add-{lang}-{framework}-stack`
-3. Commit your changes / 변경 사항을 커밋하세요
-4. Push to your fork / Fork에 푸시하세요: `git push origin feat/add-{lang}-{framework}-stack`
-5. Open a Pull Request to the `develop` branch / `develop` 브랜치로 PR을 생성하세요
+```bash
+# 1. Fork this repository on GitHub / GitHub에서 이 저장소를 Fork하세요
+
+# 2. Clone your fork and switch to develop / Fork를 클론하고 develop 브랜치로 전환하세요
+git clone https://github.com/<your-username>/brewnet-boilerplate.git
+cd brewnet-boilerplate
+git checkout develop
+
+# 3. Create a feature branch from develop / develop에서 기능 브랜치를 생성하세요
+git checkout -b feat/add-{lang}-{framework}-stack
+
+# 4. Commit your changes / 변경 사항을 커밋하세요
+git add stacks/{lang}-{framework}/
+git commit -m "feat: add {lang}-{framework} stack"
+
+# 5. Push to your fork / Fork에 푸시하세요
+git push origin feat/add-{lang}-{framework}-stack
+
+# 6. Open a Pull Request: your fork → upstream develop branch
+#    GitHub에서 PR 생성: 본인 Fork → 원본 저장소의 develop 브랜치
+```
+
+> **Important / 중요**: PR target must be the `develop` branch, NOT `main`. All contributions are integrated into `develop` first.
+>
+> PR 대상은 반드시 `develop` 브랜치입니다. `main`이 아닙니다. 모든 기여는 `develop`에 먼저 통합됩니다.
 
 **PR Checklist / PR 체크리스트**:
 
