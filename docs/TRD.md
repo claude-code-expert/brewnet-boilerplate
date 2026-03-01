@@ -86,8 +86,8 @@ postgresql://brewnet:${DB_PASSWORD}@postgres:5432/brewnet?sslmode=disable
 mysql://brewnet:${MYSQL_PASSWORD}@mysql:3306/brewnet?parseTime=true&charset=utf8mb4
 
 # SQLite3
-sqlite:///data/brewnet.db
-# 또는 file:./data/brewnet.db?_journal_mode=WAL
+sqlite:///data/brewnet_db.db
+# 또는 file:./data/brewnet_db.db?_journal_mode=WAL
 ```
 
 ### 2.3 docker-compose.yml DB Profile 설계
@@ -106,15 +106,15 @@ services:
       - DB_DRIVER=${DB_DRIVER:-postgres}
       - DB_HOST=${DB_HOST:-postgres}
       - DB_PORT=${DB_PORT:-5432}
-      - DB_NAME=${DB_NAME:-brewnet}
+      - DB_NAME=${DB_NAME:-brewnet_db}
       - DB_USER=${DB_USER:-brewnet}
       - DB_PASSWORD=${DB_PASSWORD}
       - MYSQL_HOST=${MYSQL_HOST:-mysql}
       - MYSQL_PORT=${MYSQL_PORT:-3306}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:-brewnet}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-brewnet_db}
       - MYSQL_USER=${MYSQL_USER:-brewnet}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - SQLITE_PATH=${SQLITE_PATH:-/app/data/brewnet.db}
+      - SQLITE_PATH=${SQLITE_PATH:-/app/data/brewnet_db.db}
     volumes:
       - sqlite-data:/app/data    # SQLite3 persistence
     networks:
@@ -165,7 +165,7 @@ services:
     image: postgres:16-alpine
     profiles: ["postgres"]
     environment:
-      POSTGRES_DB: ${DB_NAME:-brewnet}
+      POSTGRES_DB: ${DB_NAME:-brewnet_db}
       POSTGRES_USER: ${DB_USER:-brewnet}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -184,7 +184,7 @@ services:
     image: mysql:8.4
     profiles: ["mysql"]
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-brewnet}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-brewnet_db}
       MYSQL_USER: ${MYSQL_USER:-brewnet}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -307,7 +307,7 @@ func Connect() (*gorm.DB, error) {
     case "sqlite3":
         path := os.Getenv("SQLITE_PATH")
         if path == "" {
-            path = "./data/brewnet.db"
+            path = "./data/brewnet_db.db"
         }
         return gorm.Open(sqlite.Open(path), &gorm.Config{})
 
@@ -377,7 +377,7 @@ pub async fn connect() -> Result<AnyPool, sqlx::Error> {
             env::var("DB_PASSWORD").unwrap_or_default(),
             env::var("DB_HOST").unwrap_or("postgres".into()),
             env::var("DB_PORT").unwrap_or("5432".into()),
-            env::var("DB_NAME").unwrap_or("brewnet".into()),
+            env::var("DB_NAME").unwrap_or("brewnet_db".into()),
         ),
         "mysql" => format!(
             "mysql://{}:{}@{}:{}/{}",
@@ -385,11 +385,11 @@ pub async fn connect() -> Result<AnyPool, sqlx::Error> {
             env::var("MYSQL_PASSWORD").unwrap_or_default(),
             env::var("MYSQL_HOST").unwrap_or("mysql".into()),
             env::var("MYSQL_PORT").unwrap_or("3306".into()),
-            env::var("MYSQL_DATABASE").unwrap_or("brewnet".into()),
+            env::var("MYSQL_DATABASE").unwrap_or("brewnet_db".into()),
         ),
         "sqlite3" => format!(
             "sqlite://{}",
-            env::var("SQLITE_PATH").unwrap_or("./data/brewnet.db".into())
+            env::var("SQLITE_PATH").unwrap_or("./data/brewnet_db.db".into())
         ),
         _ => panic!("Unsupported DB_DRIVER: {}", driver),
     };
@@ -481,7 +481,7 @@ server:
 # application-postgres.yml
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:brewnet}
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:brewnet_db}
     username: ${DB_USER:brewnet}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -492,7 +492,7 @@ spring:
 # application-mysql.yml
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:brewnet}?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:brewnet_db}?useSSL=false&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:brewnet}
     password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -503,7 +503,7 @@ spring:
 # application-sqlite.yml
 spring:
   datasource:
-    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet.db}
+    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet_db.db}
     driver-class-name: org.sqlite.JDBC
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect
@@ -997,7 +997,7 @@ jobs:
 |----------|---------|------|
 | `DB_HOST` | `postgres` | 호스트 |
 | `DB_PORT` | `5432` | 포트 |
-| `DB_NAME` | `brewnet` | 데이터베이스명 |
+| `DB_NAME` | `brewnet_db` | 데이터베이스명 |
 | `DB_USER` | `brewnet` | 사용자 |
 | `DB_PASSWORD` | (required) | 패스워드 |
 
@@ -1007,7 +1007,7 @@ jobs:
 |----------|---------|------|
 | `MYSQL_HOST` | `mysql` | 호스트 |
 | `MYSQL_PORT` | `3306` | 포트 |
-| `MYSQL_DATABASE` | `brewnet` | 데이터베이스명 |
+| `MYSQL_DATABASE` | `brewnet_db` | 데이터베이스명 |
 | `MYSQL_USER` | `brewnet` | 사용자 |
 | `MYSQL_PASSWORD` | (required) | 패스워드 |
 | `MYSQL_ROOT_PASSWORD` | (required) | Root 패스워드 |
@@ -1016,7 +1016,7 @@ jobs:
 
 | Variable | Default | 설명 |
 |----------|---------|------|
-| `SQLITE_PATH` | `./data/brewnet.db` | DB 파일 경로 |
+| `SQLITE_PATH` | `./data/brewnet_db.db` | DB 파일 경로 |
 
 ---
 

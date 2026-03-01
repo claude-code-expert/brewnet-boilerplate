@@ -126,7 +126,7 @@ Services: `backend`, `frontend` (optional), `postgres` (profile), `mysql` (profi
 
 ### Environment Variables (.env.example, common to all stacks)
 
-`PROJECT_NAME`, `DOMAIN`, `DB_HOST=postgres`, `DB_PORT=5432`, `DB_NAME=brewnet`, `DB_USER=brewnet`, `DB_PASSWORD`, `BACKEND_PORT=8080`, `FRONTEND_PORT=3000`, `VITE_API_URL=http://localhost:8080`, `TZ=Asia/Seoul`
+`PROJECT_NAME`, `DOMAIN`, `DB_HOST=postgres` (Docker) / `localhost` (local), `DB_PORT=5432`, `DB_NAME=brewnet_db`, `DB_USER=brewnet`, `DB_PASSWORD=password`, `MYSQL_HOST=mysql`, `MYSQL_DATABASE=brewnet_db`, `MYSQL_USER=brewnet`, `MYSQL_PASSWORD=password`, `SQLITE_PATH=/app/data/brewnet_db.db`, `BACKEND_PORT=8080`, `FRONTEND_PORT=3000`, `VITE_API_URL=http://localhost:8080`, `TZ=Asia/Seoul`
 
 ## Brewnet CLI Integration
 

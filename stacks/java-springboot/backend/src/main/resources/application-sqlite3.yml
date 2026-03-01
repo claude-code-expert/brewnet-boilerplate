@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet.db}
+    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet_db.db}
     driver-class-name: org.sqlite.JDBC
   jpa:
     database-platform: org.hibernate.community.dialect.SQLiteDialect

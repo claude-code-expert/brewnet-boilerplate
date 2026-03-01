@@ -9,8 +9,8 @@ services:
       - "${BACKEND_PORT:-3000}:3000"
     environment:
       - DB_DRIVER=${DB_DRIVER:-postgres}
-      - DATABASE_URL=${DATABASE_URL:-postgresql://${DB_USER:-brewnet}:${DB_PASSWORD}@${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_NAME:-brewnet}}
-      - SQLITE_PATH=${SQLITE_PATH:-/app/data/brewnet.db}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://${DB_USER:-brewnet}:${DB_PASSWORD}@${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_NAME:-brewnet_db}}
+      - SQLITE_PATH=${SQLITE_PATH:-/app/data/brewnet_db.db}
       - PRISMA_DB_PROVIDER=${PRISMA_DB_PROVIDER:-postgresql}
     volumes:
       - sqlite-data:/app/data
@@ -43,7 +43,7 @@ services:
     image: postgres:16-alpine
     profiles: ["postgres"]
     environment:
-      POSTGRES_DB: ${DB_NAME:-brewnet}
+      POSTGRES_DB: ${DB_NAME:-brewnet_db}
       POSTGRES_USER: ${DB_USER:-brewnet}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -62,7 +62,7 @@ services:
     image: mysql:8.4
     profiles: ["mysql"]
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-brewnet}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-brewnet_db}
       MYSQL_USER: ${MYSQL_USER:-brewnet}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

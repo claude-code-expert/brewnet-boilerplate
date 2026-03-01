@@ -163,7 +163,7 @@ MYSQL_PASSWORD=
 MYSQL_ROOT_PASSWORD=
 
 # SQLite3 (DB_DRIVER=sqlite3)
-SQLITE_PATH=./data/brewnet.db
+SQLITE_PATH=./data/brewnet_db.db
 ```
 
 `docker-compose.yml`은 DB_DRIVER에 따라 profiles를 사용하여 해당 DB 서비스만 기동한다.

@@ -5,11 +5,11 @@ function buildDatabaseUrl(): string {
     if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
     switch (driver) {
         case 'mysql':
-            return `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST || 'mysql'}:${process.env.MYSQL_PORT || '3306'}/${process.env.MYSQL_DATABASE || 'brewnet'}`;
+            return `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST || 'mysql'}:${process.env.MYSQL_PORT || '3306'}/${process.env.MYSQL_DATABASE || 'brewnet_db'}`;
         case 'sqlite3':
-            return `file:${process.env.SQLITE_PATH || '/app/data/brewnet.db'}`;
+            return `file:${process.env.SQLITE_PATH || '/app/data/brewnet_db.db'}`;
         default:
-            return `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST || 'postgres'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'brewnet'}`;
+            return `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST || 'postgres'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'brewnet_db'}`;
     }
 }
 

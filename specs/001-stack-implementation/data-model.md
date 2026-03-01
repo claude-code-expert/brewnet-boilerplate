@@ -59,7 +59,7 @@ DB_DRIVER 환경변수로 결정되는 연결 구성. 엔티티/테이블 없음
 |-----------|-------------------|----------------|-----------|
 | `postgres` | PostgreSQL 16 (`postgres:5432`) | `postgres` | 5433 |
 | `mysql` | MySQL 8.4 (`mysql:3306`) | `mysql` | 3307 |
-| `sqlite3` | File (`/app/data/brewnet.db`) | (none) | (none) |
+| `sqlite3` | File (`/app/data/brewnet_db.db`) | (none) | (none) |
 
 ### 3. Environment Configuration (.env)
 

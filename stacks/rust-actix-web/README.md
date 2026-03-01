@@ -56,11 +56,11 @@ cd backend
 
 # Run with SQLite3 (no external DB needed)
 # SQLite3로 실행 (외부 DB 불필요)
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db cargo run
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db cargo run
 
 # Or with PostgreSQL (requires a running PostgreSQL instance)
 # 또는 PostgreSQL로 실행 (실행 중인 PostgreSQL 인스턴스 필요)
-DB_DRIVER=postgres DB_HOST=localhost DB_PORT=5432 DB_NAME=brewnet DB_USER=brewnet DB_PASSWORD=brewnet_secret cargo run
+DB_DRIVER=postgres DB_HOST=localhost DB_PORT=5432 DB_NAME=brewnet_db DB_USER=brewnet DB_PASSWORD=password cargo run
 ```
 
 ### Frontend / 프론트엔드
@@ -122,19 +122,19 @@ Switch databases by changing `DB_DRIVER` in your `.env` file. The backend uses *
 DB_DRIVER=postgres
 DB_HOST=postgres
 DB_PORT=5432
-DB_NAME=brewnet
+DB_NAME=brewnet_db
 DB_USER=brewnet
-DB_PASSWORD=brewnet_secret
+DB_PASSWORD=password
 ```
 
 **SQLx connection URL (container-internal):**
 ```
-postgres://brewnet:brewnet_secret@postgres:5432/brewnet
+postgres://brewnet:password@postgres:5432/brewnet
 ```
 
 **SQLx connection URL (host access):**
 ```
-postgres://brewnet:brewnet_secret@localhost:5433/brewnet
+postgres://brewnet:password@localhost:5433/brewnet
 ```
 
 > Host port is `5433` (mapped from container port `5432` in docker-compose.yml).
@@ -148,20 +148,20 @@ postgres://brewnet:brewnet_secret@localhost:5433/brewnet
 DB_DRIVER=mysql
 MYSQL_HOST=mysql
 MYSQL_PORT=3306
-MYSQL_DATABASE=brewnet
+MYSQL_DATABASE=brewnet_db
 MYSQL_USER=brewnet
-MYSQL_PASSWORD=brewnet_secret
-MYSQL_ROOT_PASSWORD=root_secret
+MYSQL_PASSWORD=password
+MYSQL_ROOT_PASSWORD=password
 ```
 
 **SQLx connection URL (container-internal):**
 ```
-mysql://brewnet:brewnet_secret@mysql:3306/brewnet
+mysql://brewnet:password@mysql:3306/brewnet_db
 ```
 
 **SQLx connection URL (host access):**
 ```
-mysql://brewnet:brewnet_secret@localhost:3307/brewnet
+mysql://brewnet:password@localhost:3307/brewnet_db
 ```
 
 > Host port is `3307` (mapped from container port `3306` in docker-compose.yml).
@@ -173,17 +173,17 @@ mysql://brewnet:brewnet_secret@localhost:3307/brewnet
 ```bash
 # .env
 DB_DRIVER=sqlite3
-SQLITE_PATH=/app/data/brewnet.db
+SQLITE_PATH=/app/data/brewnet_db.db
 ```
 
 **SQLx connection URL:**
 ```
-sqlite:///app/data/brewnet.db
+sqlite:///app/data/brewnet_db.db
 ```
 
-> For local development (without Docker), use a relative path: `sqlite://./data/brewnet.db`
+> For local development (without Docker), use a relative path: `sqlite://./data/brewnet_db.db`
 >
-> 로컬 개발(Docker 없이)에서는 상대 경로를 사용합니다: `sqlite://./data/brewnet.db`
+> 로컬 개발(Docker 없이)에서는 상대 경로를 사용합니다: `sqlite://./data/brewnet_db.db`
 
 ### Switching Databases / 데이터베이스 전환
 
@@ -213,16 +213,16 @@ All variables are defined in `.env.example`. Copy it to `.env` before running.
 | `STACK_LANG` | `rust-actix-web` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL hostname / PostgreSQL 호스트명 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL 데이터베이스명 |
+| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL 데이터베이스명 |
 | `DB_USER` | `brewnet` | PostgreSQL username / PostgreSQL 사용자명 |
-| `DB_PASSWORD` | `brewnet_secret` | PostgreSQL password / PostgreSQL 비밀번호 |
+| `DB_PASSWORD` | `password` | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL hostname / MySQL 호스트명 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL 데이터베이스명 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL 데이터베이스명 |
 | `MYSQL_USER` | `brewnet` | MySQL username / MySQL 사용자명 |
-| `MYSQL_PASSWORD` | `brewnet_secret` | MySQL password / MySQL 비밀번호 |
-| `MYSQL_ROOT_PASSWORD` | `root_secret` | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite3 file path / SQLite3 파일 경로 |
+| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
+| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite3 file path / SQLite3 파일 경로 |
 
 ---
 

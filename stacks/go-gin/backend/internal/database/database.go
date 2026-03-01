@@ -25,18 +25,18 @@ func Connect() error {
 		dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 			getEnv("DB_HOST", "postgres"), getEnv("DB_PORT", "5432"),
 			getEnv("DB_USER", "brewnet"), getEnv("DB_PASSWORD", ""),
-			getEnv("DB_NAME", "brewnet"))
+			getEnv("DB_NAME", "brewnet_db"))
 		DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	case "mysql":
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 			getEnv("MYSQL_USER", "brewnet"), getEnv("MYSQL_PASSWORD", ""),
 			getEnv("MYSQL_HOST", "mysql"), getEnv("MYSQL_PORT", "3306"),
-			getEnv("MYSQL_DATABASE", "brewnet"))
+			getEnv("MYSQL_DATABASE", "brewnet_db"))
 		DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	case "sqlite3":
-		path := getEnv("SQLITE_PATH", "./data/brewnet.db")
+		path := getEnv("SQLITE_PATH", "./data/brewnet_db.db")
 		DB, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
 
 	default:

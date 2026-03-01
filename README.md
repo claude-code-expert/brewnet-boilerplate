@@ -239,8 +239,25 @@ All stacks support 3 databases via `DB_DRIVER` environment variable:
 | `mysql` | MySQL 8.4 | 3307 | Alternative / 대안 |
 | `sqlite3` | SQLite3 | — | No external container needed / 외부 컨테이너 불필요 |
 
+### Default Credentials / 기본 접속 정보
+
+| Item | Value | Note / 참고 |
+|------|-------|-------------|
+| Database name | `brewnet_db` | PostgreSQL, MySQL 공통 |
+| Username | `brewnet` | PostgreSQL, MySQL 공통 |
+| Password | `password` | `.env`에서 변경 권장 |
+
 ```bash
-# Switch database / 데이터베이스 전환
+# PostgreSQL connection (from host) / PostgreSQL 접속 (호스트에서)
+psql -h localhost -p 5433 -U brewnet -d brewnet_db
+
+# MySQL connection (from host) / MySQL 접속 (호스트에서)
+mysql -h 127.0.0.1 -P 3307 -u brewnet -p brewnet_db
+```
+
+### Switch Database / 데이터베이스 전환
+
+```bash
 make down
 # Edit .env: DB_DRIVER=mysql
 make dev
@@ -349,11 +366,18 @@ Common across all stacks (`.env.example`):
 | `PROJECT_NAME` | `brewnet` | Project name / 프로젝트명 |
 | `DOMAIN` | `localhost` | Domain / 도메인 |
 | `DB_DRIVER` | `postgres` | `postgres` \| `mysql` \| `sqlite3` |
-| `DB_HOST` | `postgres` | PostgreSQL host |
+| `DB_HOST` | `postgres` | Docker: `postgres`, Local: `localhost` |
 | `DB_PORT` | `5432` | PostgreSQL port |
-| `DB_NAME` | `brewnet` | Database name / DB명 |
+| `DB_NAME` | `brewnet_db` | Database name / DB명 |
 | `DB_USER` | `brewnet` | Database user / DB 사용자 |
-| `DB_PASSWORD` | — | Database password / DB 비밀번호 |
+| `DB_PASSWORD` | `password` | Database password / DB 비밀번호 |
+| `MYSQL_HOST` | `mysql` | Docker: `mysql`, Local: `localhost` |
+| `MYSQL_PORT` | `3306` | MySQL port |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL DB명 |
+| `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
+| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
+| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite file path / SQLite 파일 경로 |
 | `BACKEND_PORT` | `8080` | Backend host port / 백엔드 포트 |
 | `FRONTEND_PORT` | `3000` | Frontend host port / 프론트엔드 포트 |
 | `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev / 프론트엔드 개발용 API URL |
