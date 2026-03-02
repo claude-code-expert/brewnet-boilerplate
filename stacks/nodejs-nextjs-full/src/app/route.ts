@@ -4,6 +4,6 @@ export async function GET() {
     return NextResponse.json({
         service: 'nextjs-backend',
         status: 'running',
-        message: 'Brewnet says hello!',
+        message: 'Hello Brewnet (https://www.brewnet.dev)',
     });
 }

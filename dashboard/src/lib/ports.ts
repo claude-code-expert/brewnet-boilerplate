@@ -1,6 +1,16 @@
 import fs from "fs/promises";
+import net from "net";
 import path from "path";
 import type { PortAllocation, PortsState } from "./types";
+
+async function isPortFree(port: number): Promise<boolean> {
+  return new Promise((resolve) => {
+    const server = net.createServer();
+    server.once("error", () => resolve(false));
+    server.once("listening", () => { server.close(); resolve(true); });
+    server.listen(port, "0.0.0.0");
+  });
+}
 
 const BACKEND_PORT_START = 8081;
 const FRONTEND_PORT_START = 3001;
@@ -49,7 +59,7 @@ export async function allocatePorts(
 
         for (let i = 0; i < TOTAL_SLOTS; i++) {
           const fp = FRONTEND_PORT_START + i;
-          if (!usedFrontend.has(fp)) {
+          if (!usedFrontend.has(fp) && await isPortFree(fp)) {
             frontendPort = fp;
             break;
           }
@@ -61,7 +71,7 @@ export async function allocatePorts(
         } else {
           for (let i = 0; i < TOTAL_SLOTS; i++) {
             const bp = BACKEND_PORT_START + i;
-            if (!usedBackend.has(bp)) {
+            if (!usedBackend.has(bp) && await isPortFree(bp)) {
               backendPort = bp;
               break;
             }

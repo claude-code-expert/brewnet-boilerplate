@@ -13,7 +13,7 @@ def root(request):
     return JsonResponse({
         "service": "django-backend",
         "status": "running",
-        "message": "\U0001f37a Brewnet says hello!",
+        "message": "Hello Brewnet (https://www.brewnet.dev)",
     })
 
 

@@ -19,7 +19,7 @@ public class ApiController {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("service", "spring-backend");
         response.put("status", "running");
-        response.put("message", "\uD83C\uDF7A Brewnet says hello!");
+        response.put("message", "Hello Brewnet (https://www.brewnet.dev)");
         return response;
     }
 

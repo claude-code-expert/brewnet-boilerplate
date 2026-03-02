@@ -10,6 +10,6 @@ func Root(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"service": "echo-backend",
 		"status":  "running",
-		"message": "\xf0\x9f\x8d\xba Brewnet says hello!",
+		"message": "Hello Brewnet (https://www.brewnet.dev)",
 	})
 }

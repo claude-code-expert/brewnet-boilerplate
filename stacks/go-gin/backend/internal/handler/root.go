@@ -10,6 +10,6 @@ func Root(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"service": "gin-backend",
 		"status":  "running",
-		"message": "Brewnet says hello!",
+		"message": "Hello Brewnet (https://www.brewnet.dev)",
 	})
 }
