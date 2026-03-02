@@ -9,12 +9,21 @@ const execAsync = promisify(exec);
 export async function ensureEnvFile(stackDir: string): Promise<void> {
   const envPath = path.join(stackDir, ".env");
   const examplePath = path.join(stackDir, ".env.example");
+  console.log(`[docker] ensureEnvFile: envPath=${envPath}`);
   try {
     await fs.access(envPath);
+    console.log(`[docker] .env already exists — skipping copy`);
   } catch {
-    let content = await fs.readFile(examplePath, "utf-8");
-    content = content.replace(/^DB_DRIVER=.*/m, "DB_DRIVER=sqlite3");
-    await fs.writeFile(envPath, content, "utf-8");
+    console.log(`[docker] .env not found — copying from ${examplePath}`);
+    try {
+      let content = await fs.readFile(examplePath, "utf-8");
+      content = content.replace(/^DB_DRIVER=.*/m, "DB_DRIVER=sqlite3");
+      await fs.writeFile(envPath, content, "utf-8");
+      console.log(`[docker] ✓ .env written with DB_DRIVER=sqlite3`);
+    } catch (err) {
+      console.error(`[docker] ✗ failed to create .env:`, err);
+      throw err;
+    }
   }
 }
 
@@ -26,13 +35,32 @@ export async function startStack(
     "docker compose",
     `-f "${meta.stackDir}/docker-compose.yml"`,
     `--project-name brewnet-${meta.name}`,
-    `-e BACKEND_PORT=${ports.backendPort}`,
-    `-e FRONTEND_PORT=${ports.frontendPort}`,
-    `-e DB_DRIVER=sqlite3`,
     "up -d --build",
   ].join(" ");
 
-  await execAsync(cmd, { cwd: meta.stackDir });
+  const env = {
+    ...process.env,
+    BACKEND_PORT: String(ports.backendPort),
+    FRONTEND_PORT: String(ports.frontendPort),
+    DB_DRIVER: "sqlite3",
+  };
+
+  console.log(`[docker] startStack command:\n  ${cmd}`);
+  console.log(`[docker] cwd: ${meta.stackDir}`);
+  console.log(`[docker] env injected: BACKEND_PORT=${ports.backendPort} FRONTEND_PORT=${ports.frontendPort} DB_DRIVER=sqlite3`);
+
+  try {
+    const { stdout, stderr } = await execAsync(cmd, { cwd: meta.stackDir, env });
+    if (stdout) console.log(`[docker] stdout:\n${stdout}`);
+    if (stderr) console.log(`[docker] stderr:\n${stderr}`);
+    console.log(`[docker] ✓ startStack completed`);
+  } catch (err: unknown) {
+    const e = err as { message?: string; stdout?: string; stderr?: string };
+    console.error(`[docker] ✗ startStack failed: ${e.message}`);
+    if (e.stdout) console.error(`[docker] stdout: ${e.stdout}`);
+    if (e.stderr) console.error(`[docker] stderr: ${e.stderr}`);
+    throw err;
+  }
 }
 
 export async function stopStack(meta: StackMeta): Promise<void> {
