@@ -88,6 +88,66 @@ export default function StackCard({ stack, onStart, onStop }: StackCardProps) {
         {stack.ports && (
           <div style={{ display: "flex", gap: 6 }}>
             {!stack.isUnified && (
+              isRunning ? (
+                <a
+                  href={`http://localhost:${stack.ports.backendPort}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Open backend → http://localhost:${stack.ports.backendPort}`}
+                  style={{
+                    background: "var(--bg)",
+                    border: "1px solid var(--success)",
+                    borderRadius: 4,
+                    padding: "2px 8px",
+                    fontSize: 11,
+                    fontFamily: "var(--mono)",
+                    color: "var(--success)",
+                    textDecoration: "underline",
+                    textDecorationStyle: "dotted",
+                    animation: "portBlink 1.8s ease-in-out infinite",
+                    cursor: "pointer",
+                  }}
+                >
+                  :{stack.ports.backendPort}
+                </a>
+              ) : (
+                <span style={{
+                  background: "var(--bg)",
+                  border: "1px solid var(--border)",
+                  borderRadius: 4,
+                  padding: "2px 8px",
+                  fontSize: 11,
+                  fontFamily: "var(--mono)",
+                  color: "var(--muted)",
+                }}>
+                  :{stack.ports.backendPort}
+                </span>
+              )
+            )}
+            {isRunning ? (
+              <a
+                href={`http://localhost:${stack.ports.frontendPort}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Open frontend → http://localhost:${stack.ports.frontendPort}`}
+                style={{
+                  background: "var(--bg)",
+                  border: "1px solid var(--success)",
+                  borderRadius: 4,
+                  padding: "2px 8px",
+                  fontSize: 11,
+                  fontFamily: "var(--mono)",
+                  color: "var(--success)",
+                  textDecoration: "underline",
+                  textDecorationStyle: "dotted",
+                  animation: "portBlink 1.8s ease-in-out infinite",
+                  animationDelay: "0.3s",
+                  cursor: "pointer",
+                }}
+              >
+                :{stack.ports.frontendPort}
+              </a>
+            ) : (
               <span style={{
                 background: "var(--bg)",
                 border: "1px solid var(--border)",
@@ -97,20 +157,9 @@ export default function StackCard({ stack, onStart, onStop }: StackCardProps) {
                 fontFamily: "var(--mono)",
                 color: "var(--muted)",
               }}>
-                :{stack.ports.backendPort}
+                :{stack.ports.frontendPort}
               </span>
             )}
-            <span style={{
-              background: "var(--bg)",
-              border: "1px solid var(--border)",
-              borderRadius: 4,
-              padding: "2px 8px",
-              fontSize: 11,
-              fontFamily: "var(--mono)",
-              color: "var(--muted)",
-            }}>
-              :{stack.ports.frontendPort}
-            </span>
           </div>
         )}
 
@@ -180,6 +229,10 @@ export default function StackCard({ stack, onStart, onStop }: StackCardProps) {
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.4; }
+        }
+        @keyframes portBlink {
+          0%, 100% { opacity: 1; border-color: var(--success); }
+          50% { opacity: 0.45; border-color: transparent; }
         }
       `}</style>
     </>
