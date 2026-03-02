@@ -115,19 +115,26 @@ export default function Dashboard() {
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "24px 20px" }}>
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-        <BrewnetLogo />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ fontFamily: "var(--mono)", fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", color: "#f5a623", lineHeight: 1 }}>
-            Brewnet
-          </span>
-          <span style={{ fontFamily: "var(--font)", fontSize: 10, fontWeight: 400, color: "#ffffff", letterSpacing: "0.02em", marginTop: 2 }}>
-            Your server on tap. Just brew it.
-          </span>
-          <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 4 }}>
-            {stacks.filter((s) => s.status === "running").length} running ·{" "}
-            {stacks.length} stacks total
-          </p>
-        </div>
+        <a
+          href="https://www.brewnet.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}
+        >
+          <BrewnetLogo />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontFamily: "var(--mono)", fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", color: "#f5a623", lineHeight: 1 }}>
+              Brewnet
+            </span>
+            <span style={{ fontFamily: "var(--font)", fontSize: 10, fontWeight: 400, color: "#ffffff", letterSpacing: "0.02em", marginTop: 2 }}>
+              Your server on tap. Just brew it.
+            </span>
+          </div>
+        </a>
+        <p style={{ fontSize: 12, color: "var(--muted)" }}>
+          {stacks.filter((s) => s.status === "running").length} running ·{" "}
+          {stacks.length} stacks total
+        </p>
         <button
           onClick={fetchStacks}
           style={{ marginLeft: "auto", background: "var(--surface)", border: "1px solid var(--border)", color: "var(--muted)", fontSize: 13 }}
