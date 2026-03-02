@@ -1,0 +1,91 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PRISMA_PROVIDER: ${PRISMA_DB_PROVIDER:-postgresql}
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    environment:
+      - DB_DRIVER=${DB_DRIVER:-postgres}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://${DB_USER:-brewnet}:${DB_PASSWORD}@${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_NAME:-brewnet_db}}
+      - SQLITE_PATH=${SQLITE_PATH:-/app/data/brewnet_db.db}
+      - PRISMA_DB_PROVIDER=${PRISMA_DB_PROVIDER:-postgresql}
+    volumes:
+      - sqlite-data:/app/data
+    networks:
+      - brewnet
+      - brewnet-internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: false
+      mysql:
+        condition: service_healthy
+        required: false
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+    labels:
+      - "com.brewnet.stack=nodejs-nextjs-full"
+      - "com.brewnet.role=backend"
+
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["postgres"]
+    environment:
+      POSTGRES_DB: ${DB_NAME:-brewnet_db}
+      POSTGRES_USER: ${DB_USER:-brewnet}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - brewnet-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-brewnet}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  mysql:
+    image: mysql:8.4
+    profiles: ["mysql"]
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-brewnet_db}
+      MYSQL_USER: ${MYSQL_USER:-brewnet}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - brewnet-internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+networks:
+  brewnet:
+    driver: bridge
+  brewnet-internal:
+    driver: bridge
+    internal: true
+
+volumes:
+  pg-data:
+  mysql-data:
+  sqlite-data:
