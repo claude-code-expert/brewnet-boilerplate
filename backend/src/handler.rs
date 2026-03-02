@@ -9,7 +9,7 @@ pub async fn root() -> Json<Value> {
     Json(json!({
         "service": "axum-backend",
         "status": "running",
-        "message": "🍺 Brewnet says hello!"
+        "message": "Hello Brewnet (https://www.brewnet.dev)"
     }))
 }
 
@@ -76,7 +76,7 @@ mod tests {
         let body: Value = serde_json::from_slice(&bytes).unwrap();
         assert_eq!(body["service"], "axum-backend");
         assert_eq!(body["status"], "running");
-        assert_eq!(body["message"], "🍺 Brewnet says hello!");
+        assert_eq!(body["message"], "Hello Brewnet (https://www.brewnet.dev)");
     }
 
     #[tokio::test]
