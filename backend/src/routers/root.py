@@ -12,7 +12,7 @@ async def root():
     return {
         "service": "fastapi-backend",
         "status": "running",
-        "message": "🍺 Brewnet says hello!",
+        "message": "Hello Brewnet (https://www.brewnet.dev)",
     }
 
 
