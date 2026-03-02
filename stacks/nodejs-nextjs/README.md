@@ -10,6 +10,13 @@ No separate backend/frontend directories — Next.js serves both the UI and the 
 통합 풀스택 모노레포. PostgreSQL, MySQL, SQLite3 멀티 DB 지원.
 별도의 backend/frontend 디렉토리 없이, Next.js가 UI와 API를 단일 포트에서 모두 제공합니다.
 
+> **vs `nodejs-nextjs-full`**
+> This stack (`nodejs-nextjs`) focuses on **API Routes as the primary backend** — minimal UI, fast MVP, no React Server Components.
+> [`nodejs-nextjs-full`](../nodejs-nextjs-full/README.md) adds React **Server Components + Client Components + shared `lib/hello.ts`** for a full-stack UI pattern.
+>
+> 이 스택(`nodejs-nextjs`)은 **API Routes 백엔드 중심** — 최소 UI, 빠른 MVP, React Server Components 미사용.
+> [`nodejs-nextjs-full`](../nodejs-nextjs-full/README.md)은 React **Server Components + Client Components + 공유 `lib/hello.ts`** 패턴의 풀스택 UI를 제공합니다.
+
 ---
 
 ## Prerequisites / 사전 요구사항
@@ -81,7 +88,7 @@ npx prisma generate
 
 # Run with SQLite3 (no external DB needed / 외부 DB 불필요)
 DB_DRIVER=sqlite3 \
-DATABASE_URL="file:./data/brewnet.db" \
+DATABASE_URL="file:./data/brewnet_db.db" \
 npm run dev
 ```
 
@@ -170,39 +177,39 @@ If `DATABASE_URL` is set explicitly, it takes priority over the dynamic builder.
 ```env
 DB_DRIVER=postgres
 PRISMA_DB_PROVIDER=postgresql
-DATABASE_URL=postgresql://brewnet:brewnet_secret@postgres:5432/brewnet
+DATABASE_URL=postgresql://brewnet:password@postgres:5432/brewnet_db
 ```
 
 | Context | URL |
 |---------|-----|
-| Container (internal) | `postgresql://brewnet:brewnet_secret@postgres:5432/brewnet` |
-| Host (external) | `postgresql://brewnet:brewnet_secret@localhost:5433/brewnet` |
+| Container (internal) | `postgresql://brewnet:password@postgres:5432/brewnet_db` |
+| Host (external) | `postgresql://brewnet:password@localhost:5433/brewnet_db` |
 
 ### MySQL
 
 ```env
 DB_DRIVER=mysql
 PRISMA_DB_PROVIDER=mysql
-DATABASE_URL=mysql://brewnet:brewnet_secret@mysql:3306/brewnet
+DATABASE_URL=mysql://brewnet:password@mysql:3306/brewnet_db
 ```
 
 | Context | URL |
 |---------|-----|
-| Container (internal) | `mysql://brewnet:brewnet_secret@mysql:3306/brewnet` |
-| Host (external) | `mysql://brewnet:brewnet_secret@localhost:3307/brewnet` |
+| Container (internal) | `mysql://brewnet:password@mysql:3306/brewnet_db` |
+| Host (external) | `mysql://brewnet:password@localhost:3307/brewnet_db` |
 
 ### SQLite3
 
 ```env
 DB_DRIVER=sqlite3
 PRISMA_DB_PROVIDER=sqlite
-DATABASE_URL=file:/app/data/brewnet.db
+DATABASE_URL=file:/app/data/brewnet_db.db
 ```
 
 | Context | URL |
 |---------|-----|
-| Container (internal) | `file:/app/data/brewnet.db` |
-| Host / Local dev | `file:./data/brewnet.db` |
+| Container (internal) | `file:/app/data/brewnet_db.db` |
+| Host / Local dev | `file:./data/brewnet_db.db` |
 
 ### Prisma Singleton Pattern / Prisma 싱글톤 패턴
 
@@ -256,16 +263,16 @@ make dev
 | `STACK_LANG` | `nodejs-nextjs` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL DB 이름 |
+| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL DB 이름 |
 | `DB_USER` | `brewnet` | PostgreSQL username / PostgreSQL 사용자명 |
-| `DB_PASSWORD` | `brewnet_secret` | PostgreSQL password / PostgreSQL 비밀번호 |
+| `DB_PASSWORD` | `password` | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL host / MySQL 호스트 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL DB 이름 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL DB 이름 |
 | `MYSQL_USER` | `brewnet` | MySQL username / MySQL 사용자명 |
-| `MYSQL_PASSWORD` | `brewnet_secret` | MySQL password / MySQL 비밀번호 |
-| `MYSQL_ROOT_PASSWORD` | `root_secret` | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite file path / SQLite 파일 경로 |
+| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
+| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite file path / SQLite 파일 경로 |
 | `PRISMA_DB_PROVIDER` | `postgresql` | Prisma provider: `postgresql`, `mysql`, `sqlite` / Prisma 프로바이더 |
 | `DATABASE_URL` | *(auto from provider)* | Prisma connection URL / Prisma 연결 URL |
 

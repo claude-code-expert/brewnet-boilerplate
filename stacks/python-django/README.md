@@ -87,7 +87,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 # Run with SQLite (no external DB needed / 외부 DB 불필요)
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db python src/manage.py runserver 8080
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db python src/manage.py runserver 8080
 ```
 
 Django management commands available locally:
@@ -96,13 +96,13 @@ Django management commands available locally:
 
 ```bash
 # Run migrations / 마이그레이션 실행
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db python src/manage.py migrate
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db python src/manage.py migrate
 
 # Create superuser / 슈퍼유저 생성
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db python src/manage.py createsuperuser
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db python src/manage.py createsuperuser
 
 # Collect static files / 정적 파일 수집
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db python src/manage.py collectstatic
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db python src/manage.py collectstatic
 ```
 
 > **Note**: The `manage.py` file is located at `backend/manage.py`. The `DJANGO_SETTINGS_MODULE` is set to `src.config.settings`.
@@ -200,9 +200,9 @@ make dev
 DB_DRIVER=postgres
 DB_HOST=postgres          # container name (Docker) / 컨테이너 이름 (Docker)
 DB_PORT=5432
-DB_NAME=brewnet
+DB_NAME=brewnet_db
 DB_USER=brewnet
-DB_PASSWORD=brewnet_secret
+DB_PASSWORD=password
 ```
 
 Django DATABASES config (from `settings.py`):
@@ -213,7 +213,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": os.getenv("DB_HOST", "postgres"),
         "PORT": os.getenv("DB_PORT", "5432"),
-        "NAME": os.getenv("DB_NAME", "brewnet"),
+        "NAME": os.getenv("DB_NAME", "brewnet_db"),
         "USER": os.getenv("DB_USER", "brewnet"),
         "PASSWORD": os.getenv("DB_PASSWORD", ""),
     }
@@ -233,10 +233,10 @@ DATABASES = {
 DB_DRIVER=mysql
 MYSQL_HOST=mysql          # container name (Docker) / 컨테이너 이름 (Docker)
 MYSQL_PORT=3306
-MYSQL_DATABASE=brewnet
+MYSQL_DATABASE=brewnet_db
 MYSQL_USER=brewnet
-MYSQL_PASSWORD=brewnet_secret
-MYSQL_ROOT_PASSWORD=root_secret
+MYSQL_PASSWORD=password
+MYSQL_ROOT_PASSWORD=password
 ```
 
 Django DATABASES config (from `settings.py`):
@@ -247,7 +247,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "HOST": os.getenv("MYSQL_HOST", "mysql"),
         "PORT": os.getenv("MYSQL_PORT", "3306"),
-        "NAME": os.getenv("MYSQL_DATABASE", "brewnet"),
+        "NAME": os.getenv("MYSQL_DATABASE", "brewnet_db"),
         "USER": os.getenv("MYSQL_USER", "brewnet"),
         "PASSWORD": os.getenv("MYSQL_PASSWORD", ""),
     }
@@ -260,14 +260,14 @@ DATABASES = {
 |------|-------|
 | Django ENGINE | `django.db.backends.sqlite3` |
 | Driver | Built-in (Python stdlib) / 내장 (Python 표준 라이브러리) |
-| File path (container) | `/app/data/brewnet.db` |
-| File path (local) | `./data/brewnet.db` |
+| File path (container) | `/app/data/brewnet_db.db` |
+| File path (local) | `./data/brewnet_db.db` |
 | External container | Not needed / 불필요 |
 
 ```env
 DB_DRIVER=sqlite3
-SQLITE_PATH=/app/data/brewnet.db   # container path / 컨테이너 경로
-# Local: SQLITE_PATH=./data/brewnet.db
+SQLITE_PATH=/app/data/brewnet_db.db   # container path / 컨테이너 경로
+# Local: SQLITE_PATH=./data/brewnet_db.db
 ```
 
 Django DATABASES config (from `settings.py`):
@@ -276,7 +276,7 @@ Django DATABASES config (from `settings.py`):
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.getenv("SQLITE_PATH", "/app/data/brewnet.db"),
+        "NAME": os.getenv("SQLITE_PATH", "/app/data/brewnet_db.db"),
     }
 }
 ```
@@ -300,16 +300,16 @@ SQLite3는 외부 데이터베이스 컨테이너가 필요하지 않습니다. 
 | `STACK_LANG` | `python-django` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL 데이터베이스 이름 |
+| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL 데이터베이스 이름 |
 | `DB_USER` | `brewnet` | PostgreSQL user / PostgreSQL 사용자 |
 | `DB_PASSWORD` | - | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL host / MySQL 호스트 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL 데이터베이스 이름 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL 데이터베이스 이름 |
 | `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
 | `MYSQL_PASSWORD` | - | MySQL password / MySQL 비밀번호 |
 | `MYSQL_ROOT_PASSWORD` | - | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite3 file path / SQLite3 파일 경로 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite3 file path / SQLite3 파일 경로 |
 
 ---
 

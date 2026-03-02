@@ -60,7 +60,7 @@ make dev
 # Backend / 백엔드
 cd backend
 go mod tidy
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db go run cmd/server/main.go
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db go run cmd/server/main.go
 
 # Frontend / 프론트엔드 (separate terminal / 별도 터미널)
 cd frontend
@@ -97,7 +97,7 @@ Default: PostgreSQL. Change `DB_DRIVER` in `.env` to switch.
 DB_DRIVER=postgres
 DB_HOST=postgres          # Docker internal / Docker 내부
 DB_PORT=5432
-DB_NAME=brewnet
+DB_NAME=brewnet_db
 DB_USER=brewnet
 DB_PASSWORD=your_secret
 ```
@@ -117,10 +117,10 @@ postgresql://brewnet:your_secret@localhost:5433/brewnet
 DB_DRIVER=mysql
 MYSQL_HOST=mysql
 MYSQL_PORT=3306
-MYSQL_DATABASE=brewnet
+MYSQL_DATABASE=brewnet_db
 MYSQL_USER=brewnet
 MYSQL_PASSWORD=your_secret
-MYSQL_ROOT_PASSWORD=root_secret
+MYSQL_ROOT_PASSWORD=password
 ```
 
 ```
@@ -136,8 +136,8 @@ mysql://brewnet:your_secret@localhost:3307/brewnet
 ```bash
 # .env
 DB_DRIVER=sqlite3
-SQLITE_PATH=/app/data/brewnet.db    # container path
-# SQLITE_PATH=./data/brewnet.db     # local development
+SQLITE_PATH=/app/data/brewnet_db.db    # container path
+# SQLITE_PATH=./data/brewnet_db.db     # local development
 ```
 
 ```
@@ -157,16 +157,16 @@ SQLITE_PATH=/app/data/brewnet.db    # container path
 | `DB_DRIVER` | `postgres` | DB type: `postgres` \| `mysql` \| `sqlite3` |
 | `DB_HOST` | `postgres` | PostgreSQL host |
 | `DB_PORT` | `5432` | PostgreSQL port |
-| `DB_NAME` | `brewnet` | Database name |
+| `DB_NAME` | `brewnet_db` | Database name |
 | `DB_USER` | `brewnet` | Database user |
 | `DB_PASSWORD` | — | Database password (required) |
 | `MYSQL_HOST` | `mysql` | MySQL host |
 | `MYSQL_PORT` | `3306` | MySQL port |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database |
 | `MYSQL_USER` | `brewnet` | MySQL user |
 | `MYSQL_PASSWORD` | — | MySQL password |
 | `MYSQL_ROOT_PASSWORD` | — | MySQL root password |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite file path |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite file path |
 | `BACKEND_PORT` | `8080` | Backend host port |
 | `FRONTEND_PORT` | `3000` | Frontend host port |
 | `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev |

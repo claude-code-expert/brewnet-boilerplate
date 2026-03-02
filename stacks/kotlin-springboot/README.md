@@ -196,7 +196,7 @@ make dev
 ```kotlin
 // DataSourceConfig.kt - postgres case (default)
 config.apply {
-    jdbcUrl = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet")}"
+    jdbcUrl = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet_db")}"
     username = env("DB_USER", "brewnet")
     password = env("DB_PASSWORD", "")
     driverClassName = "org.postgresql.Driver"
@@ -215,7 +215,7 @@ config.apply {
 ```kotlin
 // DataSourceConfig.kt - mysql case
 config.apply {
-    jdbcUrl = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet")}"
+    jdbcUrl = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet_db")}"
     username = env("MYSQL_USER", "brewnet")
     password = env("MYSQL_PASSWORD", "")
     driverClassName = "com.mysql.cj.jdbc.Driver"
@@ -226,14 +226,14 @@ config.apply {
 
 | Property | Value |
 |----------|-------|
-| JDBC URL | `jdbc:sqlite:/app/data/brewnet.db` |
+| JDBC URL | `jdbc:sqlite:/app/data/brewnet_db.db` |
 | Driver class | `org.sqlite.JDBC` |
 | Note | No external DB service needed / 외부 DB 서비스 불필요 |
 
 ```kotlin
 // DataSourceConfig.kt - sqlite3 case
 config.apply {
-    jdbcUrl = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet.db")}"
+    jdbcUrl = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet_db.db")}"
     driverClassName = "org.sqlite.JDBC"
 }
 ```
@@ -257,16 +257,16 @@ config.apply {
 | `STACK_LANG` | `kotlin-springboot` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL DB 이름 |
+| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL DB 이름 |
 | `DB_USER` | `brewnet` | PostgreSQL user / PostgreSQL 사용자 |
-| `DB_PASSWORD` | `brewnet_secret` | PostgreSQL password / PostgreSQL 비밀번호 |
+| `DB_PASSWORD` | `password` | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL host / MySQL 호스트 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL DB 이름 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL DB 이름 |
 | `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
-| `MYSQL_PASSWORD` | `brewnet_secret` | MySQL password / MySQL 비밀번호 |
-| `MYSQL_ROOT_PASSWORD` | `root_secret` | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite3 file path / SQLite3 파일 경로 |
+| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
+| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite3 file path / SQLite3 파일 경로 |
 
 ---
 

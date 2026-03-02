@@ -87,7 +87,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 # Run with SQLite (no external DB needed / 외부 DB 불필요)
-DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet.db uvicorn src.main:app --reload --port 8080
+DB_DRIVER=sqlite3 SQLITE_PATH=./data/brewnet_db.db uvicorn src.main:app --reload --port 8080
 ```
 
 The `--reload` flag enables hot reload for development. FastAPI auto-generates interactive docs at http://localhost:8080/docs (Swagger UI) and http://localhost:8080/redoc (ReDoc).
@@ -182,9 +182,9 @@ make dev
 DB_DRIVER=postgres
 DB_HOST=postgres          # container name (Docker) / 컨테이너 이름 (Docker)
 DB_PORT=5432
-DB_NAME=brewnet
+DB_NAME=brewnet_db
 DB_USER=brewnet
-DB_PASSWORD=brewnet_secret
+DB_PASSWORD=password
 ```
 
 ### MySQL
@@ -201,25 +201,25 @@ DB_PASSWORD=brewnet_secret
 DB_DRIVER=mysql
 MYSQL_HOST=mysql          # container name (Docker) / 컨테이너 이름 (Docker)
 MYSQL_PORT=3306
-MYSQL_DATABASE=brewnet
+MYSQL_DATABASE=brewnet_db
 MYSQL_USER=brewnet
-MYSQL_PASSWORD=brewnet_secret
-MYSQL_ROOT_PASSWORD=root_secret
+MYSQL_PASSWORD=password
+MYSQL_ROOT_PASSWORD=password
 ```
 
 ### SQLite3
 
 | Item | Value |
 |------|-------|
-| Connection string (container) | `sqlite+aiosqlite:///./data/brewnet.db` |
-| Connection string (local) | `sqlite+aiosqlite:///./data/brewnet.db` |
+| Connection string (container) | `sqlite+aiosqlite:///./data/brewnet_db.db` |
+| Connection string (local) | `sqlite+aiosqlite:///./data/brewnet_db.db` |
 | Async driver | `aiosqlite` |
 | External container | Not needed / 불필요 |
 
 ```env
 DB_DRIVER=sqlite3
-SQLITE_PATH=/app/data/brewnet.db   # container path / 컨테이너 경로
-# Local: SQLITE_PATH=./data/brewnet.db
+SQLITE_PATH=/app/data/brewnet_db.db   # container path / 컨테이너 경로
+# Local: SQLITE_PATH=./data/brewnet_db.db
 ```
 
 No external database container is required for SQLite3. The database file is stored in the `data/` directory.
@@ -241,16 +241,16 @@ SQLite3는 외부 데이터베이스 컨테이너가 필요하지 않습니다. 
 | `STACK_LANG` | `python-fastapi` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL 데이터베이스 이름 |
+| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL 데이터베이스 이름 |
 | `DB_USER` | `brewnet` | PostgreSQL user / PostgreSQL 사용자 |
 | `DB_PASSWORD` | - | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL host / MySQL 호스트 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL 데이터베이스 이름 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL 데이터베이스 이름 |
 | `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
 | `MYSQL_PASSWORD` | - | MySQL password / MySQL 비밀번호 |
 | `MYSQL_ROOT_PASSWORD` | - | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite3 file path / SQLite3 파일 경로 |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite3 file path / SQLite3 파일 경로 |
 
 ---
 

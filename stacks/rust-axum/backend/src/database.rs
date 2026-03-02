@@ -13,7 +13,7 @@ pub async fn connect() -> Result<AnyPool, sqlx::Error> {
             env::var("DB_PASSWORD").unwrap_or_default(),
             env::var("DB_HOST").unwrap_or("postgres".into()),
             env::var("DB_PORT").unwrap_or("5432".into()),
-            env::var("DB_NAME").unwrap_or("brewnet".into()),
+            env::var("DB_NAME").unwrap_or("brewnet_db".into()),
         ),
         "mysql" => format!(
             "mysql://{}:{}@{}:{}/{}",
@@ -21,11 +21,11 @@ pub async fn connect() -> Result<AnyPool, sqlx::Error> {
             env::var("MYSQL_PASSWORD").unwrap_or_default(),
             env::var("MYSQL_HOST").unwrap_or("mysql".into()),
             env::var("MYSQL_PORT").unwrap_or("3306".into()),
-            env::var("MYSQL_DATABASE").unwrap_or("brewnet".into()),
+            env::var("MYSQL_DATABASE").unwrap_or("brewnet_db".into()),
         ),
         "sqlite3" => format!(
             "sqlite://{}",
-            env::var("SQLITE_PATH").unwrap_or("./data/brewnet.db".into())
+            env::var("SQLITE_PATH").unwrap_or("./data/brewnet_db.db".into())
         ),
         _ => panic!("Unsupported DB_DRIVER: {}", driver),
     };

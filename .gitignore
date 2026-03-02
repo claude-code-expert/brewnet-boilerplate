@@ -176,8 +176,12 @@ Thumbs.db
 
 # IDE
 .idea/
+.vscode/
 *.swp
 *.swo
+
+# Java/Kotlin compiled output (Eclipse bin/)
+**/backend/bin/
 
 # Operations (internal, not tracked)
 OPERATIONS.md

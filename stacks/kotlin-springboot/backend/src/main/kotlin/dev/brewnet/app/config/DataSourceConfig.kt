@@ -19,17 +19,17 @@ class DataSourceConfig {
 
         when (driver) {
             "mysql" -> config.apply {
-                jdbcUrl = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet")}"
+                jdbcUrl = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet_db")}"
                 username = env("MYSQL_USER", "brewnet")
                 password = env("MYSQL_PASSWORD", "")
                 driverClassName = "com.mysql.cj.jdbc.Driver"
             }
             "sqlite3" -> config.apply {
-                jdbcUrl = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet.db")}"
+                jdbcUrl = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet_db.db")}"
                 driverClassName = "org.sqlite.JDBC"
             }
             else -> config.apply {
-                jdbcUrl = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet")}"
+                jdbcUrl = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet_db")}"
                 username = env("DB_USER", "brewnet")
                 password = env("DB_PASSWORD", "")
                 driverClassName = "org.postgresql.Driver"

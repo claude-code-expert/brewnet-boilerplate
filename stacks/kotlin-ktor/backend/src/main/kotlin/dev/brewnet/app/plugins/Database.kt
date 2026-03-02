@@ -10,17 +10,17 @@ fun Application.configureDatabase() {
     try {
         when (driver) {
             "mysql" -> Database.connect(
-                url = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet")}",
+                url = "jdbc:mysql://${env("MYSQL_HOST", "mysql")}:${env("MYSQL_PORT", "3306")}/${env("MYSQL_DATABASE", "brewnet_db")}",
                 driver = "com.mysql.cj.jdbc.Driver",
                 user = env("MYSQL_USER", "brewnet"),
                 password = env("MYSQL_PASSWORD", "")
             )
             "sqlite3" -> Database.connect(
-                url = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet.db")}",
+                url = "jdbc:sqlite:${env("SQLITE_PATH", "/app/data/brewnet_db.db")}",
                 driver = "org.sqlite.JDBC"
             )
             else -> Database.connect(
-                url = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet")}",
+                url = "jdbc:postgresql://${env("DB_HOST", "postgres")}:${env("DB_PORT", "5432")}/${env("DB_NAME", "brewnet_db")}",
                 driver = "org.postgresql.Driver",
                 user = env("DB_USER", "brewnet"),
                 password = env("DB_PASSWORD", "")

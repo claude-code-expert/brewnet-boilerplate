@@ -143,16 +143,16 @@ volumes:
 | `DB_DRIVER` | All | `postgres` | Always |
 | `DB_HOST` | PostgreSQL | `postgres` | `DB_DRIVER=postgres` |
 | `DB_PORT` | PostgreSQL | `5432` | `DB_DRIVER=postgres` |
-| `DB_NAME` | PostgreSQL | `brewnet` | `DB_DRIVER=postgres` |
+| `DB_NAME` | PostgreSQL | `brewnet_db` | `DB_DRIVER=postgres` |
 | `DB_USER` | PostgreSQL | `brewnet` | `DB_DRIVER=postgres` |
 | `DB_PASSWORD` | PostgreSQL | *(required)* | `DB_DRIVER=postgres` |
 | `MYSQL_HOST` | MySQL | `mysql` | `DB_DRIVER=mysql` |
 | `MYSQL_PORT` | MySQL | `3306` | `DB_DRIVER=mysql` |
-| `MYSQL_DATABASE` | MySQL | `brewnet` | `DB_DRIVER=mysql` |
+| `MYSQL_DATABASE` | MySQL | `brewnet_db` | `DB_DRIVER=mysql` |
 | `MYSQL_USER` | MySQL | `brewnet` | `DB_DRIVER=mysql` |
 | `MYSQL_PASSWORD` | MySQL | *(required)* | `DB_DRIVER=mysql` |
 | `MYSQL_ROOT_PASSWORD` | MySQL | *(required)* | `DB_DRIVER=mysql` |
-| `SQLITE_PATH` | SQLite3 | `/app/data/brewnet.db` | `DB_DRIVER=sqlite3` |
+| `SQLITE_PATH` | SQLite3 | `/app/data/brewnet_db.db` | `DB_DRIVER=sqlite3` |
 | `BACKEND_PORT` | All | `8080` | Always |
 | `FRONTEND_PORT` | All | `3000` | When frontend exists |
 | `STACK_LANG` | All | *(stack-specific)* | Always |
