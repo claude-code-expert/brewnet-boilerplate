@@ -8,6 +8,6 @@ func Root(c fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"service": "fiber-backend",
 		"status":  "running",
-		"message": "🍺 Brewnet says hello!",
+		"message": "Brewnet says hello!",
 	})
 }

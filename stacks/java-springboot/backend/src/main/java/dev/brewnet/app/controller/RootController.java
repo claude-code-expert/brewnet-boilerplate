@@ -21,7 +21,7 @@ public class RootController {
         return Map.of(
             "service", "springboot-backend",
             "status", "running",
-            "message", "🍺 Brewnet says hello!"
+            "message", "Brewnet says hello!"
         );
     }
 

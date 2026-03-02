@@ -10,7 +10,7 @@ export class AppController {
         return {
             service: 'nestjs-backend',
             status: 'running',
-            message: '🍺 Brewnet says hello!',
+            message: 'Brewnet says hello!',
         };
     }
 

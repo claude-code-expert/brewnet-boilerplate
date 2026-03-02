@@ -14,7 +14,7 @@ def register_routes(app):
         return jsonify({
             "service": "flask-backend",
             "status": "running",
-            "message": "🍺 Brewnet says hello!",
+            "message": "Brewnet says hello!",
         })
 
     @app.route("/health", methods=["GET"])

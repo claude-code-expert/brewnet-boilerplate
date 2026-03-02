@@ -9,7 +9,7 @@ pub async fn root() -> HttpResponse {
     HttpResponse::Ok().json(json!({
         "service": "actix-web-backend",
         "status": "running",
-        "message": "🍺 Brewnet says hello!"
+        "message": "Brewnet says hello!"
     }))
 }
 
@@ -84,7 +84,7 @@ mod tests {
         let body: Value = test::read_body_json(resp).await;
         assert_eq!(body["service"], "actix-web-backend");
         assert_eq!(body["status"], "running");
-        assert_eq!(body["message"], "🍺 Brewnet says hello!");
+        assert_eq!(body["message"], "Brewnet says hello!");
     }
 
     #[actix_web::test]

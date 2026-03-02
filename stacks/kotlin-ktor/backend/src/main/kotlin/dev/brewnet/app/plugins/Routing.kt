@@ -14,7 +14,7 @@ fun Application.configureRouting() {
             call.respond(buildJsonObject {
                 put("service", "ktor-backend")
                 put("status", "running")
-                put("message", "🍺 Brewnet says hello!")
+                put("message", "Brewnet says hello!")
             })
         }
 
