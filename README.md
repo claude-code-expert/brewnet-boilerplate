@@ -555,16 +555,44 @@ Common across all stacks (`.env.example`):
 
 ## Dashboard / 대시보드
 
-The `dashboard/` directory contains a **Next.js 15 meta-dashboard** that lets you manage all 16 stacks from a browser UI without using the terminal.
+The `dashboard/` directory contains a **Next.js 15 meta-dashboard** that lets you start and test all 16 stacks from a browser UI — no terminal needed for each stack.
 
-`dashboard/` 디렉토리에는 터미널 없이 브라우저에서 16개 스택을 모두 관리할 수 있는 **Next.js 15 메타 대시보드**가 포함되어 있습니다.
+`dashboard/` 디렉토리에는 브라우저에서 16개 스택을 실행하고 테스트할 수 있는 **Next.js 15 메타 대시보드**가 포함되어 있습니다.
+
+### Quick Setup / 빠른 설정
+
+Clone this repository, navigate to `dashboard/`, and start the dev server:
+
+이 저장소를 클론한 후 `dashboard/` 디렉토리로 이동하여 개발 서버를 실행하세요:
 
 ```bash
-cd dashboard
+git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
+cd brewnet-boilerplate/dashboard
 npm install
 npm run dev
 # → http://localhost:4000
 ```
+
+Open **http://localhost:4000** in your browser. You will see all 16 stacks in a grid with:
+
+브라우저에서 **http://localhost:4000**을 열면 16개 스택이 그리드로 표시되며 다음을 확인할 수 있습니다:
+
+- **▶ Start** — launches the stack via `docker compose up -d --build` / `docker compose up -d --build`로 스택 실행
+- **README** — renders the stack's README.md in a modal / 해당 스택의 README.md를 모달로 렌더링
+- **GitHub ↗** — opens the stack's orphan branch on GitHub / GitHub의 orphan 브랜치로 바로 이동
+
+Once a stack is **Running**, connect to the address shown on the card:
+
+스택이 **Running** 상태가 되면 카드에 표시된 주소로 접속하세요:
+
+```
+Frontend  →  http://localhost:3001  (or whichever port was allocated)
+Backend   →  http://localhost:8081
+```
+
+![Brewnet Dashboard](./public/images/brewnet-boilerplate.png)
+
+### Dashboard Features / 대시보드 기능
 
 | Feature / 기능 | Description / 설명 |
 |----------------|---------------------|
@@ -572,10 +600,10 @@ npm run dev
 | Live status | Auto-polls running stack status every 5 seconds / 실행 중인 스택 상태를 5초마다 자동 갱신 |
 | Multi-stack | Dynamic port allocation (backend 8081–8096, frontend 3001–3016) supports simultaneous runs / 동적 포트 할당으로 여러 스택 동시 실행 가능 |
 | README viewer | Renders each stack's README.md in a modal / 각 스택의 README.md를 모달로 렌더링 |
-| API Explorer | Test all 4 endpoints inline (GET /, /health, /api/hello, POST /api/echo) / 4개 엔드포인트를 인라인에서 직접 테스트 |
+| API Explorer | Test all 4 endpoints inline (`GET /`, `/health`, `/api/hello`, `POST /api/echo`) / 4개 엔드포인트를 인라인에서 직접 테스트 |
 | GitHub links | Opens each stack's orphan branch directly / 각 스택의 orphan 브랜치를 바로 열기 |
 
-> **Note / 참고**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096). It requires Docker to be running on the host.
+> **Note / 참고**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096). Docker must be running on the host.
 > 대시보드는 스택 포트(3001–3016, 8081–8096)와 충돌을 방지하기 위해 **포트 4000**에서 실행됩니다. 호스트에서 Docker가 실행 중이어야 합니다.
 
 ---
