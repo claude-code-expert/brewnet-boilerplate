@@ -186,3 +186,8 @@ Thumbs.db
 # Operations (internal, not tracked)
 OPERATIONS.md
 shared/scripts/publish-stack-branches.sh
+
+# Dashboard (meta tool — build artifacts excluded from stack publishing)
+dashboard/.next/
+dashboard/node_modules/
+dashboard/.ports.json
