@@ -9,10 +9,13 @@ const POLL_INTERVAL = 5000;
 
 function BrewnetLogo() {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="8" fill="#38bdf8" />
-      <path d="M8 22V10h4c2.2 0 3.5 1.2 3.5 3 0 1-.5 1.8-1.3 2.3C15.5 15.8 16 16.8 16 18c0 2.2-1.4 4-4 4H8zm2.5-7.5h1.8c.9 0 1.4-.5 1.4-1.2 0-.8-.5-1.3-1.4-1.3h-1.8v2.5zm0 5.5h2c1 0 1.6-.6 1.6-1.5S13.5 17 12.5 17h-2v3z" fill="#0f172a" />
-      <path d="M17.5 10h2.5l2 8.5 2-8.5H26.5l-3 12h-3l-3-12z" fill="#0f172a" />
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#f5a623" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 26H32V34C32 36.8 29.8 39 27 39H13C10.2 39 8 36.8 8 34V26Z" strokeWidth="3.2" fill="none" />
+      <path d="M32 28.5C35.5 28.5 37 30.5 37 32.5C37 34.5 35.5 36.5 32 36.5" strokeWidth="3.2" fill="none" />
+      <circle cx="20" cy="30" r="1.8" fill="#f5a623" stroke="none" />
+      <path d="M16.5 20a5 5 0 0 1 7 0" strokeWidth="3" fill="none" />
+      <path d="M13.5 15.5a10 10 0 0 1 13 0" strokeWidth="3" fill="none" />
+      <path d="M10.5 11a15 15 0 0 1 19 0" strokeWidth="3" fill="none" />
     </svg>
   );
 }
@@ -113,9 +116,14 @@ export default function Dashboard() {
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
         <BrewnetLogo />
-        <div>
-          <h1 style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.02em" }}>Brewnet Dashboard</h1>
-          <p style={{ fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ fontFamily: "var(--mono)", fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", color: "#f5a623", lineHeight: 1 }}>
+            Brewnet
+          </span>
+          <span style={{ fontFamily: "var(--font)", fontSize: 10, fontWeight: 400, color: "#ffffff", letterSpacing: "0.02em", marginTop: 2 }}>
+            Your server on tap. Just brew it.
+          </span>
+          <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 4 }}>
             {stacks.filter((s) => s.status === "running").length} running ·{" "}
             {stacks.length} stacks total
           </p>
