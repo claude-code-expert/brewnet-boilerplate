@@ -7,7 +7,7 @@ router.get("/", (_req: Request, res: Response) => {
   res.json({
     service: "express-backend",
     status: "running",
-    message: "🍺 Brewnet says hello!",
+    message: "Hello Brewnet (https://www.brewnet.dev)",
   });
 });
 
