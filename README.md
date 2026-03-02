@@ -76,7 +76,7 @@ open http://localhost:3000
 | | `go-fiber` | Fiber v3 | GORM | `backend/cmd/server/main.go` |
 | **Rust** | `rust-actix-web` | Actix-web 4 | SQLx | `backend/src/main.rs` |
 | | `rust-axum` | Axum 0.8 | SQLx | `backend/src/main.rs` |
-| **Java** | `java-springboot` | Spring Boot 3.3 | JPA / JDBC | `backend/src/.../Application.java` |
+| **Java** | `java-springboot` | Spring Boot 3.4 | JPA / JDBC | `backend/src/.../Application.java` |
 | | `java-spring` | Spring Framework 6.2 | JDBC / HikariCP | `backend/src/.../Application.java` |
 | **Kotlin** | `kotlin-ktor` | Ktor 3.1 | Exposed ORM | `backend/src/.../Application.kt` |
 | | `kotlin-springboot` | Spring Boot 3.4 | JDBC | `backend/src/.../Application.kt` |
@@ -303,7 +303,7 @@ open http://localhost:3000
 | `go-fiber` | Go | Fiber v3 | 8080 |
 | `rust-actix-web` | Rust | Actix-web 4 | 8080 |
 | `rust-axum` | Rust | Axum 0.8 | 8080 |
-| `java-springboot` | Java | Spring Boot 3.3 | 8080 |
+| `java-springboot` | Java | Spring Boot 3.4 | 8080 |
 | `java-spring` | Java | Spring Framework 6.2 | 8080 |
 | `kotlin-ktor` | Kotlin | Ktor 3.1 | 8080 |
 | `kotlin-springboot` | Kotlin | Spring Boot 3.4 | 8080 |

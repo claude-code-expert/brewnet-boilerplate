@@ -6,6 +6,58 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [v1.0.4] - 2026-03-02
+
+### Added / 추가
+
+- **`stacks/nodejs-nextjs-full/`** — Next.js 15 Full-Stack boilerplate (16th stack)
+  - Server Components + Client Components + shared `lib/hello.ts` pattern
+  - Unified frontend+backend on port 3000 (no separate frontend service)
+  - Prisma ORM with PostgreSQL / MySQL / SQLite3 support
+  - Vitest test suite covering all 4 API endpoints (`/`, `/health`, `/api/hello`, `POST /api/echo`)
+  - Docker: `node:22-alpine` multi-stage build, non-root user, HEALTHCHECK
+
+### Changed / 변경
+
+- **Root README.md**
+  - Stack count: 15 → 16
+  - Added `stacks/nodejs-nextjs-full/` to repository structure tree
+  - Fixed boilerplate repository URL: `user/brewnet-boilerplate` → `claude-code-expert/brewnet-boilerplate`
+  - Added `stack/{name}` branch mapping table for all 16 stacks
+  - Fixed `java-springboot` framework version: Spring Boot 3.3 → Spring Boot 3.4
+- **`stacks/nodejs-nextjs/README.md`**: Added cross-reference note to `nodejs-nextjs-full`
+- **`stacks/java-springboot/README.md`**: Removed duplicate header line; fixed `DB_NAME` default
+- **`stacks/kotlin-ktor/README.md`**: Removed duplicate subtitle line
+- **`.gitignore`**: Added `.vscode/` and `**/backend/bin/` entries
+
+### CLI Integration (brewnet-cli `feature/traefik`) / CLI 연동
+
+**Go framework routing** (was: single `goTemplate()` → Express-like fallback)
+- `ginTemplate()`: Gin 1.10.0, Go 1.22, `cmd/server/main.go` + `internal/handler/*` + `internal/database/database.go`
+- `echoTemplate()`: Echo 4.13.3, Go 1.22, same modular structure
+- `fiberTemplate()`: Fiber v3, Go 1.25, same modular structure
+- All templates: GORM multi-DB (PostgreSQL / MySQL / SQLite3), multi-stage Dockerfile
+- `getScaffoldTemplate()` `case 'go':` — framework switch (default: gin)
+- `getDevConfig()` `case 'go':` — `go run ./cmd/server` (was `go run .`)
+
+**Kotlin framework routing** (was: missing → Express fallback)
+- `ktorTemplate()`: Kotlin 2.1.10, Ktor 3.1.1, Exposed ORM 0.58.0
+  - Files: `build.gradle.kts`, `Application.kt`, `plugins/Routing.kt`, `plugins/Database.kt`, `plugins/Serialization.kt`, `Dockerfile`, `.dockerignore`
+- `springbootKtTemplate()`: Kotlin 2.1.10, Spring Boot 3.4.3, HikariCP
+  - Files: `build.gradle.kts`, `Application.kt`, `controller/ApiController.kt`, `config/DataSourceConfig.kt`, `application.yml`, `Dockerfile`, `.dockerignore`
+- `getScaffoldTemplate()` `case 'kotlin':` — framework switch (default: ktor)
+- `getDevConfig()` `case 'kotlin':` — `gradle run` (Ktor) / `gradle bootRun` (Spring Boot Kotlin)
+- `getSampleDataFiles()` `case 'kotlin':` — `src/main/resources/data.json`
+
+**Version display fixes** (`dev-stack.ts` wizard header)
+- Go: `1.24` → `1.22+` (actual range 1.22–1.25 depending on framework)
+- Rust: `1.85` → `1.88`
+- Kotlin: `2.3` → `2.1`
+
+**Test coverage**: 52 → 92 tests (40 added, all passing)
+
+---
+
 ## [v1.0.3] - 2026-03-01
 
 ### Changed / 변경
