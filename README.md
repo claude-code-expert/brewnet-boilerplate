@@ -23,6 +23,33 @@ Multi-language fullstack boilerplate monorepo for the **Brewnet CLI** (`brewnet 
 
 **Brewnet CLI** (`brewnet create-app`)를 위한 다중 언어 풀스택 보일러플레이트 모노레포입니다. 각 스택은 `docker compose up` 한 번으로 실행 가능한 독립적인 백엔드 + 프론트엔드 프로젝트입니다.
 
+## Prerequisites / 사전 요구사항
+
+Before running any stack, make sure the following are installed and running on your machine:
+
+스택을 실행하기 전에 아래 항목이 설치되어 있고 실행 중인지 확인하세요:
+
+| Requirement / 요구사항 | Version / 버전 | Install / 설치 |
+|------------------------|----------------|----------------|
+| **Docker Desktop** (macOS / Windows) or **Docker Engine** (Linux) | 27+ | [docs.docker.com/get-docker](https://docs.docker.com/get-docker/) |
+| **Docker Compose** (bundled with Docker Desktop) | v2+ | included in Docker Desktop |
+| **Node.js** (dashboard only) | 18+ | [nodejs.org](https://nodejs.org/) |
+
+> ⚠️ **Docker Desktop must be running** before you click **Start** on any stack or run `make dev`.
+> Each stack starts its backend, frontend, and database as Docker containers via `docker compose up -d --build`.
+>
+> ⚠️ **▶ Start 버튼** 클릭 또는 `make dev` 실행 전에 **Docker Desktop이 반드시 실행 중** 이어야 합니다.
+> 각 스택은 `docker compose up -d --build` 명령으로 백엔드, 프론트엔드, DB를 Docker 컨테이너로 실행합니다.
+
+```bash
+# Verify Docker is running / Docker 실행 확인
+docker info
+# If you see "Cannot connect to the Docker daemon" → open Docker Desktop first
+# "Cannot connect to the Docker daemon" 메시지가 나오면 → Docker Desktop을 먼저 실행하세요
+```
+
+---
+
 ## Quick Start / 빠른 시작
 
 ### Option 1: Brewnet CLI (Recommended / 권장)
@@ -76,7 +103,7 @@ open http://localhost:3000
 | | `go-fiber` | Fiber v3 | GORM | `backend/cmd/server/main.go` |
 | **Rust** | `rust-actix-web` | Actix-web 4 | SQLx | `backend/src/main.rs` |
 | | `rust-axum` | Axum 0.8 | SQLx | `backend/src/main.rs` |
-| **Java** | `java-springboot` | Spring Boot 3.4 | JPA / JDBC | `backend/src/.../Application.java` |
+| **Java** | `java-springboot` | Spring Boot 3.3 | JPA / JDBC | `backend/src/.../Application.java` |
 | | `java-spring` | Spring Framework 6.2 | JDBC / HikariCP | `backend/src/.../Application.java` |
 | **Kotlin** | `kotlin-ktor` | Ktor 3.1 | Exposed ORM | `backend/src/.../Application.kt` |
 | | `kotlin-springboot` | Spring Boot 3.4 | JDBC | `backend/src/.../Application.kt` |
@@ -303,7 +330,7 @@ open http://localhost:3000
 | `go-fiber` | Go | Fiber v3 | 8080 |
 | `rust-actix-web` | Rust | Actix-web 4 | 8080 |
 | `rust-axum` | Rust | Axum 0.8 | 8080 |
-| `java-springboot` | Java | Spring Boot 3.4 | 8080 |
+| `java-springboot` | Java | Spring Boot 3.3 | 8080 |
 | `java-spring` | Java | Spring Framework 6.2 | 8080 |
 | `kotlin-ktor` | Kotlin | Ktor 3.1 | 8080 |
 | `kotlin-springboot` | Kotlin | Spring Boot 3.4 | 8080 |
@@ -471,10 +498,10 @@ brewnet-boilerplate/
 │   ├── go-fiber/                    ← Go (Fiber v3 + React)
 │   ├── rust-actix-web/              ← Rust (Actix-web + React)
 │   ├── rust-axum/                   ← Rust (Axum + React)
-│   ├── java-springboot/             ← Java (Spring Boot + React)
-│   ├── java-spring/                 ← Java (Spring Framework + React)
+│   ├── java-springboot/             ← Java (Spring Boot 3.3 + React)
+│   ├── java-spring/                 ← Java (Spring Framework 6.2 + React)
 │   ├── kotlin-ktor/                 ← Kotlin (Ktor + React)
-│   ├── kotlin-springboot/           ← Kotlin (Spring Boot + React)
+│   ├── kotlin-springboot/           ← Kotlin (Spring Boot 3.4 + React)
 │   ├── nodejs-express/              ← Node.js (Express + React)
 │   ├── nodejs-nestjs/               ← Node.js (NestJS + React)
 │   ├── nodejs-nextjs/               ← Node.js (Next.js API Routes, unified)
@@ -482,7 +509,8 @@ brewnet-boilerplate/
 │   ├── python-fastapi/              ← Python (FastAPI + React)
 │   ├── python-django/               ← Python (Django + React)
 │   ├── python-flask/                ← Python (Flask + React)
-│   └── frontend-template/            ← Shared React frontend template
+│   └── frontend-template/           ← Shared React frontend template
+├── dashboard/                       ← Stack management dashboard (Next.js 15, port 4000)
 ├── shared/                          ← Common scripts / 공용 스크립트
 │   ├── scripts/validate.sh          ← Health check + API verification
 │   └── traefik/                     ← Reverse proxy config
@@ -549,6 +577,79 @@ Common across all stacks (`.env.example`):
 | `FRONTEND_PORT` | `3000` | Frontend host port / 프론트엔드 포트 |
 | `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev / 프론트엔드 개발용 API URL |
 | `TZ` | `Asia/Seoul` | Timezone / 타임존 |
+
+---
+
+## Dashboard / 대시보드
+
+The `dashboard/` directory contains a **Next.js 15 meta-dashboard** that lets you start and test all 16 stacks from a browser UI — no terminal needed for each stack.
+
+`dashboard/` 디렉토리에는 브라우저에서 16개 스택을 실행하고 테스트할 수 있는 **Next.js 15 메타 대시보드**가 포함되어 있습니다.
+
+### Prerequisites / 사전 요구사항
+
+| Requirement / 요구사항 | Note / 설명 |
+|------------------------|-------------|
+| **Node.js 18+** | Required to run the dashboard itself / 대시보드 실행에 필요 |
+| **Docker Desktop** (running) | Required to **Start** any stack / 스택 **Start** 시 필요 |
+
+> ⚠️ The dashboard UI (`npm run dev`) starts without Docker. However, clicking **▶ Start** on any stack card runs `docker compose up -d --build` internally — **Docker Desktop must be open and running** at that point.
+>
+> ⚠️ 대시보드 UI(`npm run dev`)는 Docker 없이 시작됩니다. 하지만 스택 카드의 **▶ Start** 버튼을 누르면 내부적으로 `docker compose up -d --build`를 실행하므로 — 그 시점에 **Docker Desktop이 반드시 실행 중**이어야 합니다.
+
+### Quick Setup / 빠른 설정
+
+Clone this repository, navigate to `dashboard/`, and start the dev server:
+
+이 저장소를 클론한 후 `dashboard/` 디렉토리로 이동하여 개발 서버를 실행하세요:
+
+```bash
+# 1. Verify Docker Desktop is running / Docker Desktop 실행 확인
+docker info
+
+# 2. Clone and start the dashboard / 저장소 클론 후 대시보드 실행
+git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
+cd brewnet-boilerplate/dashboard
+npm install
+npm run dev
+# → http://localhost:4000
+```
+
+Open **http://localhost:4000** in your browser. You will see all 16 stacks in a grid with:
+
+브라우저에서 **http://localhost:4000**을 열면 16개 스택이 그리드로 표시되며 다음을 확인할 수 있습니다:
+
+- **▶ Start** — launches the stack via `docker compose up -d --build` / `docker compose up -d --build`로 스택 실행
+- **README** — renders the stack's README.md in a modal / 해당 스택의 README.md를 모달로 렌더링
+- **GitHub ↗** — opens the stack's orphan branch on GitHub / GitHub의 orphan 브랜치로 바로 이동
+
+Once a stack is **Running**, connect to the address shown on the card:
+
+스택이 **Running** 상태가 되면 카드에 표시된 주소로 접속하세요:
+
+```
+Frontend  →  http://localhost:3001  (or whichever port was allocated)
+Backend   →  http://localhost:8081
+```
+
+![Brewnet Dashboard](./public/images/brewnet-boilerplate.png)
+
+### Dashboard Features / 대시보드 기능
+
+| Feature / 기능 | Description / 설명 |
+|----------------|---------------------|
+| Start / Stop | Launch any stack via `docker compose up -d --build` / 원하는 스택을 `docker compose up -d --build`로 실행 |
+| Live status | Auto-polls running stack status every 5 seconds / 실행 중인 스택 상태를 5초마다 자동 갱신 |
+| Multi-stack | Dynamic port allocation (backend 8081–8096, frontend 3001–3016) supports simultaneous runs / 동적 포트 할당으로 여러 스택 동시 실행 가능 |
+| README viewer | Renders each stack's README.md in a modal / 각 스택의 README.md를 모달로 렌더링 |
+| API Explorer | Test all 4 endpoints inline (`GET /`, `/health`, `/api/hello`, `POST /api/echo`) / 4개 엔드포인트를 인라인에서 직접 테스트 |
+| GitHub links | Opens each stack's orphan branch directly / 각 스택의 orphan 브랜치를 바로 열기 |
+
+> **Note / 참고**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096).
+> **Docker Desktop must be open and running** on the host before clicking Start on any stack card.
+>
+> 대시보드는 스택 포트(3001–3016, 8081–8096)와 충돌을 방지하기 위해 **포트 4000**에서 실행됩니다.
+> 스택 카드에서 Start를 클릭하기 전에 **Docker Desktop이 반드시 실행 중**이어야 합니다.
 
 ---
 
