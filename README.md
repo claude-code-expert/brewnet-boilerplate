@@ -76,7 +76,7 @@ open http://localhost:3000
 | | `go-fiber` | Fiber v3 | GORM | `backend/cmd/server/main.go` |
 | **Rust** | `rust-actix-web` | Actix-web 4 | SQLx | `backend/src/main.rs` |
 | | `rust-axum` | Axum 0.8 | SQLx | `backend/src/main.rs` |
-| **Java** | `java-springboot` | Spring Boot 3.4 | JPA / JDBC | `backend/src/.../Application.java` |
+| **Java** | `java-springboot` | Spring Boot 3.3 | JPA / JDBC | `backend/src/.../Application.java` |
 | | `java-spring` | Spring Framework 6.2 | JDBC / HikariCP | `backend/src/.../Application.java` |
 | **Kotlin** | `kotlin-ktor` | Ktor 3.1 | Exposed ORM | `backend/src/.../Application.kt` |
 | | `kotlin-springboot` | Spring Boot 3.4 | JDBC | `backend/src/.../Application.kt` |
@@ -303,7 +303,7 @@ open http://localhost:3000
 | `go-fiber` | Go | Fiber v3 | 8080 |
 | `rust-actix-web` | Rust | Actix-web 4 | 8080 |
 | `rust-axum` | Rust | Axum 0.8 | 8080 |
-| `java-springboot` | Java | Spring Boot 3.4 | 8080 |
+| `java-springboot` | Java | Spring Boot 3.3 | 8080 |
 | `java-spring` | Java | Spring Framework 6.2 | 8080 |
 | `kotlin-ktor` | Kotlin | Ktor 3.1 | 8080 |
 | `kotlin-springboot` | Kotlin | Spring Boot 3.4 | 8080 |
@@ -471,10 +471,10 @@ brewnet-boilerplate/
 │   ├── go-fiber/                    ← Go (Fiber v3 + React)
 │   ├── rust-actix-web/              ← Rust (Actix-web + React)
 │   ├── rust-axum/                   ← Rust (Axum + React)
-│   ├── java-springboot/             ← Java (Spring Boot + React)
-│   ├── java-spring/                 ← Java (Spring Framework + React)
+│   ├── java-springboot/             ← Java (Spring Boot 3.3 + React)
+│   ├── java-spring/                 ← Java (Spring Framework 6.2 + React)
 │   ├── kotlin-ktor/                 ← Kotlin (Ktor + React)
-│   ├── kotlin-springboot/           ← Kotlin (Spring Boot + React)
+│   ├── kotlin-springboot/           ← Kotlin (Spring Boot 3.4 + React)
 │   ├── nodejs-express/              ← Node.js (Express + React)
 │   ├── nodejs-nestjs/               ← Node.js (NestJS + React)
 │   ├── nodejs-nextjs/               ← Node.js (Next.js API Routes, unified)
@@ -482,7 +482,8 @@ brewnet-boilerplate/
 │   ├── python-fastapi/              ← Python (FastAPI + React)
 │   ├── python-django/               ← Python (Django + React)
 │   ├── python-flask/                ← Python (Flask + React)
-│   └── frontend-template/            ← Shared React frontend template
+│   └── frontend-template/           ← Shared React frontend template
+├── dashboard/                       ← Stack management dashboard (Next.js 15, port 4000)
 ├── shared/                          ← Common scripts / 공용 스크립트
 │   ├── scripts/validate.sh          ← Health check + API verification
 │   └── traefik/                     ← Reverse proxy config
@@ -549,6 +550,33 @@ Common across all stacks (`.env.example`):
 | `FRONTEND_PORT` | `3000` | Frontend host port / 프론트엔드 포트 |
 | `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev / 프론트엔드 개발용 API URL |
 | `TZ` | `Asia/Seoul` | Timezone / 타임존 |
+
+---
+
+## Dashboard / 대시보드
+
+The `dashboard/` directory contains a **Next.js 15 meta-dashboard** that lets you manage all 16 stacks from a browser UI without using the terminal.
+
+`dashboard/` 디렉토리에는 터미널 없이 브라우저에서 16개 스택을 모두 관리할 수 있는 **Next.js 15 메타 대시보드**가 포함되어 있습니다.
+
+```bash
+cd dashboard
+npm install
+npm run dev
+# → http://localhost:4000
+```
+
+| Feature / 기능 | Description / 설명 |
+|----------------|---------------------|
+| Start / Stop | Launch any stack via `docker compose up -d --build` / 원하는 스택을 `docker compose up -d --build`로 실행 |
+| Live status | Auto-polls running stack status every 5 seconds / 실행 중인 스택 상태를 5초마다 자동 갱신 |
+| Multi-stack | Dynamic port allocation (backend 8081–8096, frontend 3001–3016) supports simultaneous runs / 동적 포트 할당으로 여러 스택 동시 실행 가능 |
+| README viewer | Renders each stack's README.md in a modal / 각 스택의 README.md를 모달로 렌더링 |
+| API Explorer | Test all 4 endpoints inline (GET /, /health, /api/hello, POST /api/echo) / 4개 엔드포인트를 인라인에서 직접 테스트 |
+| GitHub links | Opens each stack's orphan branch directly / 각 스택의 orphan 브랜치를 바로 열기 |
+
+> **Note / 참고**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096). It requires Docker to be running on the host.
+> 대시보드는 스택 포트(3001–3016, 8081–8096)와 충돌을 방지하기 위해 **포트 4000**에서 실행됩니다. 호스트에서 Docker가 실행 중이어야 합니다.
 
 ---
 

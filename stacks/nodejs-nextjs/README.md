@@ -63,6 +63,9 @@ cp .env.example .env
 make dev
 ```
 
+> **Tip / 팁**: You can also start this stack from the [Brewnet Dashboard](../../dashboard/) — a browser UI that manages all 16 stacks with live status, README viewer, and inline API Explorer.
+> [Brewnet Dashboard](../../dashboard/)에서 이 스택을 시작할 수도 있습니다 — 16개 스택의 실행 상태, README, API 테스트를 브라우저에서 한 번에 관리합니다.
+
 Once running, open your browser: / 실행 후 브라우저에서 확인:
 
 | URL | Description / 설명 |
