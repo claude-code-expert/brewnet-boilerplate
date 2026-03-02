@@ -48,16 +48,14 @@ open http://localhost:3000
 ### Option 2: Manual Clone / 수동 클론
 
 ```bash
-# Clone the entire boilerplate repo / 전체 보일러플레이트 저장소 클론
-git clone https://github.com/user/brewnet-boilerplate.git
-cd brewnet-boilerplate
-
-# Pick a stack and run / 스택을 선택하고 실행
-cd stacks/go-gin
+# Recommended: clone a specific stack branch directly
+# 권장: 원하는 스택 브랜치를 직접 clone
+git clone --depth=1 -b stack/go-gin \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git my-project
+cd my-project
 cp .env.example .env
 make dev
 
-# Open your app / 앱 열기
 open http://localhost:3000
 ```
 
@@ -65,9 +63,9 @@ open http://localhost:3000
 
 ## Available Stacks / 지원 스택
 
-15 backend stacks, all production-ready with Docker. Each stack includes React 19 + Vite 6 + TypeScript as the default frontend.
+16 backend stacks, all production-ready with Docker. Each stack includes React 19 + Vite 6 + TypeScript as the default frontend.
 
-15개의 백엔드 스택을 제공하며, 모두 Docker로 프로덕션 준비가 되어 있습니다. 각 스택에는 React 19 + Vite 6 + TypeScript가 기본 프론트엔드로 포함되어 있습니다.
+16개의 백엔드 스택을 제공하며, 모두 Docker로 프로덕션 준비가 되어 있습니다. 각 스택에는 React 19 + Vite 6 + TypeScript가 기본 프론트엔드로 포함되어 있습니다.
 
 ### Backend Stacks / 백엔드 스택
 
@@ -78,19 +76,48 @@ open http://localhost:3000
 | | `go-fiber` | Fiber v3 | GORM | `backend/cmd/server/main.go` |
 | **Rust** | `rust-actix-web` | Actix-web 4 | SQLx | `backend/src/main.rs` |
 | | `rust-axum` | Axum 0.8 | SQLx | `backend/src/main.rs` |
-| **Java** | `java-springboot` | Spring Boot 3.4 | JPA / JDBC | `backend/src/.../Application.java` |
+| **Java** | `java-springboot` | Spring Boot 3.3 | JPA / JDBC | `backend/src/.../Application.java` |
 | | `java-spring` | Spring Framework 6.2 | JDBC / HikariCP | `backend/src/.../Application.java` |
 | **Kotlin** | `kotlin-ktor` | Ktor 3.1 | Exposed ORM | `backend/src/.../Application.kt` |
 | | `kotlin-springboot` | Spring Boot 3.4 | JDBC | `backend/src/.../Application.kt` |
 | **Node.js** | `nodejs-express` | Express 5 | Prisma | `backend/src/index.ts` |
 | | `nodejs-nestjs` | NestJS 11 | Prisma | `backend/src/main.ts` |
-| | `nodejs-nextjs` | Next.js 15 | Prisma | `src/app/route.ts` |
+| | `nodejs-nextjs` | Next.js 15 (API Routes) | Prisma | `src/app/route.ts` |
+| | `nodejs-nextjs-full` | Next.js 15 (Full-Stack) | Prisma | `src/app/route.ts` |
 | **Python** | `python-fastapi` | FastAPI | SQLAlchemy (async) | `backend/src/main.py` |
 | | `python-django` | Django 6 | Django ORM | `backend/src/config/wsgi.py` |
 | | `python-flask` | Flask 3.1 | Flask-SQLAlchemy | `backend/wsgi.py` |
 
-> **Note / 참고**: `nodejs-nextjs` is a unified stack — frontend and backend are a single Next.js app on port 3000.
-> `nodejs-nextjs`는 통합 스택으로, 프론트엔드와 백엔드가 하나의 Next.js 앱으로 포트 3000에서 동작합니다.
+> **Note / 참고**: Both `nodejs-nextjs` variants are unified stacks (no separate frontend container) on port 3000.
+> - `nodejs-nextjs`: API Routes 백엔드 중심 — 최소 UI, 빠른 MVP
+> - `nodejs-nextjs-full`: Server Components + Client Components + API Routes — 풀스택 UI 포함
+
+### Stack Branch Mapping / 스택 브랜치 대응표
+
+Each stack is published as an independent `stack/{name}` branch for direct clone:
+
+각 스택은 직접 clone 가능한 독립 브랜치 `stack/{name}`으로 퍼블리시됩니다:
+
+```
+Stack ID               → Branch
+────────────────────────────────────────────
+go-gin                 → stack/go-gin
+go-echo                → stack/go-echo
+go-fiber               → stack/go-fiber
+rust-actix-web         → stack/rust-actix-web
+rust-axum              → stack/rust-axum
+java-springboot        → stack/java-springboot
+java-spring            → stack/java-spring
+kotlin-ktor            → stack/kotlin-ktor
+kotlin-springboot      → stack/kotlin-springboot
+nodejs-express         → stack/nodejs-express
+nodejs-nestjs          → stack/nodejs-nestjs
+nodejs-nextjs          → stack/nodejs-nextjs
+nodejs-nextjs-full     → stack/nodejs-nextjs-full
+python-fastapi         → stack/python-fastapi
+python-django          → stack/python-django
+python-flask           → stack/python-flask
+```
 
 ---
 
@@ -153,11 +180,143 @@ brewnet create-app my-api --stack python-fastapi --frontend none
 brewnet create-app my-project --stack go-gin
 ```
 
-1. Shallow-clones this repo / 이 저장소를 shallow clone합니다
-2. Copies `stacks/go-gin/` → `~/.brewnet/projects/my-project/` / 스택 복사
-3. Auto-generates `.env` with secure secrets / 보안 시크릿이 포함된 `.env` 자동 생성
-4. Runs `docker compose up -d` / Docker 컨테이너 시작
+1. `git clone --depth=1 -b stack/go-gin`
+   `  https://github.com/claude-code-expert/brewnet-boilerplate.git my-project`
+2. Auto-generates `.env` with secure secrets (based on `.env.example`) / `.env.example` 기반으로 보안 시크릿이 포함된 `.env` 자동 생성
+3. Runs `docker compose up -d` / Docker 컨테이너 시작
+4. Verifies `/health` + `/api/hello` respond correctly / 헬스체크 및 API 응답 확인
 5. Opens `http://localhost:3000` / 브라우저에서 앱 열기
+
+---
+
+## CLI Integration Reference / CLI 연동 레퍼런스
+
+> This section is the authoritative reference for implementing `brewnet create-app`.
+> `brewnet create-app` 구현 시 이 섹션을 기준으로 사용하세요.
+
+### Repository / 저장소
+
+```
+REPO_URL = https://github.com/claude-code-expert/brewnet-boilerplate.git
+```
+
+### Clone Command Pattern / 클론 명령어 패턴
+
+```bash
+git clone --depth=1 -b stack/<STACK_ID> \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <PROJECT_NAME>
+```
+
+### All Stack Clone Commands / 전체 스택 클론 명령어
+
+```bash
+# go-gin
+git clone --depth=1 -b stack/go-gin \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# go-echo
+git clone --depth=1 -b stack/go-echo \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# go-fiber
+git clone --depth=1 -b stack/go-fiber \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# rust-actix-web
+git clone --depth=1 -b stack/rust-actix-web \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# rust-axum
+git clone --depth=1 -b stack/rust-axum \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# java-springboot
+git clone --depth=1 -b stack/java-springboot \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# java-spring
+git clone --depth=1 -b stack/java-spring \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# kotlin-ktor
+git clone --depth=1 -b stack/kotlin-ktor \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# kotlin-springboot
+git clone --depth=1 -b stack/kotlin-springboot \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# nodejs-express
+git clone --depth=1 -b stack/nodejs-express \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# nodejs-nestjs
+git clone --depth=1 -b stack/nodejs-nestjs \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# nodejs-nextjs (API Routes — minimal UI, fast MVP)
+git clone --depth=1 -b stack/nodejs-nextjs \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# nodejs-nextjs-full (Full-Stack — Server Components + Client Components + API Routes)
+git clone --depth=1 -b stack/nodejs-nextjs-full \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# python-fastapi
+git clone --depth=1 -b stack/python-fastapi \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# python-django
+git clone --depth=1 -b stack/python-django \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+
+# python-flask
+git clone --depth=1 -b stack/python-flask \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+```
+
+### Post-Clone Flow / 클론 후 처리 순서
+
+```bash
+cd <project>
+
+# 1. Generate .env from template / 템플릿으로 .env 생성 (+ 시크릿 자동 생성)
+cp .env.example .env
+
+# 2. Start containers / 컨테이너 시작
+docker compose up -d
+
+# 3. Verify / 검증
+curl -sf http://localhost:8080/health   # → {"status":"ok","db_connected":true}
+curl -sf http://localhost:8080/api/hello # → {"message":"Hello from ..."}
+
+# 4. Open / 열기
+open http://localhost:3000
+```
+
+### Stack ID → Language / Framework Table / 스택 ID 매핑표
+
+| Stack ID | Language | Framework | Port |
+|----------|----------|-----------|------|
+| `go-gin` | Go | Gin | 8080 |
+| `go-echo` | Go | Echo v4 | 8080 |
+| `go-fiber` | Go | Fiber v3 | 8080 |
+| `rust-actix-web` | Rust | Actix-web 4 | 8080 |
+| `rust-axum` | Rust | Axum 0.8 | 8080 |
+| `java-springboot` | Java | Spring Boot 3.3 | 8080 |
+| `java-spring` | Java | Spring Framework 6.2 | 8080 |
+| `kotlin-ktor` | Kotlin | Ktor 3.1 | 8080 |
+| `kotlin-springboot` | Kotlin | Spring Boot 3.4 | 8080 |
+| `nodejs-express` | Node.js | Express 5 | 8080 |
+| `nodejs-nestjs` | Node.js | NestJS 11 | 8080 |
+| `nodejs-nextjs` | Node.js | Next.js 15 (API Routes) | 3000 ⚠️ unified |
+| `nodejs-nextjs-full` | Node.js | Next.js 15 (Full-Stack) | 3000 ⚠️ unified |
+| `python-fastapi` | Python | FastAPI | 8080 |
+| `python-django` | Python | Django 6 | 8080 |
+| `python-flask` | Python | Flask 3.1 | 8080 |
+
+> ⚠️ `nodejs-nextjs` / `nodejs-nextjs-full`: unified stacks, no separate frontend. Backend port is 3000 (not 8080).
+> `nodejs-nextjs` 계열은 통합 스택으로 프론트엔드가 별도 없으며, 백엔드 포트가 3000입니다.
 
 ---
 
@@ -166,24 +325,31 @@ brewnet create-app my-project --stack go-gin
 ### Clone the Entire Repo / 전체 저장소 클론
 
 ```bash
-git clone https://github.com/user/brewnet-boilerplate.git
+git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
 cd brewnet-boilerplate
 ```
 
 ### Clone a Single Stack / 단일 스택만 클론
 
-If you only need one stack, use sparse checkout to save bandwidth:
+If you only need one stack, choose the method that best fits your workflow:
 
-하나의 스택만 필요한 경우 sparse checkout으로 용량을 절약하세요:
+하나의 스택만 필요한 경우 용도에 맞는 방법을 선택하세요:
 
 ```bash
-# Sparse checkout a single stack / 단일 스택 sparse checkout
-git clone --filter=blob:none --sparse https://github.com/user/brewnet-boilerplate.git
+# Option A (Recommended): stack branch direct clone
+# 권장: 스택 브랜치 직접 clone — 모노레포 없이 즉시 사용 가능
+git clone --depth=1 -b stack/go-gin \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git my-project
+cd my-project
+
+# Option B: sparse checkout (모노레포에서 특정 스택만 추출)
+git clone --filter=blob:none --sparse \
+  https://github.com/claude-code-expert/brewnet-boilerplate.git
 cd brewnet-boilerplate
 git sparse-checkout set stacks/go-gin shared
 
-# Or use degit for a clean copy / 또는 degit으로 클린 복사
-npx degit user/brewnet-boilerplate/stacks/go-gin my-project
+# Option C: degit (git 히스토리 없는 클린 복사)
+npx degit claude-code-expert/brewnet-boilerplate/stacks/go-gin my-project
 cd my-project
 ```
 
@@ -206,9 +372,9 @@ make dev                  # start with Docker / Docker로 시작
 
 ## API Contract / API 규약
 
-All 15 backend stacks implement the same 4 endpoints:
+All 16 backend stacks implement the same 4 endpoints:
 
-모든 15개 백엔드 스택은 동일한 4개의 엔드포인트를 구현합니다:
+모든 16개 백엔드 스택은 동일한 4개의 엔드포인트를 구현합니다:
 
 | Method | Path | Response | Description / 설명 |
 |--------|------|----------|---------------------|
@@ -311,7 +477,8 @@ brewnet-boilerplate/
 │   ├── kotlin-springboot/           ← Kotlin (Spring Boot + React)
 │   ├── nodejs-express/              ← Node.js (Express + React)
 │   ├── nodejs-nestjs/               ← Node.js (NestJS + React)
-│   ├── nodejs-nextjs/               ← Node.js (Next.js unified)
+│   ├── nodejs-nextjs/               ← Node.js (Next.js API Routes, unified)
+│   ├── nodejs-nextjs-full/          ← Node.js (Next.js Full-Stack, unified)
 │   ├── python-fastapi/              ← Python (FastAPI + React)
 │   ├── python-django/               ← Python (Django + React)
 │   ├── python-flask/                ← Python (Flask + React)

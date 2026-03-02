@@ -1,21 +1,21 @@
-# Brewnet — Node.js Next.js Stack
+# Brewnet — Node.js Next.js Full-Stack Stack
 
-> Node.js 22 + Next.js 15 + Prisma 6 + React 19 + TypeScript
+> Node.js 22 + Next.js 15 (App Router) + Prisma 6 + React 19 + TypeScript
 
 **Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
 
-Unified fullstack monorepo with multi-DB support (PostgreSQL, MySQL, SQLite3).
-No separate backend/frontend directories — Next.js serves both the UI and the API on a single port.
+Next.js 15 App Router full-stack boilerplate.
+**React Server Components + Client Components + API Routes + DB** — all in one project.
 
-통합 풀스택 모노레포. PostgreSQL, MySQL, SQLite3 멀티 DB 지원.
-별도의 backend/frontend 디렉토리 없이, Next.js가 UI와 API를 단일 포트에서 모두 제공합니다.
+Next.js 15 App Router 풀스택 보일러플레이트.
+**React Server Components + Client Components + API Routes + DB**를 하나의 프로젝트로 구성합니다.
 
-> **vs `nodejs-nextjs-full`**
-> This stack (`nodejs-nextjs`) focuses on **API Routes as the primary backend** — minimal UI, fast MVP, no React Server Components.
-> [`nodejs-nextjs-full`](../nodejs-nextjs-full/README.md) adds React **Server Components + Client Components + shared `lib/hello.ts`** for a full-stack UI pattern.
+> **vs `nodejs-nextjs` (API Routes)**
+> `nodejs-nextjs-full` uses Server Components to fetch data and render UI directly — full-stack in one project.
+> `nodejs-nextjs` focuses on API Routes as a lightweight backend with minimal UI.
 >
-> 이 스택(`nodejs-nextjs`)은 **API Routes 백엔드 중심** — 최소 UI, 빠른 MVP, React Server Components 미사용.
-> [`nodejs-nextjs-full`](../nodejs-nextjs-full/README.md)은 React **Server Components + Client Components + 공유 `lib/hello.ts`** 패턴의 풀스택 UI를 제공합니다.
+> `nodejs-nextjs-full`은 Server Component에서 직접 데이터를 가져와 UI를 렌더링하는 풀스택 패턴을 사용합니다.
+> `nodejs-nextjs`는 API Routes 백엔드 중심으로 최소한의 UI만 포함합니다.
 
 ---
 
@@ -56,21 +56,57 @@ npm --version
 ## Quick Start (Docker) / 빠른 시작
 
 ```bash
-# 1. Set up environment variables / 환경변수 설정
 cp .env.example .env
-
-# 2. Start all services with hot reload / 핫 리로드로 전체 서비스 시작
 make dev
+open http://localhost:3000
 ```
 
 Once running, open your browser: / 실행 후 브라우저에서 확인:
 
 | URL | Description / 설명 |
 |-----|---------------------|
-| http://localhost:3000 | Root — service info JSON |
+| http://localhost:3000 | Home page (Server Component rendering `/api/hello` data) |
 | http://localhost:3000/health | Healthcheck — DB connection status |
 | http://localhost:3000/api/hello | Hello API — runtime version info |
 | http://localhost:3000/api/echo | Echo API (POST) — echoes request body |
+
+---
+
+## Architecture / 아키텍처
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── hello/route.ts   ← GET /api/hello  (uses lib/hello)
+│   │   └── echo/route.ts    ← POST /api/echo
+│   ├── health/route.ts      ← GET /health
+│   ├── route.ts             ← GET /
+│   ├── layout.tsx           ← Root layout (imports globals.css)
+│   ├── page.tsx             ← Home page (Server Component)
+│   └── globals.css
+├── components/
+│   └── HelloCard.tsx        ← Client Component ('use client')
+└── lib/
+    ├── hello.ts             ← Shared logic (Server Component + API Route)
+    └── db.ts                ← Prisma client
+```
+
+### Key Pattern / 핵심 패턴
+
+Business logic lives in `lib/hello.ts` and is imported by both the **Server Component** (`page.tsx`) and the **API Route** (`/api/hello`).
+
+비즈니스 로직을 `lib/hello.ts`에 두고, **Server Component**(`page.tsx`)와 **API Route**(`/api/hello`)에서 동일하게 import하여 사용합니다.
+
+```
+lib/hello.ts (shared logic)
+    ├── app/page.tsx              ← Server Component: import directly
+    └── app/api/hello/route.ts   ← API Route: import directly
+```
+
+The `HelloCard.tsx` is a `'use client'` component that receives data from the Server Component via props and adds interactivity (copy button).
+
+`HelloCard.tsx`는 Server Component로부터 props를 받아 상호작용(복사 버튼)을 추가하는 `'use client'` 컴포넌트입니다.
 
 ---
 
@@ -211,22 +247,6 @@ DATABASE_URL=file:/app/data/brewnet_db.db
 | Container (internal) | `file:/app/data/brewnet_db.db` |
 | Host / Local dev | `file:./data/brewnet_db.db` |
 
-### Prisma Singleton Pattern / Prisma 싱글톤 패턴
-
-The `src/lib/db.ts` file uses Next.js global singleton pattern to prevent multiple Prisma instances in development:
-
-`src/lib/db.ts` 파일은 Next.js 글로벌 싱글톤 패턴을 사용하여 개발 중 다중 Prisma 인스턴스 생성을 방지합니다:
-
-```typescript
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
-export const prisma = globalForPrisma.prisma || new PrismaClient({
-    datasources: { db: { url: buildDatabaseUrl() } },
-});
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
-```
-
 > **Note / 참고:** After changing `PRISMA_DB_PROVIDER`, you must regenerate the Prisma client:
 > `PRISMA_DB_PROVIDER`를 변경한 후 Prisma 클라이언트를 재생성해야 합니다:
 > ```bash
@@ -238,13 +258,9 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 ### Switching Databases / DB 전환
 
 ```bash
-# 1. Stop services / 서비스 중지
 make down
-
-# 2. Edit .env — change DB_DRIVER, PRISMA_DB_PROVIDER, DATABASE_URL
-#    .env 수정 — DB_DRIVER, PRISMA_DB_PROVIDER, DATABASE_URL 변경
-
-# 3. Restart / 재시작
+# Edit .env — change DB_DRIVER, PRISMA_DB_PROVIDER, DATABASE_URL
+# .env 수정 — DB_DRIVER, PRISMA_DB_PROVIDER, DATABASE_URL 변경
 make dev
 ```
 
@@ -260,7 +276,7 @@ make dev
 | `BACKEND_PORT` | `3000` | Next.js host port (maps to container port 3000) / Next.js 호스트 포트 |
 | `FRONTEND_PORT` | `3000` | Same as BACKEND_PORT (unified) / BACKEND_PORT와 동일 (통합) |
 | `TZ` | `Asia/Seoul` | Timezone / 타임존 |
-| `STACK_LANG` | `nodejs-nextjs` | Stack identifier / 스택 식별자 |
+| `STACK_LANG` | `nodejs-nextjs-full` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
 | `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL DB 이름 |
@@ -296,19 +312,24 @@ make dev
 ## Project Structure / 프로젝트 구조
 
 ```
-stacks/nodejs-nextjs/
+stacks/nodejs-nextjs-full/
 ├── src/
 │   ├── app/
 │   │   ├── route.ts              # GET / — root endpoint (service info JSON)
-│   │   ├── layout.tsx            # Root layout
+│   │   ├── layout.tsx            # Root layout (imports globals.css)
+│   │   ├── page.tsx              # Home page — Server Component (uses lib/hello)
+│   │   ├── globals.css           # Global styles
 │   │   ├── health/
 │   │   │   └── route.ts          # GET /health — healthcheck with DB status
 │   │   └── api/
 │   │       ├── hello/
-│   │       │   └── route.ts      # GET /api/hello — hello message
+│   │       │   └── route.ts      # GET /api/hello — uses lib/hello (shared logic)
 │   │       └── echo/
 │   │           └── route.ts      # POST /api/echo — echo request body
+│   ├── components/
+│   │   └── HelloCard.tsx         # 'use client' component — copy button interactivity
 │   └── lib/
+│       ├── hello.ts              # Shared: getHelloData() used by Server Component + API Route
 │       └── db.ts                 # Prisma singleton + buildDatabaseUrl() + checkDbConnection()
 ├── prisma/
 │   └── schema.prisma             # Prisma schema (env-driven provider)
@@ -325,10 +346,10 @@ stacks/nodejs-nextjs/
 ```
 
 > **Note / 참고:** Unlike other Brewnet stacks, there is no separate `frontend/` service in `docker-compose.yml`.
-> Next.js handles both server-side rendering and API routes in a single container on port 3000.
+> Next.js handles server-side rendering, client components, and API routes in a single container on port 3000.
 >
 > 다른 Brewnet 스택과 달리, `docker-compose.yml`에 별도의 `frontend/` 서비스가 없습니다.
-> Next.js가 단일 컨테이너에서 서버사이드 렌더링과 API 라우트를 모두 처리합니다 (포트 3000).
+> Next.js가 단일 컨테이너에서 서버사이드 렌더링, 클라이언트 컴포넌트, API 라우트를 모두 처리합니다 (포트 3000).
 
 ---
 
@@ -340,6 +361,8 @@ stacks/nodejs-nextjs/
                     │                                  │
   localhost:3000 ──►│  backend (next.js:3000)          │
                     │       │  UI + API unified        │
+                    │       │  Server Components       │
+                    │       │  + Client Components     │
                     │       │                          │
                     │       ▼                          │
                     │  ┌──────────────────────────┐   │
@@ -356,19 +379,27 @@ stacks/nodejs-nextjs/
 - Resource limits: backend 512M/1CPU
 - No separate frontend container (unified architecture)
 
+### Build Stages / 빌드 단계
+
+| Stage / 단계 | Image / 이미지 | Purpose / 목적 |
+|--------------|----------------|----------------|
+| **deps** | `node:22-alpine` | Install production dependencies / 프로덕션 의존성 설치 |
+| **builder** | `node:22-alpine` | Build Next.js standalone output / Next.js standalone 빌드 |
+| **runner** | `node:22-alpine` | Minimal runtime / 최소 런타임 |
+
 ---
 
 ## Key Differences from Other Stacks / 다른 스택과의 차이점
 
-| Feature | Other Stacks | Next.js Stack |
-|---------|-------------|---------------|
-| Port | Backend 8080, Frontend 3000 | Everything on 3000 |
-| Architecture | Separate backend + frontend containers | Single unified container |
-| Frontend proxy | nginx reverse proxy to backend | Not needed (same process) |
-| API routes | Express/NestJS controllers | Next.js Route Handlers (`route.ts`) |
-| SSR | No (SPA via Vite) | Yes (React Server Components) |
-| Docker services | 3+ (backend, frontend, DB) | 2 (backend, DB) |
-| `BACKEND_PORT` | `8080` | `3000` |
+| Feature | Other Stacks | nodejs-nextjs | nodejs-nextjs-full |
+|---------|-------------|---------------|-------------------|
+| Port | Backend 8080, Frontend 3000 | Everything on 3000 | Everything on 3000 |
+| Architecture | Separate backend + frontend | Single unified container | Single unified container |
+| UI | React SPA (Vite) | Minimal page | Server Components + Client Components |
+| Shared logic | — | — | `lib/hello.ts` shared between Server Component + API Route |
+| SSR | No (SPA) | API Routes only | React Server Components |
+| Client Components | Full SPA | N/A | `HelloCard.tsx` (`'use client'`) |
+| `BACKEND_PORT` | `8080` | `3000` | `3000` |
 
 ---
 

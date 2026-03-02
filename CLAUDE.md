@@ -118,8 +118,9 @@ Services: `backend`, `frontend` (optional), `postgres` (profile), `mysql` (profi
 | rust-axum          | Rust 1.88+ / Axum 0.8 / SQLx                    | `backend/src/main.rs`                                    | `rust:1.88` → `debian:bookworm-slim`                  |
 | nodejs-express     | Node 22 / Express 5 / Prisma                    | `backend/src/index.ts`                                   | `node:22-alpine`                                      |
 | nodejs-nestjs      | Node 22 / NestJS 11 / Prisma                    | `backend/src/main.ts`                                    | `node:22-alpine`                                      |
-| nodejs-nextjs      | Node 22 / Next.js 15 / Prisma (unified)          | `src/app/route.ts`                                       | `node:22-alpine`                                      |
-| java-springboot    | Java 21 / Spring Boot 3.4 / JDBC                | `backend/src/.../Application.java`                       | `eclipse-temurin:21-jdk` → `21-jre-alpine`            |
+| nodejs-nextjs      | Node 22 / Next.js 15 / Prisma (unified, API Routes) | `src/app/route.ts`                                    | `node:22-alpine`                                      |
+| nodejs-nextjs-full | Node 22 / Next.js 15 / Prisma (unified, Full-Stack) | `src/app/route.ts`                                    | `node:22-alpine`                                      |
+| java-springboot    | Java 21 / Spring Boot 3.3 / JDBC                | `backend/src/.../Application.java`                       | `eclipse-temurin:21-jdk` → `21-jre-alpine`            |
 | java-spring        | Java 21 / Spring Framework 6.2 / Maven          | `backend/src/.../Application.java`                       | `eclipse-temurin:21-jdk` → `21-jre-alpine`            |
 | kotlin-ktor        | Kotlin 2.1 / Ktor 3.1 / Exposed ORM             | `backend/src/.../Application.kt`                         | `gradle:8.12-jdk21` → `21-jre-alpine`                |
 | kotlin-springboot  | Kotlin 2.1 / Spring Boot 3.4 / JDBC             | `backend/src/.../Application.kt`                         | `gradle:8.12-jdk21` → `21-jre-alpine`                |
@@ -224,12 +225,15 @@ DB 작업 → DATA_MODEL.md 확인
 
 ## Active Technologies
 - Go 1.22-1.25, Rust 1.88+, Java 21, Kotlin 2.1, Node.js 22 (TypeScript), Python 3.12-3.13
-- Gin, Echo v4, Fiber v3, Actix-web 4, Axum 0.8, Spring Boot 3.4, Spring Framework 6.2, Express 5, NestJS 11, Next.js 15, FastAPI, Django 6, Flask 3.1, Ktor 3.1
+- Gin, Echo v4, Fiber v3, Actix-web 4, Axum 0.8, Spring Boot 3.3 (Java) / 3.4 (Kotlin), Spring Framework 6.2, Express 5, NestJS 11, Next.js 15, FastAPI, Django 6, Flask 3.1, Ktor 3.1
 - GORM, SQLx, SQLAlchemy, Prisma, JPA/JDBC+HikariCP, Exposed ORM, Flask-SQLAlchemy
 - PostgreSQL 16, MySQL 8.4, SQLite3 (via `DB_DRIVER` env)
 - React 19 + Vite 6 + TypeScript (frontend)
 
 ## Recent Changes
+- 005-go-framework-fix: CLI Go framework routing fixed — gin→ginTemplate(), echo→echoTemplate(), fiber→fiberTemplate(); dev command updated to `go run ./cmd/server`
+- 004-rust-framework-fix: CLI Rust framework routing fixed — axum→axumTemplate(), actix-web→actixWebTemplate(), Rust 1.88 templates
+- 003-nodejs-nextjs-full: Added nodejs-nextjs-full stack (Next.js 15 Full-Stack with Server Components + Client Components)
 - 002-add-remaining-frameworks: Added 10 new backend stacks (Django, Flask, Echo, Fiber, Axum, NestJS, Next.js, Spring Framework, Ktor, Spring Boot Kotlin)
 - 001-stack-implementation: Initial 5 stacks (Gin, Actix-web, Spring Boot, Express, FastAPI)
 - Directory restructure: stacks/{lang}/ → stacks/{lang}-{framework}/ for multi-framework support

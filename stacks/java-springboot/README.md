@@ -1,8 +1,6 @@
 # Brewnet -- Java Spring Boot Stack
 
 > Java 21 + Spring Boot 3.3 + JPA + HikariCP + React 19 + Vite 6 + TypeScript
->
-> Java 21 + Spring Boot 3.3 + JPA + HikariCP + React 19 + Vite 6 + TypeScript
 
 **Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
 
@@ -182,7 +180,7 @@ Spring Boot는 `DB_DRIVER`를 `spring.profiles.active`로 매핑하여 해당하
 # application-postgres.yml
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:brewnet_db}
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:brewnet}
     username: ${DB_USER:brewnet}
     password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
@@ -203,7 +201,7 @@ spring:
 # application-mysql.yml
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:brewnet_db}?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:brewnet}?useSSL=false&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:brewnet}
     password: ${MYSQL_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -214,7 +212,7 @@ spring:
 | Property | Value |
 |----------|-------|
 | Profile | `application-sqlite3.yml` |
-| JDBC URL | `jdbc:sqlite:/app/data/brewnet_db.db` |
+| JDBC URL | `jdbc:sqlite:/app/data/brewnet.db` |
 | Driver | `org.sqlite.JDBC` |
 | Dialect | `org.hibernate.community.dialect.SQLiteDialect` |
 | Note | No external DB service needed / 외부 DB 서비스 불필요 |
@@ -223,7 +221,7 @@ spring:
 # application-sqlite3.yml
 spring:
   datasource:
-    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet_db.db}
+    url: jdbc:sqlite:${SQLITE_PATH:./data/brewnet.db}
     driver-class-name: org.sqlite.JDBC
 ```
 
@@ -246,16 +244,16 @@ spring:
 | `STACK_LANG` | `java-springboot` | Stack identifier / 스택 식별자 |
 | `DB_HOST` | `postgres` | PostgreSQL host / PostgreSQL 호스트 |
 | `DB_PORT` | `5432` | PostgreSQL port / PostgreSQL 포트 |
-| `DB_NAME` | `brewnet_db` | PostgreSQL database name / PostgreSQL DB 이름 |
+| `DB_NAME` | `brewnet` | PostgreSQL database name / PostgreSQL DB 이름 |
 | `DB_USER` | `brewnet` | PostgreSQL user / PostgreSQL 사용자 |
-| `DB_PASSWORD` | `password` | PostgreSQL password / PostgreSQL 비밀번호 |
+| `DB_PASSWORD` | `brewnet_secret` | PostgreSQL password / PostgreSQL 비밀번호 |
 | `MYSQL_HOST` | `mysql` | MySQL host / MySQL 호스트 |
 | `MYSQL_PORT` | `3306` | MySQL port / MySQL 포트 |
-| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL DB 이름 |
+| `MYSQL_DATABASE` | `brewnet` | MySQL database name / MySQL DB 이름 |
 | `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
-| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
-| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite3 file path / SQLite3 파일 경로 |
+| `MYSQL_PASSWORD` | `brewnet_secret` | MySQL password / MySQL 비밀번호 |
+| `MYSQL_ROOT_PASSWORD` | `root_secret` | MySQL root password / MySQL 루트 비밀번호 |
+| `SQLITE_PATH` | `/app/data/brewnet.db` | SQLite3 file path / SQLite3 파일 경로 |
 
 ---
 
