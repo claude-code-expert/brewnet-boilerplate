@@ -4,79 +4,70 @@
     <a href="https://www.brewnet.dev">https://www.brewnet.dev</a> · <a href="mailto:brewnet.dev@gmail.com">brewnet.dev@gmail.com</a>
   </p>
   <p align="center">
-    <em>손쉽게 설치하는 나만의 홈서버, Brewnet</em><br/>
     <strong>Your server on tap. Just brew it.</strong><br/>
-    <em>한 명령어로 풀스택 앱을 생성하세요.</em>
+    <em>Generate a full-stack app with a single command.</em>
   </p>
 </p>
 
 <p align="center">
-  <a href="#quick-start--빠른-시작">Quick Start</a> ·
-  <a href="#available-stacks--지원-스택">Stacks</a> ·
-  <a href="#brewnet-cli-usage--cli-사용법">CLI Usage</a> ·
-  <a href="#manual-clone--수동-클론">Manual Clone</a>
+  <a href="./README.ko.md">한국어 README</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#available-stacks">Stacks</a> ·
+  <a href="#brewnet-cli-usage">CLI Usage</a> ·
+  <a href="#manual-clone">Manual Clone</a>
 </p>
 
 ---
 
 Multi-language fullstack boilerplate monorepo for the **Brewnet CLI** (`brewnet create-app`). Each stack is a self-contained backend + frontend project that runs with a single `docker compose up`.
 
-**Brewnet CLI** (`brewnet create-app`)를 위한 다중 언어 풀스택 보일러플레이트 모노레포입니다. 각 스택은 `docker compose up` 한 번으로 실행 가능한 독립적인 백엔드 + 프론트엔드 프로젝트입니다.
+## Prerequisites
 
-## Prerequisites / 사전 요구사항
+Before running any stack, make sure the following are installed and running:
 
-Before running any stack, make sure the following are installed and running on your machine:
-
-스택을 실행하기 전에 아래 항목이 설치되어 있고 실행 중인지 확인하세요:
-
-| Requirement / 요구사항 | Version / 버전 | Install / 설치 |
-|------------------------|----------------|----------------|
+| Requirement | Version | Install |
+|-------------|---------|---------|
 | **Docker Desktop** (macOS / Windows) or **Docker Engine** (Linux) | 27+ | [docs.docker.com/get-docker](https://docs.docker.com/get-docker/) |
 | **Docker Compose** (bundled with Docker Desktop) | v2+ | included in Docker Desktop |
 | **Node.js** (dashboard only) | 18+ | [nodejs.org](https://nodejs.org/) |
 
 > ⚠️ **Docker Desktop must be running** before you click **Start** on any stack or run `make dev`.
 > Each stack starts its backend, frontend, and database as Docker containers via `docker compose up -d --build`.
->
-> ⚠️ **▶ Start 버튼** 클릭 또는 `make dev` 실행 전에 **Docker Desktop이 반드시 실행 중** 이어야 합니다.
-> 각 스택은 `docker compose up -d --build` 명령으로 백엔드, 프론트엔드, DB를 Docker 컨테이너로 실행합니다.
 
 ```bash
-# Verify Docker is running / Docker 실행 확인
+# Verify Docker is running
 docker info
 # If you see "Cannot connect to the Docker daemon" → open Docker Desktop first
-# "Cannot connect to the Docker daemon" 메시지가 나오면 → Docker Desktop을 먼저 실행하세요
 ```
 
 ---
 
-## Quick Start / 빠른 시작
+## Quick Start
 
-### Option 1: Brewnet CLI (Recommended / 권장)
+### Option 1: Brewnet CLI (Recommended)
 
 ```bash
-# Install Brewnet CLI / Brewnet CLI 설치
+# Install Brewnet CLI
 npm install -g brewnet
 
-# Create a new project / 새 프로젝트 생성
+# Create a new project
 brewnet create-app my-project
 
-# Interactive prompts will guide you: / 대화형 프롬프트가 안내합니다:
+# Interactive prompts will guide you:
 # → Select language (Go, Rust, Java, Kotlin, Node.js, Python)
 # → Select framework (Gin, Echo, Fiber, Spring Boot, Express, FastAPI, ...)
 # → Select frontend (React, API-only)
 # → Auto-generates .env with secure secrets
 # → Starts Docker containers
 
-# Open your app / 앱 열기
+# Open your app
 open http://localhost:3000
 ```
 
-### Option 2: Manual Clone / 수동 클론
+### Option 2: Manual Clone
 
 ```bash
-# Recommended: clone a specific stack branch directly
-# 권장: 원하는 스택 브랜치를 직접 clone
+# Clone a specific stack branch directly
 git clone --depth=1 -b stack/go-gin \
   https://github.com/claude-code-expert/brewnet-boilerplate.git my-project
 cd my-project
@@ -88,13 +79,11 @@ open http://localhost:3000
 
 ---
 
-## Available Stacks / 지원 스택
+## Available Stacks
 
 16 backend stacks, all production-ready with Docker. Each stack includes React 19 + Vite 6 + TypeScript as the default frontend.
 
-16개의 백엔드 스택을 제공하며, 모두 Docker로 프로덕션 준비가 되어 있습니다. 각 스택에는 React 19 + Vite 6 + TypeScript가 기본 프론트엔드로 포함되어 있습니다.
-
-### Backend Stacks / 백엔드 스택
+### Backend Stacks
 
 | Language | Stack | Framework | ORM / DB Layer | Entry Point |
 |----------|-------|-----------|----------------|-------------|
@@ -110,20 +99,18 @@ open http://localhost:3000
 | **Node.js** | `nodejs-express` | Express 5 | Prisma | `backend/src/index.ts` |
 | | `nodejs-nestjs` | NestJS 11 | Prisma | `backend/src/main.ts` |
 | | `nodejs-nextjs` | Next.js 15 (API Routes) | Prisma | `src/app/route.ts` |
-| | `nodejs-nextjs-full` | Next.js 15 (Full-Stack) | Prisma | `src/app/route.ts` |
+| | `nodejs-nextjs-full` | Next.js 15 (Full-Stack) | Prisma | `src/app/page.tsx` |
 | **Python** | `python-fastapi` | FastAPI | SQLAlchemy (async) | `backend/src/main.py` |
 | | `python-django` | Django 6 | Django ORM | `backend/src/config/wsgi.py` |
 | | `python-flask` | Flask 3.1 | Flask-SQLAlchemy | `backend/wsgi.py` |
 
-> **Note / 참고**: Both `nodejs-nextjs` variants are unified stacks (no separate frontend container) on port 3000.
-> - `nodejs-nextjs`: API Routes 백엔드 중심 — 최소 UI, 빠른 MVP
-> - `nodejs-nextjs-full`: Server Components + Client Components + API Routes — 풀스택 UI 포함
+> **Note**: Both `nodejs-nextjs` variants are unified stacks (no separate frontend container) on port 3000.
+> - `nodejs-nextjs`: API Routes backend — minimal UI, fast MVP
+> - `nodejs-nextjs-full`: Server Components + Client Components + API Routes — full-stack UI included
 
-### Stack Branch Mapping / 스택 브랜치 대응표
+### Stack Branch Mapping
 
 Each stack is published as an independent `stack/{name}` branch for direct clone:
-
-각 스택은 직접 clone 가능한 독립 브랜치 `stack/{name}`으로 퍼블리시됩니다:
 
 ```
 Stack ID               → Branch
@@ -148,15 +135,15 @@ python-flask           → stack/python-flask
 
 ---
 
-## Brewnet CLI Usage / CLI 사용법
+## Brewnet CLI Usage
 
-### Installation / 설치
+### Installation
 
 ```bash
 npm install -g brewnet
 ```
 
-### Create a New App / 새 앱 생성
+### Create a New App
 
 ```bash
 brewnet create-app <project-name> [options]
@@ -164,14 +151,12 @@ brewnet create-app <project-name> [options]
 
 **Interactive mode** — just run without options, the CLI guides you step by step:
 
-**대화형 모드** — 옵션 없이 실행하면 CLI가 단계별로 안내합니다:
-
 ```bash
 brewnet create-app my-project
 ```
 
 ```
-? Select a language / 언어를 선택하세요:
+? Select a language:
   ❯ Go
     Rust
     Java
@@ -179,149 +164,98 @@ brewnet create-app my-project
     Node.js
     Python
 
-? Select a framework / 프레임워크를 선택하세요:
+? Select a framework:
   ❯ Gin (lightweight, fast)
     Echo (minimalist, extensible)
     Fiber (Express-inspired)
 
-? Select a frontend / 프론트엔드를 선택하세요:
+? Select a frontend:
   ❯ React (default)
     API-only (no frontend)
 ```
 
 **With flags** — skip prompts for CI/scripting:
 
-**플래그 사용** — CI/스크립트에서 프롬프트 생략:
-
 ```bash
-# Specify stack directly / 스택 직접 지정
+# Specify stack directly
 brewnet create-app my-api --stack go-gin
 
-# API-only (no frontend) / API 전용 (프론트엔드 없음)
+# API-only (no frontend)
 brewnet create-app my-api --stack python-fastapi --frontend none
 ```
 
-### What Happens / 내부 동작
+### What Happens
 
 ```
 brewnet create-app my-project --stack go-gin
 ```
 
-1. `git clone --depth=1 -b stack/go-gin`
-   `  https://github.com/claude-code-expert/brewnet-boilerplate.git my-project`
-2. Auto-generates `.env` with secure secrets (based on `.env.example`) / `.env.example` 기반으로 보안 시크릿이 포함된 `.env` 자동 생성
-3. Runs `docker compose up -d` / Docker 컨테이너 시작
-4. Verifies `/health` + `/api/hello` respond correctly / 헬스체크 및 API 응답 확인
-5. Opens `http://localhost:3000` / 브라우저에서 앱 열기
+1. `git clone --depth=1 -b stack/go-gin https://github.com/claude-code-expert/brewnet-boilerplate.git my-project`
+2. Auto-generates `.env` with secure secrets (based on `.env.example`)
+3. Runs `docker compose up -d`
+4. Verifies `/health` + `/api/hello` respond correctly
+5. Opens `http://localhost:3000`
 
 ---
 
-## CLI Integration Reference / CLI 연동 레퍼런스
+## CLI Integration Reference
 
 > This section is the authoritative reference for implementing `brewnet create-app`.
-> `brewnet create-app` 구현 시 이 섹션을 기준으로 사용하세요.
 
-### Repository / 저장소
+### Repository
 
 ```
 REPO_URL = https://github.com/claude-code-expert/brewnet-boilerplate.git
 ```
 
-### Clone Command Pattern / 클론 명령어 패턴
+### Clone Command Pattern
 
 ```bash
 git clone --depth=1 -b stack/<STACK_ID> \
   https://github.com/claude-code-expert/brewnet-boilerplate.git <PROJECT_NAME>
 ```
 
-### All Stack Clone Commands / 전체 스택 클론 명령어
+### All Stack Clone Commands
 
 ```bash
-# go-gin
-git clone --depth=1 -b stack/go-gin \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# go-echo
-git clone --depth=1 -b stack/go-echo \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# go-fiber
-git clone --depth=1 -b stack/go-fiber \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# rust-actix-web
-git clone --depth=1 -b stack/rust-actix-web \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# rust-axum
-git clone --depth=1 -b stack/rust-axum \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# java-springboot
-git clone --depth=1 -b stack/java-springboot \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# java-spring
-git clone --depth=1 -b stack/java-spring \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# kotlin-ktor
-git clone --depth=1 -b stack/kotlin-ktor \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# kotlin-springboot
-git clone --depth=1 -b stack/kotlin-springboot \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# nodejs-express
-git clone --depth=1 -b stack/nodejs-express \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# nodejs-nestjs
-git clone --depth=1 -b stack/nodejs-nestjs \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# nodejs-nextjs (API Routes — minimal UI, fast MVP)
-git clone --depth=1 -b stack/nodejs-nextjs \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# nodejs-nextjs-full (Full-Stack — Server Components + Client Components + API Routes)
-git clone --depth=1 -b stack/nodejs-nextjs-full \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# python-fastapi
-git clone --depth=1 -b stack/python-fastapi \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# python-django
-git clone --depth=1 -b stack/python-django \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
-
-# python-flask
-git clone --depth=1 -b stack/python-flask \
-  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/go-gin           https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/go-echo          https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/go-fiber         https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/rust-actix-web   https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/rust-axum        https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/java-springboot  https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/java-spring      https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/kotlin-ktor      https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/kotlin-springboot https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/nodejs-express   https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/nodejs-nestjs    https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/nodejs-nextjs    https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/nodejs-nextjs-full https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/python-fastapi   https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/python-django    https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
+git clone --depth=1 -b stack/python-flask     https://github.com/claude-code-expert/brewnet-boilerplate.git <project>
 ```
 
-### Post-Clone Flow / 클론 후 처리 순서
+### Post-Clone Flow
 
 ```bash
 cd <project>
 
-# 1. Generate .env from template / 템플릿으로 .env 생성 (+ 시크릿 자동 생성)
+# 1. Generate .env from template (secrets are auto-generated by CLI)
 cp .env.example .env
 
-# 2. Start containers / 컨테이너 시작
+# 2. Start containers
 docker compose up -d
 
-# 3. Verify / 검증
+# 3. Verify
 curl -sf http://localhost:8080/health   # → {"status":"ok","db_connected":true}
 curl -sf http://localhost:8080/api/hello # → {"message":"Hello from ..."}
 
-# 4. Open / 열기
+# 4. Open
 open http://localhost:3000
 ```
 
-### Stack ID → Language / Framework Table / 스택 ID 매핑표
+### Stack ID → Language / Framework Table
 
 | Stack ID | Language | Framework | Port |
 |----------|----------|-----------|------|
@@ -343,75 +277,67 @@ open http://localhost:3000
 | `python-flask` | Python | Flask 3.1 | 8080 |
 
 > ⚠️ `nodejs-nextjs` / `nodejs-nextjs-full`: unified stacks, no separate frontend. Backend port is 3000 (not 8080).
-> `nodejs-nextjs` 계열은 통합 스택으로 프론트엔드가 별도 없으며, 백엔드 포트가 3000입니다.
 
 ---
 
-## Manual Clone / 수동 클론
+## Manual Clone
 
-### Clone the Entire Repo / 전체 저장소 클론
+### Clone the Entire Repo
 
 ```bash
 git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
 cd brewnet-boilerplate
 ```
 
-### Clone a Single Stack / 단일 스택만 클론
-
-If you only need one stack, choose the method that best fits your workflow:
-
-하나의 스택만 필요한 경우 용도에 맞는 방법을 선택하세요:
+### Clone a Single Stack
 
 ```bash
 # Option A (Recommended): stack branch direct clone
-# 권장: 스택 브랜치 직접 clone — 모노레포 없이 즉시 사용 가능
 git clone --depth=1 -b stack/go-gin \
   https://github.com/claude-code-expert/brewnet-boilerplate.git my-project
 cd my-project
 
-# Option B: sparse checkout (모노레포에서 특정 스택만 추출)
+# Option B: sparse checkout
 git clone --filter=blob:none --sparse \
   https://github.com/claude-code-expert/brewnet-boilerplate.git
 cd brewnet-boilerplate
 git sparse-checkout set stacks/go-gin shared
 
-# Option C: degit (git 히스토리 없는 클린 복사)
+# Option C: degit (clean copy without git history)
 npx degit claude-code-expert/brewnet-boilerplate/stacks/go-gin my-project
 cd my-project
 ```
 
-### Run a Stack / 스택 실행
+### Run a Stack
 
 ```bash
-cd stacks/go-gin          # or any stack / 또는 원하는 스택
-cp .env.example .env      # configure environment / 환경 설정
-make dev                  # start with Docker / Docker로 시작
+cd stacks/go-gin          # or any stack
+cp .env.example .env      # configure environment
+make dev                  # start with Docker
 ```
 
-| URL | Description / 설명 |
-|-----|---------------------|
-| http://localhost:3000 | Frontend / 프론트엔드 |
-| http://localhost:8080 | Backend API / 백엔드 API |
-| http://localhost:8080/health | Health check / 헬스체크 |
+| URL | Description |
+|-----|-------------|
+| http://localhost:3000 | Frontend |
+| http://localhost:8080 | Backend API |
+| http://localhost:8080/health | Health check |
 | http://localhost:8080/api/hello | Hello API |
 
 ---
 
-## API Contract / API 규약
+## API Contract
 
 All 16 backend stacks implement the same 4 endpoints:
 
-모든 16개 백엔드 스택은 동일한 4개의 엔드포인트를 구현합니다:
-
-| Method | Path | Response | Description / 설명 |
-|--------|------|----------|---------------------|
-| `GET` | `/` | `{"service":"...-backend","status":"running","message":"..."}` | Service info / 서비스 정보 |
-| `GET` | `/health` | `{"status":"ok","timestamp":"...","db_connected":true\|false}` | Health check / 헬스체크 |
-| `GET` | `/api/hello` | `{"message":"Hello from ...!","lang":"...","version":"..."}` | Hello API |
-| `POST` | `/api/echo` | Echo back request body / 요청 본문 그대로 반환 | Echo API |
+| Method | Path | Response |
+|--------|------|----------|
+| `GET` | `/` | `{"service":"...-backend","status":"running","message":"Hello Brewnet (https://www.brewnet.dev)"}` |
+| `GET` | `/health` | `{"status":"ok","timestamp":"...","db_connected":true\|false}` |
+| `GET` | `/api/hello` | `{"message":"Hello from ...!","lang":"...","version":"..."}` |
+| `POST` | `/api/echo` | Echo back request body |
 
 ```bash
-# Test any stack / 아무 스택이나 테스트
+# Test any stack
 curl -s http://localhost:8080/api/hello | jq .
 curl -s -X POST http://localhost:8080/api/echo \
   -H "Content-Type: application/json" \
@@ -420,35 +346,33 @@ curl -s -X POST http://localhost:8080/api/echo \
 
 ---
 
-## Database Support / 데이터베이스 지원
+## Database Support
 
 All stacks support 3 databases via `DB_DRIVER` environment variable:
 
-모든 스택은 `DB_DRIVER` 환경 변수를 통해 3개의 데이터베이스를 지원합니다:
+| DB_DRIVER | Database | Host Port | Note |
+|-----------|----------|-----------|------|
+| `postgres` (default) | PostgreSQL 16 | 5433 | Default, recommended |
+| `mysql` | MySQL 8.4 | 3307 | Alternative |
+| `sqlite3` | SQLite3 | — | No external container needed |
 
-| DB_DRIVER | Database | Host Port | Note / 참고 |
-|-----------|----------|-----------|-------------|
-| `postgres` (default) | PostgreSQL 16 | 5433 | Default, recommended / 기본값, 권장 |
-| `mysql` | MySQL 8.4 | 3307 | Alternative / 대안 |
-| `sqlite3` | SQLite3 | — | No external container needed / 외부 컨테이너 불필요 |
+### Default Credentials
 
-### Default Credentials / 기본 접속 정보
-
-| Item | Value | Note / 참고 |
-|------|-------|-------------|
-| Database name | `brewnet_db` | PostgreSQL, MySQL 공통 |
-| Username | `brewnet` | PostgreSQL, MySQL 공통 |
-| Password | `password` | `.env`에서 변경 권장 |
+| Item | Value |
+|------|-------|
+| Database name | `brewnet_db` |
+| Username | `brewnet` |
+| Password | `password` |
 
 ```bash
-# PostgreSQL connection (from host) / PostgreSQL 접속 (호스트에서)
+# PostgreSQL (from host)
 psql -h localhost -p 5433 -U brewnet -d brewnet_db
 
-# MySQL connection (from host) / MySQL 접속 (호스트에서)
+# MySQL (from host)
 mysql -h 127.0.0.1 -P 3307 -u brewnet -p brewnet_db
 ```
 
-### Switch Database / 데이터베이스 전환
+### Switch Database
 
 ```bash
 make down
@@ -458,41 +382,39 @@ make dev
 
 ---
 
-## Port Conventions / 포트 규약
+## Port Conventions
 
-| Service | Container Port | Host Port | Note / 참고 |
-|---------|---------------|-----------|-------------|
-| Backend | 8080 | `localhost:8080` | All stacks / 전 스택 공통 |
-| Frontend | 5173 (dev) / 80 (prod) | `localhost:3000` | nginx in production / 프로덕션에서 nginx |
-| PostgreSQL | 5432 | `localhost:5433` | Avoid conflict with local PG / 로컬 PG 충돌 방지 |
-| MySQL | 3306 | `localhost:3307` | Avoid conflict with local MySQL / 로컬 MySQL 충돌 방지 |
+| Service | Container Port | Host Port | Note |
+|---------|---------------|-----------|------|
+| Backend | 8080 | `localhost:8080` | All stacks |
+| Frontend | 5173 (dev) / 80 (prod) | `localhost:3000` | nginx in production |
+| PostgreSQL | 5432 | `localhost:5433` | Avoid conflict with local PG |
+| MySQL | 3306 | `localhost:3307` | Avoid conflict with local MySQL |
 
 ---
 
-## Makefile Targets / Makefile 타겟
+## Makefile Targets
 
 Uniform across all stacks:
 
-모든 스택에서 동일합니다:
-
-| Target | Description / 설명 |
-|--------|---------------------|
-| `make dev` | Start with hot reload (docker compose up --build) / 핫 리로드로 시작 |
-| `make build` | Build Docker images / Docker 이미지 빌드 |
-| `make up` | Production mode (detached) / 프로덕션 모드 (백그라운드) |
-| `make down` | Stop all services / 전체 서비스 중지 |
-| `make logs` | Follow container logs / 컨테이너 로그 추적 |
-| `make test` | Run tests / 테스트 실행 |
-| `make clean` | Remove containers, volumes, images / 컨테이너, 볼륨, 이미지 제거 |
-| `make validate` | Verify API endpoints / API 엔드포인트 검증 |
+| Target | Description |
+|--------|-------------|
+| `make dev` | Start with hot reload (`docker compose up --build`) |
+| `make build` | Build Docker images |
+| `make up` | Production mode (detached) |
+| `make down` | Stop all services |
+| `make logs` | Follow container logs |
+| `make test` | Run tests |
+| `make clean` | Remove containers, volumes, images |
+| `make validate` | Verify API endpoints |
 
 ---
 
-## Repository Structure / 저장소 구조
+## Repository Structure
 
 ```
 brewnet-boilerplate/
-├── stacks/                          ← Fullstack boilerplates / 풀스택 보일러플레이트
+├── stacks/                          ← Fullstack boilerplates
 │   ├── go-gin/                      ← Go (Gin + React)
 │   ├── go-echo/                     ← Go (Echo + React)
 │   ├── go-fiber/                    ← Go (Fiber v3 + React)
@@ -511,22 +433,20 @@ brewnet-boilerplate/
 │   ├── python-flask/                ← Python (Flask + React)
 │   └── frontend-template/           ← Shared React frontend template
 ├── dashboard/                       ← Stack management dashboard (Next.js 15, port 4000)
-├── shared/                          ← Common scripts / 공용 스크립트
+├── shared/                          ← Common scripts
 │   ├── scripts/validate.sh          ← Health check + API verification
 │   └── traefik/                     ← Reverse proxy config
-├── docs/                            ← Documentation / 문서
-│   ├── PRD.md                       ← Product Requirements
-│   ├── TRD.md                       ← Technical Requirements
-│   └── BREWNET-USER-STORY.md        ← User stories
+├── docs/                            ← Documentation
+│   ├── PRD.md
+│   ├── TRD.md
+│   └── BREWNET-USER-STORY.md
 ├── .github/workflows/               ← CI: validate all stacks
 ├── CLAUDE.md                        ← AI assistant guide
 ├── LICENSE                          ← MIT License
-└── README.md                        ← This file / 이 파일
+└── README.md                        ← This file
 ```
 
 Each `stacks/{lang}-{framework}/` directory contains:
-
-각 `stacks/{lang}-{framework}/` 디렉토리에는 다음이 포함됩니다:
 
 ```
 stacks/{lang}-{framework}/
@@ -540,74 +460,64 @@ stacks/{lang}-{framework}/
 
 ---
 
-## Docker Architecture / Docker 아키텍처
+## Docker Architecture
 
-- **Multi-stage builds** — builder → runner in all Dockerfiles / 모든 Dockerfile에서 멀티스테이지 빌드
-- **Non-root execution** — `appuser` or language convention / 비루트 사용자 실행
-- **Health checks** — `HEALTHCHECK` in all services / 모든 서비스에 헬스체크
-- **Network isolation** — `brewnet` (public) + `brewnet-internal` (DB only) / 네트워크 격리
-- **Resource limits** — CPU and memory limits via `deploy.resources.limits` / 리소스 제한
+- **Multi-stage builds** — builder → runner in all Dockerfiles
+- **Non-root execution** — `appuser` or language convention
+- **Health checks** — `HEALTHCHECK` in all services
+- **Network isolation** — `brewnet` (public) + `brewnet-internal` (DB only)
+- **Resource limits** — CPU and memory limits via `deploy.resources.limits`
 
 ---
 
-## Environment Variables / 환경 변수
+## Environment Variables
 
 Common across all stacks (`.env.example`):
 
-모든 스택에서 공통 (`.env.example`):
-
-| Variable | Default | Description / 설명 |
-|----------|---------|---------------------|
-| `PROJECT_NAME` | `brewnet` | Project name / 프로젝트명 |
-| `DOMAIN` | `localhost` | Domain / 도메인 |
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PROJECT_NAME` | `brewnet` | Project name |
+| `DOMAIN` | `localhost` | Domain |
 | `DB_DRIVER` | `postgres` | `postgres` \| `mysql` \| `sqlite3` |
 | `DB_HOST` | `postgres` | Docker: `postgres`, Local: `localhost` |
 | `DB_PORT` | `5432` | PostgreSQL port |
-| `DB_NAME` | `brewnet_db` | Database name / DB명 |
-| `DB_USER` | `brewnet` | Database user / DB 사용자 |
-| `DB_PASSWORD` | `password` | Database password / DB 비밀번호 |
+| `DB_NAME` | `brewnet_db` | Database name |
+| `DB_USER` | `brewnet` | Database user |
+| `DB_PASSWORD` | `password` | Database password |
 | `MYSQL_HOST` | `mysql` | Docker: `mysql`, Local: `localhost` |
 | `MYSQL_PORT` | `3306` | MySQL port |
-| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name / MySQL DB명 |
-| `MYSQL_USER` | `brewnet` | MySQL user / MySQL 사용자 |
-| `MYSQL_PASSWORD` | `password` | MySQL password / MySQL 비밀번호 |
-| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password / MySQL 루트 비밀번호 |
-| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite file path / SQLite 파일 경로 |
-| `BACKEND_PORT` | `8080` | Backend host port / 백엔드 포트 |
-| `FRONTEND_PORT` | `3000` | Frontend host port / 프론트엔드 포트 |
-| `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev / 프론트엔드 개발용 API URL |
-| `TZ` | `Asia/Seoul` | Timezone / 타임존 |
+| `MYSQL_DATABASE` | `brewnet_db` | MySQL database name |
+| `MYSQL_USER` | `brewnet` | MySQL user |
+| `MYSQL_PASSWORD` | `password` | MySQL password |
+| `MYSQL_ROOT_PASSWORD` | `password` | MySQL root password |
+| `SQLITE_PATH` | `/app/data/brewnet_db.db` | SQLite file path |
+| `BACKEND_PORT` | `8080` | Backend host port |
+| `FRONTEND_PORT` | `3000` | Frontend host port |
+| `VITE_API_URL` | `http://localhost:8080` | API URL for frontend dev |
+| `TZ` | `Asia/Seoul` | Timezone |
 
 ---
 
-## Dashboard / 대시보드
+## Dashboard
 
 The `dashboard/` directory contains a **Next.js 15 meta-dashboard** that lets you start and test all 16 stacks from a browser UI — no terminal needed for each stack.
 
-`dashboard/` 디렉토리에는 브라우저에서 16개 스택을 실행하고 테스트할 수 있는 **Next.js 15 메타 대시보드**가 포함되어 있습니다.
+### Prerequisites
 
-### Prerequisites / 사전 요구사항
-
-| Requirement / 요구사항 | Note / 설명 |
-|------------------------|-------------|
-| **Node.js 18+** | Required to run the dashboard itself / 대시보드 실행에 필요 |
-| **Docker Desktop** (running) | Required to **Start** any stack / 스택 **Start** 시 필요 |
+| Requirement | Note |
+|-------------|------|
+| **Node.js 18+** | Required to run the dashboard itself |
+| **Docker Desktop** (running) | Required to **Start** any stack |
 
 > ⚠️ The dashboard UI (`npm run dev`) starts without Docker. However, clicking **▶ Start** on any stack card runs `docker compose up -d --build` internally — **Docker Desktop must be open and running** at that point.
->
-> ⚠️ 대시보드 UI(`npm run dev`)는 Docker 없이 시작됩니다. 하지만 스택 카드의 **▶ Start** 버튼을 누르면 내부적으로 `docker compose up -d --build`를 실행하므로 — 그 시점에 **Docker Desktop이 반드시 실행 중**이어야 합니다.
 
-### Quick Setup / 빠른 설정
-
-Clone this repository, navigate to `dashboard/`, and start the dev server:
-
-이 저장소를 클론한 후 `dashboard/` 디렉토리로 이동하여 개발 서버를 실행하세요:
+### Quick Setup
 
 ```bash
-# 1. Verify Docker Desktop is running / Docker Desktop 실행 확인
+# 1. Verify Docker Desktop is running
 docker info
 
-# 2. Clone and start the dashboard / 저장소 클론 후 대시보드 실행
+# 2. Clone and start the dashboard
 git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
 cd brewnet-boilerplate/dashboard
 npm install
@@ -617,15 +527,11 @@ npm run dev
 
 Open **http://localhost:4000** in your browser. You will see all 16 stacks in a grid with:
 
-브라우저에서 **http://localhost:4000**을 열면 16개 스택이 그리드로 표시되며 다음을 확인할 수 있습니다:
-
-- **▶ Start** — launches the stack via `docker compose up -d --build` / `docker compose up -d --build`로 스택 실행
-- **README** — renders the stack's README.md in a modal / 해당 스택의 README.md를 모달로 렌더링
-- **GitHub ↗** — opens the stack's orphan branch on GitHub / GitHub의 orphan 브랜치로 바로 이동
+- **▶ Start** — launches the stack via `docker compose up -d --build`
+- **README** — renders the stack's README.md in a modal
+- **GitHub ↗** — opens the stack's orphan branch on GitHub
 
 Once a stack is **Running**, connect to the address shown on the card:
-
-스택이 **Running** 상태가 되면 카드에 표시된 주소로 접속하세요:
 
 ```
 Frontend  →  http://localhost:3001  (or whichever port was allocated)
@@ -634,30 +540,25 @@ Backend   →  http://localhost:8081
 
 ![Brewnet Dashboard](./public/images/brewnet-boilerplate.png)
 
-### Dashboard Features / 대시보드 기능
+### Dashboard Features
 
-| Feature / 기능 | Description / 설명 |
-|----------------|---------------------|
-| Start / Stop | Launch any stack via `docker compose up -d --build` / 원하는 스택을 `docker compose up -d --build`로 실행 |
-| Live status | Auto-polls running stack status every 5 seconds / 실행 중인 스택 상태를 5초마다 자동 갱신 |
-| Multi-stack | Dynamic port allocation (backend 8081–8096, frontend 3001–3016) supports simultaneous runs / 동적 포트 할당으로 여러 스택 동시 실행 가능 |
-| README viewer | Renders each stack's README.md in a modal / 각 스택의 README.md를 모달로 렌더링 |
-| API Explorer | Test all 4 endpoints inline (`GET /`, `/health`, `/api/hello`, `POST /api/echo`) / 4개 엔드포인트를 인라인에서 직접 테스트 |
-| GitHub links | Opens each stack's orphan branch directly / 각 스택의 orphan 브랜치를 바로 열기 |
+| Feature | Description |
+|---------|-------------|
+| Start / Stop | Launch any stack via `docker compose up -d --build` |
+| Live status | Auto-polls running stack status every 5 seconds |
+| Multi-stack | Dynamic port allocation (backend 8081–8096, frontend 3001–3016) |
+| README viewer | Renders each stack's README.md in a modal |
+| API Explorer | Test all 4 endpoints inline (`GET /`, `/health`, `/api/hello`, `POST /api/echo`) |
+| GitHub links | Opens each stack's orphan branch directly |
 
-> **Note / 참고**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096).
+> **Note**: The dashboard runs on **port 4000** to avoid conflicts with stack ports (3001–3016 and 8081–8096).
 > **Docker Desktop must be open and running** on the host before clicking Start on any stack card.
->
-> 대시보드는 스택 포트(3001–3016, 8081–8096)와 충돌을 방지하기 위해 **포트 4000**에서 실행됩니다.
-> 스택 카드에서 Start를 클릭하기 전에 **Docker Desktop이 반드시 실행 중**이어야 합니다.
 
 ---
 
-## CI / 지속적 통합
+## CI
 
 GitHub Actions (`validate-stacks.yml`) validates every stack on push:
-
-GitHub Actions가 푸시 시 모든 스택을 검증합니다:
 
 ```
 docker compose build → docker compose up -d → GET /health (200) → GET /api/hello (200) → docker compose down
@@ -665,28 +566,20 @@ docker compose build → docker compose up -d → GET /health (200) → GET /api
 
 ---
 
-## Contributing / 기여하기
+## Contributing
 
-We welcome contributions! If you'd like to add support for a new tech stack, please follow the steps below and submit a PR.
-
-기여를 환영합니다! 지원하고 싶은 기술 스택이 있을 경우, 아래 조건을 충족하게 만드신 후 PR을 보내주세요.
+We welcome contributions! To add a new stack, follow the steps below and submit a PR.
 
 ---
 
-### Step 1: Create Directory / 디렉토리 생성
-
-Create your stack directory following the naming convention:
-
-네이밍 규칙에 따라 스택 디렉토리를 생성하세요:
+### Step 1: Create Directory
 
 ```bash
 mkdir -p stacks/{lang}-{framework}
 # Example: stacks/ruby-rails, stacks/csharp-aspnet, stacks/elixir-phoenix
 ```
 
-Your directory must contain the following files:
-
-디렉토리에는 다음 파일들이 포함되어야 합니다:
+Your directory must contain:
 
 ```
 stacks/{lang}-{framework}/
@@ -702,59 +595,49 @@ stacks/{lang}-{framework}/
 └── README.md             # Stack-specific documentation (KR/EN bilingual)
 ```
 
-### Step 2: Implement 4 Backend Endpoints / 4개 백엔드 엔드포인트 구현
+### Step 2: Implement 4 Backend Endpoints
 
-All stacks must implement the same API contract. This ensures consistency and allows the Brewnet CLI to validate any stack uniformly.
-
-모든 스택은 동일한 API 규약을 구현해야 합니다. 이를 통해 Brewnet CLI가 모든 스택을 동일한 방식으로 검증할 수 있습니다.
+All stacks must implement the same API contract:
 
 | Method | Path | Response Format |
 |--------|------|-----------------|
-| `GET` | `/` | `{"service":"{framework}-backend","status":"running","message":"🍺 Brewnet says hello!"}` |
+| `GET` | `/` | `{"service":"{framework}-backend","status":"running","message":"Hello Brewnet (https://www.brewnet.dev)"}` |
 | `GET` | `/health` | `{"status":"ok","timestamp":"...","db_connected":true\|false}` |
 | `GET` | `/api/hello` | `{"message":"Hello from {Framework}!","lang":"{lang}","version":"..."}` |
-| `POST` | `/api/echo` | Echo back the request body as-is / 요청 본문을 그대로 반환 |
+| `POST` | `/api/echo` | Echo back the request body as-is |
 
-### Step 3: Database Support / 데이터베이스 지원
+### Step 3: Database Support
 
 Your stack must support 3 databases via the `DB_DRIVER` environment variable:
 
-`DB_DRIVER` 환경 변수를 통해 3개의 데이터베이스를 지원해야 합니다:
-
-- **PostgreSQL** (`DB_DRIVER=postgres`) — default, using your language's standard ORM/driver
-- **MySQL** (`DB_DRIVER=mysql`) — alternative, same ORM/driver
+- **PostgreSQL** (`DB_DRIVER=postgres`) — default
+- **MySQL** (`DB_DRIVER=mysql`) — alternative
 - **SQLite3** (`DB_DRIVER=sqlite3`) — file-based, no external container needed
 
-### Step 4: Docker Requirements / Docker 요구사항
+### Step 4: Docker Requirements
 
-| Requirement / 요구사항 | Description / 설명 |
-|---|---|
-| Multi-stage build | Builder stage → lightweight runner stage / 빌드 스테이지 → 경량 실행 스테이지 |
-| Non-root user | Run as `appuser` or language convention / `appuser` 또는 언어 관례로 실행 |
-| HEALTHCHECK | Backend must include HEALTHCHECK directive / 백엔드에 HEALTHCHECK 지시어 포함 |
-| .dockerignore | Exclude unnecessary files from build context / 불필요한 파일 빌드 컨텍스트에서 제외 |
-| Network isolation | `brewnet` (public) + `brewnet-internal` (DB only) / 네트워크 격리 |
-| Resource limits | Set CPU and memory limits in docker-compose.yml / 리소스 제한 설정 |
+| Requirement | Description |
+|-------------|-------------|
+| Multi-stage build | Builder stage → lightweight runner stage |
+| Non-root user | Run as `appuser` or language convention |
+| HEALTHCHECK | Backend must include HEALTHCHECK directive |
+| .dockerignore | Exclude unnecessary files from build context |
+| Network isolation | `brewnet` (public) + `brewnet-internal` (DB only) |
+| Resource limits | Set CPU and memory limits in docker-compose.yml |
 | Port convention | Backend: `8080`, Frontend: `3000`, PostgreSQL: `5433`, MySQL: `3307` |
 
-> **Important / 중요**: Use `127.0.0.1` instead of `localhost` in HEALTHCHECK commands. Alpine containers resolve `localhost` to IPv6 (`::1`), which can cause healthcheck failures.
->
-> HEALTHCHECK 명령에서 `localhost` 대신 `127.0.0.1`을 사용하세요. Alpine 컨테이너는 `localhost`를 IPv6(`::1`)로 해석하여 헬스체크가 실패할 수 있습니다.
+> **Important**: Use `127.0.0.1` instead of `localhost` in HEALTHCHECK commands. Alpine containers resolve `localhost` to IPv6 (`::1`), which can cause healthcheck failures.
 
-### Step 5: Frontend Integration / 프론트엔드 연동
+### Step 5: Frontend Integration
 
 Copy the `frontend/` directory from any existing stack (e.g., `stacks/go-gin/frontend/`). The React frontend is shared across all stacks.
-
-기존 스택(예: `stacks/go-gin/frontend/`)에서 `frontend/` 디렉토리를 복사하세요. React 프론트엔드는 모든 스택에서 공유됩니다.
 
 - `App` component calls `GET /api/hello` and displays the response
 - Production: nginx serves static files and reverse proxies `/api` to the backend
 
-### Step 6: Makefile / Makefile 작성
+### Step 6: Makefile
 
-Copy the `Makefile` from an existing stack and adjust the test command for your language. All stacks must support these targets:
-
-기존 스택에서 `Makefile`을 복사하고 테스트 명령을 해당 언어에 맞게 수정하세요. 모든 스택은 다음 타겟을 지원해야 합니다:
+Copy the `Makefile` from an existing stack and adjust the test command for your language:
 
 ```makefile
 make dev       # docker compose up --build
@@ -767,44 +650,24 @@ make clean     # docker compose down -v --rmi local
 make validate  # bash ../../shared/scripts/validate.sh
 ```
 
-### Step 7: Write README / README 작성
+### Step 7: Write README
 
-Write a bilingual (Korean/English) README following the format of existing stack READMEs. Include:
-
-기존 스택 README 형식을 따라 한글/영문 이중 언어로 README를 작성하세요. 포함 내용:
-
-- Prerequisites (runtime installation) / 사전 요구사항 (런타임 설치)
-- Quick Start / 빠른 시작
-- Local Development / 로컬 개발
-- API Endpoints / API 엔드포인트
-- Database Configuration / DB 설정
-- Environment Variables / 환경 변수
-- Project Structure / 프로젝트 구조
+Write a bilingual (Korean/English) README following the format of existing stack READMEs. Include prerequisites, quick start, local development, API endpoints, database configuration, environment variables, and project structure.
 
 Add the monorepo reference at the top:
 
-상단에 모노레포 참조를 추가하세요:
-
 ```markdown
-**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions. / [Brewnet Boilerplate](../../README.md) 모노레포의 일부입니다 — 전체 스택 목록, CLI 사용법, 클론 방법은 루트 README를 참고하세요.
+**Part of the [Brewnet Boilerplate](../../README.md) monorepo** — see root README for full stack list, CLI usage, and clone instructions.
 ```
 
-### Step 8: Validate / 검증
-
-Before submitting, verify your stack passes all checks:
-
-제출 전에 스택이 모든 검증을 통과하는지 확인하세요:
+### Step 8: Validate
 
 ```bash
 cd stacks/{lang}-{framework}
 
-# 1. Build succeeds / 빌드 성공 확인
 make build
-
-# 2. Dev mode starts correctly / 개발 모드 정상 시작 확인
 make dev
 
-# 3. All 4 endpoints respond / 4개 엔드포인트 응답 확인
 curl -s http://localhost:8080/ | jq .
 curl -s http://localhost:8080/health | jq .
 curl -s http://localhost:8080/api/hello | jq .
@@ -812,68 +675,56 @@ curl -s -X POST http://localhost:8080/api/echo \
   -H "Content-Type: application/json" \
   -d '{"test":"brewnet"}' | jq .
 
-# 4. Frontend displays API response / 프론트엔드에서 API 응답 표시 확인
 open http://localhost:3000
-
-# 5. Validation script passes / 검증 스크립트 통과 확인
 make validate
-
-# 6. Clean up / 정리
 make clean
 ```
 
-### Step 9: Submit PR / PR 제출
+### Step 9: Submit PR
 
 ```bash
-# 1. Fork this repository on GitHub / GitHub에서 이 저장소를 Fork하세요
+# 1. Fork this repository on GitHub
 
-# 2. Clone your fork and switch to develop / Fork를 클론하고 develop 브랜치로 전환하세요
+# 2. Clone your fork and switch to develop
 git clone https://github.com/<your-username>/brewnet-boilerplate.git
 cd brewnet-boilerplate
 git checkout develop
 
-# 3. Create a feature branch from develop / develop에서 기능 브랜치를 생성하세요
+# 3. Create a feature branch from develop
 git checkout -b feat/add-{lang}-{framework}-stack
 
-# 4. Commit your changes / 변경 사항을 커밋하세요
+# 4. Commit your changes
 git add stacks/{lang}-{framework}/
 git commit -m "feat: add {lang}-{framework} stack"
 
-# 5. Push to your fork / Fork에 푸시하세요
+# 5. Push to your fork
 git push origin feat/add-{lang}-{framework}-stack
 
 # 6. Open a Pull Request: your fork → upstream develop branch
-#    GitHub에서 PR 생성: 본인 Fork → 원본 저장소의 develop 브랜치
 ```
 
-> **Important / 중요**: PR target must be the `develop` branch, NOT `main`. All contributions are integrated into `develop` first.
->
-> PR 대상은 반드시 `develop` 브랜치입니다. `main`이 아닙니다. 모든 기여는 `develop`에 먼저 통합됩니다.
+> **Important**: PR target must be the `develop` branch, NOT `main`.
 
-**PR Checklist / PR 체크리스트**:
+**PR Checklist**:
 
-- [ ] Directory follows `stacks/{lang}-{framework}/` naming convention / 디렉토리가 네이밍 규칙을 따름
-- [ ] All 4 endpoints implemented and respond correctly / 4개 엔드포인트 구현 및 정상 응답
-- [ ] Multi-DB support (PostgreSQL, MySQL, SQLite3) / 멀티 DB 지원
-- [ ] `make dev` starts the full stack / `make dev`로 전체 스택 시작
-- [ ] `make validate` passes / `make validate` 통과
-- [ ] Multi-stage Dockerfile with non-root user / 멀티스테이지 Dockerfile + 비루트 사용자
-- [ ] README.md written in bilingual format / README가 한글/영문 이중 언어로 작성됨
-- [ ] No secrets or credentials committed / 시크릿이나 인증 정보가 커밋되지 않음
+- [ ] Directory follows `stacks/{lang}-{framework}/` naming convention
+- [ ] All 4 endpoints implemented and respond correctly
+- [ ] Multi-DB support (PostgreSQL, MySQL, SQLite3)
+- [ ] `make dev` starts the full stack
+- [ ] `make validate` passes
+- [ ] Multi-stage Dockerfile with non-root user
+- [ ] README.md written in bilingual format
+- [ ] No secrets or credentials committed
 
 ---
 
-### Questions / 문의
-
-If you have any questions about contributing, feel free to reach out:
-
-기여 관련 문의 사항이 있으시면 편하게 연락해 주세요:
+### Questions
 
 - Email: [brewnet.dev@gmail.com](mailto:brewnet.dev@gmail.com)
 - Website: [https://www.brewnet.dev](https://www.brewnet.dev)
 
 ---
 
-## License / 라이선스
+## License
 
 [MIT](LICENSE)
