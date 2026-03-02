@@ -15,7 +15,7 @@ class ApiController {
     fun root(): Map<String, Any> = linkedMapOf(
         "service" to "springboot-kt-backend",
         "status" to "running",
-        "message" to "\uD83C\uDF7A Brewnet says hello!"
+        "message" to "Hello Brewnet (https://www.brewnet.dev)"
     )
 
     @GetMapping("/health")
