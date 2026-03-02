@@ -19,7 +19,22 @@
 
 ---
 
-Multi-language fullstack boilerplate monorepo for the **Brewnet CLI** (`brewnet create-app`). Each stack is a self-contained backend + frontend project that runs with a single `docker compose up`.
+## What is Brewnet Boilerplate?
+
+This repository is the official boilerplate collection for **[Brewnet](https://github.com/claude-code-expert/brewnet)** — a self-hosting Home Server solution designed to let you deploy and serve websites, APIs, and e-commerce services from your own Mac or Linux machine at home.
+
+The **Brewnet CLI** (`brewnet create-app`) automatically clones the right stack from this repository, generates a secure `.env`, and launches your full-stack application with Docker — no manual configuration required.
+
+### What you can build with Brewnet
+
+- Personal homepages and portfolios served from home hardware
+- E-Biz and web services hosted on your own Mac or Linux machine
+- Full-stack applications across 6 languages and 16 frameworks, backed by PostgreSQL, MySQL, or SQLite3
+
+Each stack in this monorepo is a self-contained backend + frontend project that runs with a single `docker compose up`. Supported languages: **Python, Node.js, Java, Kotlin, Rust, Go** — each with multiple framework options.
+
+> **Brewnet CLI** — source code and documentation: [github.com/claude-code-expert/brewnet](https://github.com/claude-code-expert/brewnet)
+> **Live demo**: [www.brewnet.dev](https://www.brewnet.dev)
 
 ## Prerequisites
 

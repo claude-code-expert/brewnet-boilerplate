@@ -20,7 +20,22 @@
 
 ---
 
-**Brewnet CLI** (`brewnet create-app`)를 위한 다중 언어 풀스택 보일러플레이트 모노레포입니다. 각 스택은 `docker compose up` 한 번으로 실행 가능한 독립적인 백엔드 + 프론트엔드 프로젝트입니다.
+## Brewnet Boilerplate란?
+
+이 저장소는 **[Brewnet](https://github.com/claude-code-expert/brewnet)** 의 공식 보일러플레이트 모음입니다. Brewnet은 Self-hosting을 위한 Home Server 솔루션으로, 집에 있는 Mac 또는 Linux 장비에서 홈페이지, API, E-Biz 서비스를 직접 서빙할 수 있도록 설계되었습니다.
+
+**Brewnet CLI** (`brewnet create-app`)는 이 저장소에서 원하는 스택을 자동으로 clone하고, 보안 시크릿이 포함된 `.env`를 생성한 뒤 Docker로 풀스택 애플리케이션을 바로 실행합니다. 별도의 수동 설정이 필요 없습니다.
+
+### Brewnet으로 만들 수 있는 것
+
+- 집에 있는 장비에서 직접 서빙하는 개인 홈페이지 및 포트폴리오
+- 자신의 Mac 또는 Linux 서버에서 운영하는 웹 서비스 및 E-Biz 플랫폼
+- PostgreSQL, MySQL, SQLite3를 기반으로 6개 언어 × 16개 프레임워크 조합의 풀스택 앱
+
+이 모노레포의 각 스택은 `docker compose up` 한 번으로 실행 가능한 독립적인 백엔드 + 프론트엔드 프로젝트입니다. 지원 언어: **Python, Node.js, Java, Kotlin, Rust, Go** — 각 언어별 다양한 프레임워크 옵션 제공.
+
+> **Brewnet CLI** — 소스 코드 및 문서: [github.com/claude-code-expert/brewnet](https://github.com/claude-code-expert/brewnet)
+> **라이브 데모**: [www.brewnet.dev](https://www.brewnet.dev)
 
 ## 사전 요구사항
 
