@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brewnet — Your Server on Tap. Just Brew It.</title>
+  <meta name="description" content="Self-hosted home server management platform. Deploy Git, DB, File, Media servers with one command. 6 languages, 16 frameworks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0f1017;
+      --bg-surface: #161822;
+      --bg-card: #1c1f2e;
+      --bg-card-hover: #232640;
+      --amber: #e8a849;
+      --amber-dim: #c78c30;
+      --teal: #3dd6c8;
+      --teal-dim: #2aab9f;
+      --green: #5ccc5c;
+      --red: #e05555;
+      --text-primary: #e8e8ee;
+      --text-secondary: #8b8fa3;
+      --text-muted: #555872;
+      --border: #2a2d42;
+      --glow-amber: rgba(232, 168, 73, 0.12);
+      --glow-teal: rgba(61, 214, 200, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -30vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120vw;
+      height: 60vh;
+      background: radial-gradient(ellipse at center, rgba(232, 168, 73, 0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 30% 50%, rgba(61, 214, 200, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+
+    .hero-banner {
+      width: 100%;
+      max-width: 1100px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 60px rgba(0,0,0,0.5), 0 0 80px rgba(232,168,73,0.05);
+      margin: 0 auto 40px;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .hero-domain {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      color: var(--teal);
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1px solid rgba(61, 214, 200, 0.25);
+      border-radius: 999px;
+      background: rgba(61, 214, 200, 0.06);
+      transition: all 0.3s;
+    }
+
+    .hero-domain:hover {
+      background: rgba(61, 214, 200, 0.12);
+      border-color: rgba(61, 214, 200, 0.45);
+      box-shadow: 0 0 20px rgba(61, 214, 200, 0.1);
+    }
+
+    .hero-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: color 0.3s;
+    }
+
+    .hero-github:hover { color: var(--text-primary); }
+    .hero-github svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .hero-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 24px 60px;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 36px;
+      color: var(--text-primary);
+    }
+
+    .section-title span { color: var(--teal); }
+
+    /* ── REPO CARDS ── */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .repo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--teal));
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .repo-card:hover {
+      border-color: rgba(232, 168, 73, 0.3);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-amber);
+    }
+
+    .repo-card:hover::before { opacity: 1; }
+
+    .repo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .repo-name-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .repo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .repo-icon.amber { background: rgba(232, 168, 73, 0.12); color: var(--amber); }
+    .repo-icon.teal { background: rgba(61, 214, 200, 0.12); color: var(--teal); }
+    .repo-icon.green { background: rgba(92, 204, 92, 0.12); color: var(--green); }
+
+    .repo-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .repo-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .repo-link:hover {
+      color: var(--text-secondary);
+      border-color: var(--text-muted);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .repo-link svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    .repo-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .repo-desc strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .repo-desc code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--teal);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .repo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .tag.amber { color: var(--amber-dim); background: rgba(232,168,73,0.07); border-color: rgba(232,168,73,0.12); }
+    .tag.teal { color: var(--teal-dim); background: rgba(61,214,200,0.07); border-color: rgba(61,214,200,0.12); }
+    .tag.green { color: #4ab04a; background: rgba(92,204,92,0.07); border-color: rgba(92,204,92,0.12); }
+
+    /* ── LICENSE BAR ── */
+    .license-bar {
+      text-align: center;
+      padding: 12px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .license-bar a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .license-bar a:hover { color: var(--teal); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px 24px 36px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-contact {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-contact a {
+      color: var(--amber);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-contact a:hover { color: var(--teal); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      opacity: 0.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 768px) {
+      .hero { padding: 60px 40px 36px; }
+      .section { padding: 20px 40px 72px; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-banner { animation: fadeUp 0.7s ease-out; }
+    .hero-tagline { animation: fadeUp 0.7s ease-out 0.15s both; }
+    .hero-links { animation: fadeUp 0.7s ease-out 0.25s both; }
+    .section-label { animation: fadeUp 0.6s ease-out 0.3s both; }
+    .section-title { animation: fadeUp 0.6s ease-out 0.35s both; }
+    .repo-card:nth-child(1) { animation: fadeUp 0.6s ease-out 0.4s both; }
+    .repo-card:nth-child(2) { animation: fadeUp 0.6s ease-out 0.5s both; }
+    .repo-card:nth-child(3) { animation: fadeUp 0.6s ease-out 0.6s both; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HERO -->
+    <header class="hero">
+      <img src="brewnet-site-banner.png" alt="Brewnet — Your server on tap. Just brew it." class="hero-banner">
+      <p class="hero-tagline">Self-hosted home server platform — deploy everything with one command</p>
+      <div class="hero-links">
+        <a href="https://brewnet.dev" class="hero-domain" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          brewnet.dev
+        </a>
+        <a href="https://github.com/claude-code-expert" class="hero-github" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          claude-code-expert
+        </a>
+      </div>
+    </header>
+
+    <!-- PROJECTS -->
+    <section class="section">
+      <div class="section-label">Open Source Projects</div>
+      <h2 class="section-title">Brew your stack <span>from scratch</span></h2>
+
+      <div class="repo-grid">
+
+        <!-- brewnet -->
+        <article class="repo-card">
+          <div class="repo-header">
+            <div class="repo-name-group">
+              <div class="repo-icon amber">&#127866;</div>
+              <span class="repo-name">brewnet</span>
+            </div>
+            <a href="https://github.com/claude-code-expert/brewnet" class="repo-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+          <p class="repo-desc">
+            Self-hosted home server CLI platform.
+            <strong>7-step interactive wizard</strong> handles everything from Docker auto-install to
+            Git &middot; DB &middot; File &middot; Media servers, plus external access via Cloudflare Tunnel &mdash; all in one command.
+          </p>
+          <div class="repo-tags">
+            <span class="tag amber">TypeScript</span>
+            <span class="tag">Docker Compose</span>
+            <span class="tag">Traefik</span>
+            <span class="tag">Authelia</span>
+            <span class="tag">Cloudflare Tunnel</span>
+            <span class="tag">Nextcloud</span>
+            <span class="tag">Gitea</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </article>
+
+        <!-- brewnet-boilerplate -->
+        <article class="repo-card">
+          <div class="repo-header">
+            <div class="repo-name-group">
+              <div class="repo-icon teal">&#9889;</div>
+              <span class="repo-name">brewnet-boilerplate</span>
+            </div>
+            <a href="https://github.com/claude-code-expert/brewnet-boilerplate" class="repo-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+          <p class="repo-desc">
+            <strong>6 languages &middot; 16 frameworks</strong> &mdash; production-ready fullstack boilerplate collection.
+            Run <code>brewnet create-app</code> and get a Docker-based app running instantly with React 19 frontend.
+          </p>
+          <div class="repo-tags">
+            <span class="tag teal">Go</span>
+            <span class="tag teal">Rust</span>
+            <span class="tag teal">Java</span>
+            <span class="tag teal">Kotlin</span>
+            <span class="tag teal">Node.js</span>
+            <span class="tag teal">Python</span>
+            <span class="tag">React 19</span>
+            <span class="tag">Docker</span>
+            <span class="tag">PostgreSQL / MySQL / SQLite</span>
+          </div>
+        </article>
+
+        <!-- tika -->
+        <article class="repo-card">
+          <div class="repo-header">
+            <div class="repo-name-group">
+              <div class="repo-icon green">&#128203;</div>
+              <span class="repo-name">tika</span>
+            </div>
+            <a href="https://github.com/claude-code-expert/tika" class="repo-link" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+          <p class="repo-desc">
+            Spec-Driven Development (SDD) <strong>Kanban board TODO app</strong>.
+            Built with Next.js 15 App Router + Drizzle ORM + Vercel Postgres, featuring @dnd-kit drag &amp; drop.
+          </p>
+          <div class="repo-tags">
+            <span class="tag green">Next.js 15</span>
+            <span class="tag green">TypeScript</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Drizzle ORM</span>
+            <span class="tag">Vercel Postgres</span>
+            <span class="tag">@dnd-kit</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- LICENSE -->
+    <div class="license-bar">
+      License: <a href="https://spdx.org/licenses/BUSL-1.1.html" target="_blank" rel="noopener">Business Source License 1.1</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p class="footer-contact">
+        <a href="mailto:brewnet.dev@gmail.com">brewnet.dev@gmail.com</a>
+      </p>
+      <p class="footer-copy">&copy; 2025 Brewnet &mdash; codevillain</p>
+    </footer>
+
+  </div>
+</body>
+</html>
