@@ -1,35 +1,152 @@
-import { getHelloData } from '@/lib/hello';
-import HelloCard from '@/components/HelloCard';
+import Image from 'next/image';
 
-// Server Component: fetches data at render time without client-side fetch
+const GithubIcon = () => (
+    <svg viewBox="0 0 16 16">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+    </svg>
+);
+
 export default function Home() {
-    const data = getHelloData();
-
     return (
-        <main className="container">
-            <a
-                href="https://www.brewnet.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#f5a623", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", justifyContent: "center", marginBottom: "0.5rem" }}
-            >
-                <svg width="50" height="50" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M8 26H32V34C32 36.8 29.8 39 27 39H13C10.2 39 8 36.8 8 34V26Z" strokeWidth="3.2" fill="none" />
-                    <path d="M32 28.5C35.5 28.5 37 30.5 37 32.5C37 34.5 35.5 36.5 32 36.5" strokeWidth="3.2" fill="none" />
-                    <circle cx="20" cy="30" r="1.8" fill="currentColor" stroke="none" />
-                    <path d="M16.5 20a5 5 0 0 1 7 0" strokeWidth="3" fill="none" />
-                    <path d="M13.5 15.5a10 10 0 0 1 13 0" strokeWidth="3" fill="none" />
-                    <path d="M10.5 11a15 15 0 0 1 19 0" strokeWidth="3" fill="none" />
-                </svg>
-                <span style={{ display: "flex", flexDirection: "column", fontFamily: "'SF Mono', 'Fira Code', monospace", fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", lineHeight: 1 }}>
-                    Brewnet
-                    <span style={{ display: "block", fontFamily: "system-ui, sans-serif", fontSize: 10, fontWeight: 400, color: "#888", letterSpacing: "0.02em", marginTop: 2 }}>
-                        Your server on tap. Just brew it.
-                    </span>
-                </span>
-            </a>
-            <p className="subtitle">Next.js Full-Stack — Server Components + API Routes</p>
-            <HelloCard data={data} />
-        </main>
+        <div className="page">
+
+            {/* HERO */}
+            <header className="hero">
+                <Image
+                    src="/brewnet-site-banner.png"
+                    alt="Brewnet — Your server on tap. Just brew it."
+                    width={1100}
+                    height={400}
+                    className="hero-banner"
+                    priority
+                />
+                <p className="hero-tagline">Self-hosted home server platform — deploy everything with one command</p>
+                <div className="hero-links">
+                    <a href="https://brewnet.dev" className="hero-domain" target="_blank" rel="noopener">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M2 12h20" />
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        </svg>
+                        brewnet.dev
+                    </a>
+                    <a href="https://github.com/claude-code-expert" className="hero-github" target="_blank" rel="noopener">
+                        <GithubIcon />
+                        claude-code-expert
+                    </a>
+                </div>
+            </header>
+
+            {/* PROJECTS */}
+            <section className="section">
+                <div className="section-label">Open Source Projects</div>
+                <h2 className="section-title">Brew your stack <span>from scratch</span></h2>
+
+                <div className="repo-grid">
+
+                    {/* brewnet */}
+                    <article className="repo-card">
+                        <div className="repo-header">
+                            <div className="repo-name-group">
+                                <div className="repo-icon amber">&#127866;</div>
+                                <span className="repo-name">brewnet</span>
+                            </div>
+                            <a href="https://github.com/claude-code-expert/brewnet" className="repo-link" target="_blank" rel="noopener">
+                                <GithubIcon />
+                                View on GitHub
+                            </a>
+                        </div>
+                        <p className="repo-desc">
+                            Self-hosted home server CLI platform.{' '}
+                            <strong>7-step interactive wizard</strong> handles everything from Docker auto-install to
+                            Git &middot; DB &middot; File &middot; Media servers, plus external access via Cloudflare Tunnel &mdash; all in one command.
+                        </p>
+                        <div className="repo-tags">
+                            <span className="tag amber">TypeScript</span>
+                            <span className="tag">Docker Compose</span>
+                            <span className="tag">Traefik</span>
+                            <span className="tag">Authelia</span>
+                            <span className="tag">Cloudflare Tunnel</span>
+                            <span className="tag">Nextcloud</span>
+                            <span className="tag">Gitea</span>
+                            <span className="tag">PostgreSQL</span>
+                        </div>
+                    </article>
+
+                    {/* brewnet-boilerplate */}
+                    <article className="repo-card">
+                        <div className="repo-header">
+                            <div className="repo-name-group">
+                                <div className="repo-icon teal">&#9889;</div>
+                                <span className="repo-name">brewnet-boilerplate</span>
+                            </div>
+                            <a href="https://github.com/claude-code-expert/brewnet-boilerplate" className="repo-link" target="_blank" rel="noopener">
+                                <GithubIcon />
+                                View on GitHub
+                            </a>
+                        </div>
+                        <p className="repo-desc">
+                            <strong>6 languages &middot; 16 frameworks</strong> &mdash; production-ready fullstack boilerplate collection.
+                            Run <code>brewnet create-app</code> and get a Docker-based app running instantly with React 19 frontend.
+                        </p>
+                        <div className="repo-tags">
+                            <span className="tag teal">Go</span>
+                            <span className="tag teal">Rust</span>
+                            <span className="tag teal">Java</span>
+                            <span className="tag teal">Kotlin</span>
+                            <span className="tag teal">Node.js</span>
+                            <span className="tag teal">Python</span>
+                            <span className="tag">React 19</span>
+                            <span className="tag">Docker</span>
+                            <span className="tag">PostgreSQL / MySQL / SQLite</span>
+                        </div>
+                    </article>
+
+                    {/* tika */}
+                    <article className="repo-card">
+                        <div className="repo-header">
+                            <div className="repo-name-group">
+                                <div className="repo-icon green">&#128203;</div>
+                                <span className="repo-name">tika</span>
+                            </div>
+                            <a href="https://github.com/claude-code-expert/tika" className="repo-link" target="_blank" rel="noopener">
+                                <GithubIcon />
+                                View on GitHub
+                            </a>
+                        </div>
+                        <p className="repo-desc">
+                            Spec-Driven Development (SDD) <strong>Kanban board TODO app</strong>.
+                            Built with Next.js 15 App Router + Drizzle ORM + Vercel Postgres, featuring @dnd-kit drag &amp; drop.
+                        </p>
+                        <div className="repo-tags">
+                            <span className="tag green">Next.js 15</span>
+                            <span className="tag green">TypeScript</span>
+                            <span className="tag">Tailwind CSS</span>
+                            <span className="tag">Drizzle ORM</span>
+                            <span className="tag">Vercel Postgres</span>
+                            <span className="tag">@dnd-kit</span>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            {/* LICENSE */}
+            <div className="license-bar">
+                License:{' '}
+                <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
+                    MIT License
+                </a>
+            </div>
+
+            {/* FOOTER */}
+            <footer>
+                <p className="footer-contact">
+                    <a href="mailto:brewnet.dev@gmail.com">brewnet.dev@gmail.com</a>
+                </p>
+                <p className="footer-copy">&copy; 2025 Brewnet &mdash; codevillain</p>
+            </footer>
+
+        </div>
     );
 }
