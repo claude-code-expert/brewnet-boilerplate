@@ -32,6 +32,9 @@ cp .env.example .env
 make dev
 ```
 
+> **Tip / 팁**: You can also start this stack from the [Brewnet Dashboard](../../dashboard/) — a browser UI that manages all 16 stacks with live status, README viewer, and inline API Explorer.
+> [Brewnet Dashboard](../../dashboard/)에서 이 스택을 시작할 수도 있습니다 — 16개 스택의 실행 상태, README, API 테스트를 브라우저에서 한 번에 관리합니다.
+
 > **Note**: The first build takes longer due to Rust compilation. Subsequent builds use dependency caching via a two-step Docker build that pre-compiles dependencies before copying source code.
 >
 > **참고**: 첫 빌드는 Rust 컴파일로 인해 시간이 걸립니다. 이후 빌드는 소스 코드 복사 전에 의존성을 미리 컴파일하는 2단계 Docker 빌드를 통해 캐싱이 적용됩니다.
