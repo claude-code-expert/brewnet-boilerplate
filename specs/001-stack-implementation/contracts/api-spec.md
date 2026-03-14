@@ -19,14 +19,14 @@
 {
   "service": "{lang}-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
 **Field Rules**:
 - `service`: `{lang}-backend` 형식. lang은 `go`, `rust`, `java`, `node`, `python` 중 하나
 - `status`: 항상 `"running"`
-- `message`: 항상 `"🍺 Brewnet says hello!"`
+- `message`: 항상 `"☕ Brewnet says hello!"`
 
 **Example**:
 ```bash

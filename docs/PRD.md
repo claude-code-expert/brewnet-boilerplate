@@ -134,7 +134,7 @@ brewnet-boilerplate/
 
 | Method | Path | Response | 설명 |
 |--------|------|----------|------|
-| `GET` | `/` | `{"service":"{framework}-backend","status":"running","message":"🍺 Brewnet says hello!"}` | 서비스 정보 |
+| `GET` | `/` | `{"service":"{framework}-backend","status":"running","message":"☕ Brewnet says hello!"}` | 서비스 정보 |
 | `GET` | `/health` | `{"status":"ok","timestamp":"...","db_connected":true}` | 헬스체크 (DB 연결 상태 포함) |
 | `GET` | `/api/hello` | `{"message":"Hello from {Framework}!","lang":"{lang}","version":"..."}` | 프론트엔드 연동 확인용 |
 | `POST` | `/api/echo` | Request body 그대로 반환 | API 계층 동작 확인용 |

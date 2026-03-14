@@ -74,7 +74,7 @@ make clean
 ```bash
 # 1. Root endpoint
 curl -s http://localhost:8080/ | jq .
-# Expected: { "service": "{framework}-backend", "status": "running", "message": "🍺 Brewnet says hello!" }
+# Expected: { "service": "{framework}-backend", "status": "running", "message": "☕ Brewnet says hello!" }
 
 # 2. Health check
 curl -s http://localhost:8080/health | jq .

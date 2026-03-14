@@ -130,7 +130,7 @@ The frontend starts on `http://localhost:5173` (Vite dev server).
 {
   "service": "spring-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 

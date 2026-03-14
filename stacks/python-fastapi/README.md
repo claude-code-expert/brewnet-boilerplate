@@ -128,7 +128,7 @@ curl -s http://localhost:8080/ | jq .
 # {
 #   "service": "fastapi-backend",
 #   "status": "running",
-#   "message": "🍺 Brewnet says hello!"
+#   "message": "☕ Brewnet says hello!"
 # }
 
 # Health check / 헬스체크

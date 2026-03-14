@@ -15,7 +15,7 @@
 {
   "service": "{framework}-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
@@ -23,7 +23,7 @@
 |-------|------|-------------|----------------|
 | `service` | string | `{framework}-backend` format | `django-backend`, `echo-backend`, `axum-backend` |
 | `status` | string | Always `"running"` | `running` |
-| `message` | string | Fixed greeting | `🍺 Brewnet says hello!` |
+| `message` | string | Fixed greeting | `☕ Brewnet says hello!` |
 
 ### GET /health — Health Check
 

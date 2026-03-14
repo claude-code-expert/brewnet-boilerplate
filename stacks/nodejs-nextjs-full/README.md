@@ -158,7 +158,7 @@ curl -s http://localhost:3000/ | jq .
 {
   "service": "nextjs-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
