@@ -118,7 +118,7 @@ The frontend starts on `http://localhost:5173` (Vite dev server).
 {
   "service": "springboot-kt-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
