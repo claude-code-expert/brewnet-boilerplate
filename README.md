@@ -117,7 +117,7 @@ curl -s http://localhost:8080/ | jq .
 {
   "service": "express-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
