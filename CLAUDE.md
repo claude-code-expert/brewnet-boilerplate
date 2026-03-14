@@ -72,7 +72,7 @@ for stack in stacks/*/; do (cd "$stack" && make build); done
 ### Backend API Spec (all stacks must implement)
 
 ```
-GET  /           → { "service": "{framework}-backend", "status": "running", "message": "🍺 Brewnet says hello!" }
+GET  /           → { "service": "{framework}-backend", "status": "running", "message": "☕ Brewnet says hello!" }
 GET  /health     → { "status": "ok", "timestamp": "...", "db_connected": true|false }
 GET  /api/hello  → { "message": "Hello from {Framework}!", "lang": "{lang}", "version": "..." }
 POST /api/echo   → (echo back request body)

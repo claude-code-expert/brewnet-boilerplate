@@ -27,14 +27,14 @@ http://localhost:{BACKEND_PORT}  (default: 8080)
 {
   "service": "<framework>-backend",
   "status": "running",
-  "message": "🍺 Brewnet says hello!"
+  "message": "☕ Brewnet says hello!"
 }
 ```
 
 **Constraints**:
 - `service`: MUST be `{framework}-backend` (lowercase, hyphenated)
 - `status`: MUST be literal `"running"`
-- `message`: MUST be literal `"🍺 Brewnet says hello!"`
+- `message`: MUST be literal `"☕ Brewnet says hello!"`
 - Content-Type: `application/json`
 
 **Framework-specific `service` values**:

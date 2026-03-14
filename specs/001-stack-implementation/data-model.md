@@ -17,7 +17,7 @@
 {
   "service": string,       // "{lang}-backend" (e.g., "node-backend")
   "status": string,        // "running"
-  "message": string        // "🍺 Brewnet says hello!"
+  "message": string        // "☕ Brewnet says hello!"
 }
 ```
 

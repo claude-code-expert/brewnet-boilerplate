@@ -815,7 +815,7 @@ export default function App() {
 
   return (
     <main>
-      <h1>🍺 Brewnet</h1>
+      <h1>☕ Brewnet</h1>
       {hello && <p>{hello.message} ({hello.lang} {hello.version})</p>}
       {health && (
         <p>
@@ -917,7 +917,7 @@ echo "$ECHO_RESULT" | jq -e '.test == "brewnet"' > /dev/null
 echo "  ✅ POST /api/echo — ok"
 
 echo ""
-echo "🍺 All checks passed!"
+echo "☕ All checks passed!"
 ```
 
 ---
