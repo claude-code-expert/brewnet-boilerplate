@@ -45,7 +45,7 @@ export default function App() {
           <article className="repo-card">
             <div className="repo-header">
               <div className="repo-name-group">
-                <div className="repo-icon amber">&#127866;</div>
+                <div className="repo-icon amber">&#9749;</div>
                 <span className="repo-name">brewnet</span>
               </div>
               <a href="https://github.com/claude-code-expert/brewnet" className="repo-link" target="_blank" rel="noopener">
