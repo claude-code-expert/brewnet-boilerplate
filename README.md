@@ -87,7 +87,7 @@ cargo test
 
 | Method | Path | Description / 설명 | Response Example / 응답 예시 |
 |--------|------|---------------------|------------------------------|
-| `GET` | `/` | Service info / 서비스 정보 | `{"service":"axum-backend","status":"running","message":"🍺 Brewnet says hello!"}` |
+| `GET` | `/` | Service info / 서비스 정보 | `{"service":"axum-backend","status":"running","message":"☕ Brewnet says hello!"}` |
 | `GET` | `/health` | Health check with DB status / DB 상태 포함 헬스체크 | `{"status":"ok","timestamp":"2026-03-01T12:00:00+00:00","db_connected":true}` |
 | `GET` | `/api/hello` | Hello message / 인사 메시지 | `{"message":"Hello from Axum!","lang":"rust","version":"1.0.0"}` |
 | `POST` | `/api/echo` | Echo request body / 요청 본문 에코 | _(returns the JSON body you send / 전송한 JSON 본문을 그대로 반환)_ |
