@@ -79,7 +79,21 @@ brewnet create-app my-project
 open http://localhost:3000
 ```
 
-### Option 2: Manual Clone
+### Option 2: Dashboard (Browser UI)
+
+```bash
+git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
+cd brewnet-boilerplate/dashboard
+npm install
+npm run dev
+# → http://localhost:4000
+```
+
+Open **http://localhost:4000** — start, stop, and test all 16 stacks from a single browser UI. No terminal needed for each stack.
+
+> ⚠️ **Docker Desktop must be running** before clicking **▶ Start** on any stack card.
+
+### Option 3: Manual Clone
 
 ```bash
 # Clone a specific stack branch directly
@@ -742,4 +756,4 @@ git push origin feat/add-{lang}-{framework}-stack
 
 ## License
 
-[MIT](LICENSE)
+[Apache 2.0](LICENSE)
