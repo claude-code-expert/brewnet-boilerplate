@@ -65,7 +65,7 @@ make dev
 
 | URL | Description / 설명 |
 |-----|---------------------|
-| http://localhost:3000 | Frontend -- React app displaying "Hello from Spring Boot (Kotlin)!" |
+| http://localhost:3000 | Frontend — Brewnet landing page |
 | http://localhost:8080 | Backend root |
 | http://localhost:8080/health | Health check endpoint |
 | http://localhost:8080/api/hello | Hello API |

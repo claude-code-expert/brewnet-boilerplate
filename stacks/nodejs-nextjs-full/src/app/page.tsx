@@ -13,7 +13,7 @@ export default function Home() {
             {/* HERO */}
             <header className="hero">
                 <Image
-                    src="/brewnet-site-banner.png"
+                    src="./brewnet-site-banner.png"
                     alt="Brewnet — Your server on tap. Just brew it."
                     width={1100}
                     height={400}
