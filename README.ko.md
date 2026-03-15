@@ -80,7 +80,21 @@ brewnet create-app my-project
 open http://localhost:3000
 ```
 
-### 방법 2: 수동 클론
+### 방법 2: 대시보드 (브라우저 UI)
+
+```bash
+git clone https://github.com/claude-code-expert/brewnet-boilerplate.git
+cd brewnet-boilerplate/dashboard
+npm install
+npm run dev
+# → http://localhost:4000
+```
+
+브라우저에서 **http://localhost:4000**을 열면 16개 스택 전체를 한눈에 확인하고 Start/Stop/테스트할 수 있습니다. 스택마다 터미널을 열 필요가 없습니다.
+
+> ⚠️ 스택 카드의 **▶ Start** 버튼 클릭 전에 **Docker Desktop이 반드시 실행 중**이어야 합니다.
+
+### 방법 3: 수동 클론
 
 ```bash
 # 원하는 스택 브랜치를 직접 clone (권장)
@@ -739,4 +753,4 @@ git push origin feat/add-{lang}-{framework}-stack
 
 ## 라이선스
 
-[MIT](LICENSE)
+[Apache 2.0](LICENSE)
