@@ -13,7 +13,7 @@ export default function App() {
       {/* HERO */}
       <header className="hero">
         <img
-          src="/brewnet-site-banner.png"
+          src="./brewnet-site-banner.png"
           alt="Brewnet — Your server on tap. Just brew it."
           className="hero-banner"
         />
