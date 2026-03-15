@@ -74,9 +74,9 @@ make dev
 > **Tip / 팁**: You can also start this stack from the [Brewnet Dashboard](../../dashboard/) — a browser UI that manages all 16 stacks with live status, README viewer, and inline API Explorer.
 > [Brewnet Dashboard](../../dashboard/)에서 이 스택을 시작할 수도 있습니다 — 16개 스택의 실행 상태, README, API 테스트를 브라우저에서 한 번에 관리합니다.
 
-Open http://localhost:3000 in your browser -- the frontend displays "Hello from FastAPI!" with DB connection status.
+Open http://localhost:3000 in your browser to view the Brewnet landing page.
 
-브라우저에서 http://localhost:3000 을 열면 프론트엔드에 "Hello from FastAPI!" 메시지와 DB 연결 상태가 표시됩니다.
+브라우저에서 http://localhost:3000 을 열면 Brewnet 랜딩 페이지가 표시됩니다.
 
 ---
 
