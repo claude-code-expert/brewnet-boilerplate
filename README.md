@@ -261,7 +261,7 @@ stacks/rust-axum/
 │   └── .dockerignore
 ├── frontend/
 │   ├── src/
-│   │   ├── App.tsx              # Main component — calls GET /api/hello
+│   │   ├── App.tsx              # Main component — Brewnet landing page
 │   │   ├── main.tsx             # React entry point
 │   │   └── vite-env.d.ts        # Vite type declarations
 │   ├── public/
@@ -269,7 +269,7 @@ stacks/rust-axum/
 │   ├── index.html               # HTML entry point
 │   ├── package.json             # React 19, Vite 6, TypeScript
 │   ├── tsconfig.json            # TypeScript configuration
-│   ├── vite.config.ts           # Vite configuration with API proxy
+│   ├── vite.config.ts           # Vite configuration (API proxy, base path for subpath support)
 │   ├── nginx.conf               # Production: serves static files + reverse proxy /api
 │   ├── Dockerfile               # Multi-stage: node:22-alpine (build) -> nginx (serve)
 │   └── .dockerignore
