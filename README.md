@@ -61,7 +61,7 @@ Once running, open your browser: / 실행 후 브라우저에서 확인:
 
 | URL | Description / 설명 |
 |-----|---------------------|
-| http://localhost:3000 | Frontend — displays "Hello from Express!" message |
+| http://localhost:3000 | Frontend — Brewnet landing page |
 | http://localhost:8080 | Backend root — service info JSON |
 | http://localhost:8080/health | Healthcheck — DB connection status |
 | http://localhost:8080/api/hello | Hello API — runtime version info |
@@ -293,7 +293,7 @@ stacks/nodejs-express/
 │   └── .dockerignore
 ├── frontend/
 │   ├── src/
-│   │   ├── App.tsx               # Main component — calls GET /api/hello
+│   │   ├── App.tsx               # Main component — Brewnet landing page
 │   │   └── main.tsx              # React 19 entry point
 │   ├── nginx.conf                # Production: static files + reverse proxy /api -> backend
 │   ├── Dockerfile                # Multi-stage build (node:22-alpine -> nginx)
@@ -349,4 +349,4 @@ stacks/nodejs-express/
 
 ## License
 
-MIT
+Apache 2.0
