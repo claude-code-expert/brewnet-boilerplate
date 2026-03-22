@@ -349,4 +349,4 @@ stacks/nodejs-express/
 
 ## License
 
-MIT
+Apache 2.0

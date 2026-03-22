@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 > **Brewnet** — Your server on tap. Just brew it.
-> MIT License
+> Apache 2.0 License
 
 Multi-language fullstack boilerplate monorepo for the Brewnet CLI `brewnet create-app` command. Each stack is a self-contained backend + frontend monorepo that runs with a single `docker compose up`.
 

@@ -392,4 +392,4 @@ stacks/nodejs-nextjs/
 
 ## License
 
-MIT
+Apache 2.0

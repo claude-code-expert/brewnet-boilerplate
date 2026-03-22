@@ -471,7 +471,7 @@ brewnet-boilerplate/
 │   └── BREWNET-USER-STORY.md
 ├── .github/workflows/               ← CI: validate all stacks
 ├── CLAUDE.md                        ← AI assistant guide
-├── LICENSE                          ← MIT License
+├── LICENSE                          ← Apache 2.0 License
 └── README.md                        ← This file
 ```
 

@@ -469,7 +469,7 @@ brewnet-boilerplate/
 ├── docs/                            ← 문서
 ├── .github/workflows/               ← CI: 전체 스택 검증
 ├── CLAUDE.md                        ← AI 어시스턴트 가이드
-├── LICENSE                          ← MIT License
+├── LICENSE                          ← Apache 2.0 라이선스
 └── README.md                        ← 영문 README
 ```
 

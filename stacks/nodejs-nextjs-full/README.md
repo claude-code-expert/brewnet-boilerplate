@@ -423,4 +423,4 @@ stacks/nodejs-nextjs-full/
 
 ## License
 
-MIT
+Apache 2.0

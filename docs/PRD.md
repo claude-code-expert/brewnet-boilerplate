@@ -3,7 +3,7 @@
 > **Brewnet** — Your server on tap. Just brew it.
 > **Site**: brewnet.dev
 > **Contact**: brewnet.dev@gmail.com
-> **License**: MIT License
+> **License**: Apache 2.0
 > **Version**: 1.0.0
 > **Date**: 2026-02-28
 
@@ -120,7 +120,7 @@ brewnet-boilerplate/
 │   └── TRD.md                       # Technical Requirements Document
 ├── .github/workflows/
 │   └── validate-stacks.yml          # CI: 전 스택 빌드 + 헬스체크
-├── LICENSE                          # MIT License
+├── LICENSE                          # Apache 2.0 License
 └── README.md
 ```
 
@@ -479,4 +479,4 @@ Python 공통 금지사항: Alembic 포함 (샘플이므로 auto-create), pydant
 
 ---
 
-*Brewnet Boilerplate PRD v1.0.0 — MIT License*
+*Brewnet Boilerplate PRD v1.0.0 — Apache 2.0*
