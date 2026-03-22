@@ -131,8 +131,8 @@ export default function App() {
       {/* LICENSE */}
       <div className="license-bar">
         License:{" "}
-        <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
-          MIT License
+        <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">
+          Apache 2.0
         </a>
       </div>
 
