@@ -3,7 +3,7 @@
 > **Brewnet** — Your server on tap. Just brew it.
 > **Site**: brewnet.dev
 > **Contact**: brewnet.dev@gmail.com
-> **License**: MIT License
+> **License**: Apache 2.0
 > **Version**: 1.0.0
 > **Date**: 2026-02-28
 
@@ -1064,4 +1064,4 @@ jobs:
 
 ---
 
-*Brewnet Boilerplate TRD v1.0.0 — MIT License*
+*Brewnet Boilerplate TRD v1.0.0 — Apache 2.0*

@@ -12,7 +12,7 @@
 REPO_URL  = https://github.com/claude-code-expert/brewnet-boilerplate.git
 REPO_ORG  = claude-code-expert
 REPO_NAME = brewnet-boilerplate
-LICENSE   = MIT
+LICENSE   = Apache-2.0
 ```
 
 Each of the 16 stacks is published as an **independent orphan branch** named `stack/<STACK_ID>`.
