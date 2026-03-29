@@ -1,3 +1,6 @@
+> 이 프로젝트가 도움이 되었다면 ⭐ Star를 눌러서 마음을 표시해 주세요!
+> If this project was helpful, please show your support by clicking ⭐ Star!
+
 <p align="center">
   <h1 align="center">Brewnet Boilerplate</h1>
   <p align="center">
